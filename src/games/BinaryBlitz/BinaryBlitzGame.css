@@ -1,0 +1,382 @@
+/* Boolean Blitz Game - Learn Boolean Logic */
+
+.boolean-blitz__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.boolean-blitz__title {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.boolean-blitz__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Truth tables on start screen */
+.boolean-blitz__truth-tables {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.boolean-blitz__table {
+  background: rgba(0, 230, 118, 0.1);
+  border: 2px solid rgba(0, 230, 118, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+}
+
+.boolean-blitz__table h4 {
+  color: #00e676;
+  margin: 0 0 8px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.boolean-blitz__table div {
+  padding: 2px 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.boolean-blitz__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.boolean-blitz__instructions h3 {
+  color: #00e676;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.boolean-blitz__instructions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.boolean-blitz__instructions li {
+  padding: 0.4rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.boolean-blitz__instructions li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: #00e676;
+}
+
+.boolean-blitz__high-score {
+  font-size: 1.4rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.boolean-blitz__start-button {
+  padding: 1rem 2.5rem;
+  font-size: 1.4rem;
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
+  transition: all 0.3s ease;
+}
+
+.boolean-blitz__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 200, 83, 0.6);
+}
+
+/* Main game area */
+.boolean-blitz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Operation hint */
+.boolean-blitz__hint {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  background: rgba(0, 230, 118, 0.1);
+  border-radius: 20px;
+}
+
+.boolean-blitz__operation {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #00e676;
+  font-family: monospace;
+}
+
+.boolean-blitz__help {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+/* Problem display */
+.boolean-blitz__problem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 1.5rem 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.boolean-blitz__expression {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: white;
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+.boolean-blitz__equals {
+  font-size: 1.8rem;
+  color: #00e676;
+  font-weight: bold;
+}
+
+/* Visual representation of inputs */
+.boolean-blitz__visual {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+}
+
+.boolean-blitz__box {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: monospace;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.boolean-blitz__box--true {
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
+}
+
+.boolean-blitz__box--false {
+  background: linear-gradient(135deg, #f44336 0%, #e57373 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+}
+
+.boolean-blitz__op-symbol {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: monospace;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+/* Answer buttons */
+.boolean-blitz__buttons {
+  display: flex;
+  gap: 24px;
+}
+
+.boolean-blitz__answer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 40px;
+  border-radius: 16px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.boolean-blitz__answer--true {
+  background: rgba(0, 200, 83, 0.2);
+  border-color: rgba(0, 200, 83, 0.5);
+  color: #69f0ae;
+}
+
+.boolean-blitz__answer--true:hover:not(:disabled) {
+  background: rgba(0, 200, 83, 0.4);
+  border-color: #00e676;
+  transform: scale(1.05);
+}
+
+.boolean-blitz__answer--false {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: rgba(244, 67, 54, 0.5);
+  color: #ef9a9a;
+}
+
+.boolean-blitz__answer--false:hover:not(:disabled) {
+  background: rgba(244, 67, 54, 0.4);
+  border-color: #f44336;
+  transform: scale(1.05);
+}
+
+.boolean-blitz__answer:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.boolean-blitz__answer--selected-correct {
+  animation: correctPulse 0.5s ease;
+  border-color: #00e676 !important;
+  background: rgba(0, 200, 83, 0.5) !important;
+}
+
+.boolean-blitz__answer--was-correct {
+  border-color: #00e676 !important;
+  background: rgba(0, 200, 83, 0.3) !important;
+}
+
+@keyframes correctPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.boolean-blitz__btn-text {
+  font-size: 1.8rem;
+}
+
+.boolean-blitz__btn-key {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* Feedback */
+.boolean-blitz__feedback {
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 12px;
+  animation: feedbackPop 0.3s ease-out;
+}
+
+@keyframes feedbackPop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.boolean-blitz__feedback--correct {
+  background: rgba(76, 175, 80, 0.3);
+  color: #a5d6a7;
+  border: 2px solid rgba(76, 175, 80, 0.5);
+}
+
+.boolean-blitz__feedback--wrong {
+  background: rgba(244, 67, 54, 0.3);
+  color: #ef9a9a;
+  border: 2px solid rgba(244, 67, 54, 0.5);
+}
+
+/* Level info */
+.boolean-blitz__level-info {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .boolean-blitz__title {
+    font-size: 2rem;
+  }
+
+  .boolean-blitz__truth-tables {
+    gap: 10px;
+  }
+
+  .boolean-blitz__table {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+
+  .boolean-blitz__expression {
+    font-size: 1.6rem;
+  }
+
+  .boolean-blitz__box {
+    width: 55px;
+    height: 55px;
+    font-size: 2rem;
+  }
+
+  .boolean-blitz__buttons {
+    gap: 16px;
+  }
+
+  .boolean-blitz__answer {
+    padding: 16px 24px;
+    min-width: 110px;
+  }
+
+  .boolean-blitz__btn-text {
+    font-size: 1.4rem;
+  }
+
+  .boolean-blitz__visual {
+    gap: 10px;
+    padding: 12px 16px;
+  }
+}

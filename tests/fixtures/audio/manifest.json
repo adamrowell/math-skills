@@ -1,0 +1,1042 @@
+[
+ {
+  "file": "clips/n000_samantha.wav",
+  "kind": "number",
+  "value": 0,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n004_samantha.wav",
+  "kind": "number",
+  "value": 4,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n008_samantha.wav",
+  "kind": "number",
+  "value": 8,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n012_samantha.wav",
+  "kind": "number",
+  "value": 12,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n014_samantha.wav",
+  "kind": "number",
+  "value": 14,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n015_samantha.wav",
+  "kind": "number",
+  "value": 15,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n018_samantha.wav",
+  "kind": "number",
+  "value": 18,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n021_samantha.wav",
+  "kind": "number",
+  "value": 21,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n024_samantha.wav",
+  "kind": "number",
+  "value": 24,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n027_samantha.wav",
+  "kind": "number",
+  "value": 27,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n030_samantha.wav",
+  "kind": "number",
+  "value": 30,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n036_samantha.wav",
+  "kind": "number",
+  "value": 36,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n040_samantha.wav",
+  "kind": "number",
+  "value": 40,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n042_samantha.wav",
+  "kind": "number",
+  "value": 42,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n048_samantha.wav",
+  "kind": "number",
+  "value": 48,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n049_samantha.wav",
+  "kind": "number",
+  "value": 49,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n050_samantha.wav",
+  "kind": "number",
+  "value": 50,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n054_samantha.wav",
+  "kind": "number",
+  "value": 54,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n056_samantha.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n063_samantha.wav",
+  "kind": "number",
+  "value": 63,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n064_samantha.wav",
+  "kind": "number",
+  "value": 64,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n072_samantha.wav",
+  "kind": "number",
+  "value": 72,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n081_samantha.wav",
+  "kind": "number",
+  "value": 81,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n096_samantha.wav",
+  "kind": "number",
+  "value": 96,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n108_samantha.wav",
+  "kind": "number",
+  "value": 108,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n132_samantha.wav",
+  "kind": "number",
+  "value": 132,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n144_samantha.wav",
+  "kind": "number",
+  "value": 144,
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/n000_flo.wav",
+  "kind": "number",
+  "value": 0,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n004_flo.wav",
+  "kind": "number",
+  "value": 4,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n008_flo.wav",
+  "kind": "number",
+  "value": 8,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n012_flo.wav",
+  "kind": "number",
+  "value": 12,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n014_flo.wav",
+  "kind": "number",
+  "value": 14,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n015_flo.wav",
+  "kind": "number",
+  "value": 15,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n018_flo.wav",
+  "kind": "number",
+  "value": 18,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n021_flo.wav",
+  "kind": "number",
+  "value": 21,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n024_flo.wav",
+  "kind": "number",
+  "value": 24,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n027_flo.wav",
+  "kind": "number",
+  "value": 27,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n030_flo.wav",
+  "kind": "number",
+  "value": 30,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n036_flo.wav",
+  "kind": "number",
+  "value": 36,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n040_flo.wav",
+  "kind": "number",
+  "value": 40,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n042_flo.wav",
+  "kind": "number",
+  "value": 42,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n048_flo.wav",
+  "kind": "number",
+  "value": 48,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n049_flo.wav",
+  "kind": "number",
+  "value": 49,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n050_flo.wav",
+  "kind": "number",
+  "value": 50,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n054_flo.wav",
+  "kind": "number",
+  "value": 54,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n056_flo.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n063_flo.wav",
+  "kind": "number",
+  "value": 63,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n064_flo.wav",
+  "kind": "number",
+  "value": 64,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n072_flo.wav",
+  "kind": "number",
+  "value": 72,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n081_flo.wav",
+  "kind": "number",
+  "value": 81,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n096_flo.wav",
+  "kind": "number",
+  "value": 96,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n108_flo.wav",
+  "kind": "number",
+  "value": 108,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n132_flo.wav",
+  "kind": "number",
+  "value": 132,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n144_flo.wav",
+  "kind": "number",
+  "value": 144,
+  "voice": "flo"
+ },
+ {
+  "file": "clips/n000_juniorkid.wav",
+  "kind": "number",
+  "value": 0,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n004_juniorkid.wav",
+  "kind": "number",
+  "value": 4,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n008_juniorkid.wav",
+  "kind": "number",
+  "value": 8,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n012_juniorkid.wav",
+  "kind": "number",
+  "value": 12,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n014_juniorkid.wav",
+  "kind": "number",
+  "value": 14,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n015_juniorkid.wav",
+  "kind": "number",
+  "value": 15,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n018_juniorkid.wav",
+  "kind": "number",
+  "value": 18,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n021_juniorkid.wav",
+  "kind": "number",
+  "value": 21,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n024_juniorkid.wav",
+  "kind": "number",
+  "value": 24,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n027_juniorkid.wav",
+  "kind": "number",
+  "value": 27,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n030_juniorkid.wav",
+  "kind": "number",
+  "value": 30,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n036_juniorkid.wav",
+  "kind": "number",
+  "value": 36,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n040_juniorkid.wav",
+  "kind": "number",
+  "value": 40,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n042_juniorkid.wav",
+  "kind": "number",
+  "value": 42,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n048_juniorkid.wav",
+  "kind": "number",
+  "value": 48,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n049_juniorkid.wav",
+  "kind": "number",
+  "value": 49,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n050_juniorkid.wav",
+  "kind": "number",
+  "value": 50,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n054_juniorkid.wav",
+  "kind": "number",
+  "value": 54,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n056_juniorkid.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n063_juniorkid.wav",
+  "kind": "number",
+  "value": 63,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n064_juniorkid.wav",
+  "kind": "number",
+  "value": 64,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n072_juniorkid.wav",
+  "kind": "number",
+  "value": 72,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n081_juniorkid.wav",
+  "kind": "number",
+  "value": 81,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n096_juniorkid.wav",
+  "kind": "number",
+  "value": 96,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n108_juniorkid.wav",
+  "kind": "number",
+  "value": 108,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n132_juniorkid.wav",
+  "kind": "number",
+  "value": 132,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n144_juniorkid.wav",
+  "kind": "number",
+  "value": 144,
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/n000_shelleykid.wav",
+  "kind": "number",
+  "value": 0,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n004_shelleykid.wav",
+  "kind": "number",
+  "value": 4,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n008_shelleykid.wav",
+  "kind": "number",
+  "value": 8,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n012_shelleykid.wav",
+  "kind": "number",
+  "value": 12,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n014_shelleykid.wav",
+  "kind": "number",
+  "value": 14,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n015_shelleykid.wav",
+  "kind": "number",
+  "value": 15,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n018_shelleykid.wav",
+  "kind": "number",
+  "value": 18,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n021_shelleykid.wav",
+  "kind": "number",
+  "value": 21,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n024_shelleykid.wav",
+  "kind": "number",
+  "value": 24,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n027_shelleykid.wav",
+  "kind": "number",
+  "value": 27,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n030_shelleykid.wav",
+  "kind": "number",
+  "value": 30,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n036_shelleykid.wav",
+  "kind": "number",
+  "value": 36,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n040_shelleykid.wav",
+  "kind": "number",
+  "value": 40,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n042_shelleykid.wav",
+  "kind": "number",
+  "value": 42,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n048_shelleykid.wav",
+  "kind": "number",
+  "value": 48,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n049_shelleykid.wav",
+  "kind": "number",
+  "value": 49,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n050_shelleykid.wav",
+  "kind": "number",
+  "value": 50,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n054_shelleykid.wav",
+  "kind": "number",
+  "value": 54,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n056_shelleykid.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n063_shelleykid.wav",
+  "kind": "number",
+  "value": 63,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n064_shelleykid.wav",
+  "kind": "number",
+  "value": 64,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n072_shelleykid.wav",
+  "kind": "number",
+  "value": 72,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n081_shelleykid.wav",
+  "kind": "number",
+  "value": 81,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n096_shelleykid.wav",
+  "kind": "number",
+  "value": 96,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n108_shelleykid.wav",
+  "kind": "number",
+  "value": 108,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n132_shelleykid.wav",
+  "kind": "number",
+  "value": 132,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/n144_shelleykid.wav",
+  "kind": "number",
+  "value": 144,
+  "voice": "shelleykid"
+ },
+ {
+  "file": "clips/w_cat_samantha.wav",
+  "kind": "word",
+  "value": "cat",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_dog_samantha.wav",
+  "kind": "word",
+  "value": "dog",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_house_samantha.wav",
+  "kind": "word",
+  "value": "house",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_jump_samantha.wav",
+  "kind": "word",
+  "value": "jump",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_ship_samantha.wav",
+  "kind": "word",
+  "value": "ship",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_red_samantha.wav",
+  "kind": "word",
+  "value": "red",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_bed_samantha.wav",
+  "kind": "word",
+  "value": "bed",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_because_samantha.wav",
+  "kind": "word",
+  "value": "because",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_little_samantha.wav",
+  "kind": "word",
+  "value": "little",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_friend_samantha.wav",
+  "kind": "word",
+  "value": "friend",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_play_samantha.wav",
+  "kind": "word",
+  "value": "play",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_said_samantha.wav",
+  "kind": "word",
+  "value": "said",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_water_samantha.wav",
+  "kind": "word",
+  "value": "water",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_green_samantha.wav",
+  "kind": "word",
+  "value": "green",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_night_samantha.wav",
+  "kind": "word",
+  "value": "night",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_school_samantha.wav",
+  "kind": "word",
+  "value": "school",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/w_cat_flo.wav",
+  "kind": "word",
+  "value": "cat",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_dog_flo.wav",
+  "kind": "word",
+  "value": "dog",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_house_flo.wav",
+  "kind": "word",
+  "value": "house",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_jump_flo.wav",
+  "kind": "word",
+  "value": "jump",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_ship_flo.wav",
+  "kind": "word",
+  "value": "ship",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_red_flo.wav",
+  "kind": "word",
+  "value": "red",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_bed_flo.wav",
+  "kind": "word",
+  "value": "bed",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_because_flo.wav",
+  "kind": "word",
+  "value": "because",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_little_flo.wav",
+  "kind": "word",
+  "value": "little",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_friend_flo.wav",
+  "kind": "word",
+  "value": "friend",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_play_flo.wav",
+  "kind": "word",
+  "value": "play",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_said_flo.wav",
+  "kind": "word",
+  "value": "said",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_water_flo.wav",
+  "kind": "word",
+  "value": "water",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_green_flo.wav",
+  "kind": "word",
+  "value": "green",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_night_flo.wav",
+  "kind": "word",
+  "value": "night",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_school_flo.wav",
+  "kind": "word",
+  "value": "school",
+  "voice": "flo"
+ },
+ {
+  "file": "clips/w_cat_juniorkid.wav",
+  "kind": "word",
+  "value": "cat",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_dog_juniorkid.wav",
+  "kind": "word",
+  "value": "dog",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_house_juniorkid.wav",
+  "kind": "word",
+  "value": "house",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_jump_juniorkid.wav",
+  "kind": "word",
+  "value": "jump",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_ship_juniorkid.wav",
+  "kind": "word",
+  "value": "ship",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_red_juniorkid.wav",
+  "kind": "word",
+  "value": "red",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_bed_juniorkid.wav",
+  "kind": "word",
+  "value": "bed",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_because_juniorkid.wav",
+  "kind": "word",
+  "value": "because",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_little_juniorkid.wav",
+  "kind": "word",
+  "value": "little",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_friend_juniorkid.wav",
+  "kind": "word",
+  "value": "friend",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_play_juniorkid.wav",
+  "kind": "word",
+  "value": "play",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_said_juniorkid.wav",
+  "kind": "word",
+  "value": "said",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_water_juniorkid.wav",
+  "kind": "word",
+  "value": "water",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_green_juniorkid.wav",
+  "kind": "word",
+  "value": "green",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_night_juniorkid.wav",
+  "kind": "word",
+  "value": "night",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/w_school_juniorkid.wav",
+  "kind": "word",
+  "value": "school",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/s0_samantha.wav",
+  "kind": "sentence",
+  "value": "The cat sat on the mat.",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/s1_samantha.wav",
+  "kind": "sentence",
+  "value": "I like to play with my dog.",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/s2_samantha.wav",
+  "kind": "sentence",
+  "value": "We went to the park today.",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/s3_samantha.wav",
+  "kind": "sentence",
+  "value": "My friend has a red ball.",
+  "voice": "samantha"
+ },
+ {
+  "file": "clips/x_echo-7x8-56_samantha.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "samantha",
+  "text": "seven times eight is fifty six"
+ },
+ {
+  "file": "clips/x_um-56_samantha.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "samantha",
+  "text": "um, fifty six"
+ },
+ {
+  "file": "clips/x_idk_samantha.wav",
+  "kind": "none",
+  "value": null,
+  "voice": "samantha",
+  "text": "I don't know"
+ },
+ {
+  "file": "clips/x_hmm_samantha.wav",
+  "kind": "none",
+  "value": null,
+  "voice": "samantha",
+  "text": "hmmm"
+ },
+ {
+  "file": "clips/s0_juniorkid.wav",
+  "kind": "sentence",
+  "value": "The cat sat on the mat.",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/s1_juniorkid.wav",
+  "kind": "sentence",
+  "value": "I like to play with my dog.",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/s2_juniorkid.wav",
+  "kind": "sentence",
+  "value": "We went to the park today.",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/s3_juniorkid.wav",
+  "kind": "sentence",
+  "value": "My friend has a red ball.",
+  "voice": "juniorkid"
+ },
+ {
+  "file": "clips/x_echo-7x8-56_juniorkid.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "juniorkid",
+  "text": "seven times eight is fifty six"
+ },
+ {
+  "file": "clips/x_um-56_juniorkid.wav",
+  "kind": "number",
+  "value": 56,
+  "voice": "juniorkid",
+  "text": "um, fifty six"
+ },
+ {
+  "file": "clips/x_idk_juniorkid.wav",
+  "kind": "none",
+  "value": null,
+  "voice": "juniorkid",
+  "text": "I don't know"
+ },
+ {
+  "file": "clips/x_hmm_juniorkid.wav",
+  "kind": "none",
+  "value": null,
+  "voice": "juniorkid",
+  "text": "hmmm"
+ }
+]

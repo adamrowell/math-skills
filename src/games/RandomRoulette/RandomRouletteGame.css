@@ -1,0 +1,178 @@
+.random-roulette__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.random-roulette__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.random-roulette__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.random-roulette__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.random-roulette__instructions h3 {
+  color: #e91e63;
+  margin-bottom: 1rem;
+}
+
+.random-roulette__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.random-roulette__instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+}
+
+.random-roulette__instructions li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #e91e63;
+}
+
+.random-roulette__high-score {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.random-roulette__start-button {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #f953c6 0%, #b91d73 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(249, 83, 198, 0.4);
+  transition: all 0.3s ease;
+}
+
+.random-roulette__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 83, 198, 0.6);
+}
+
+.random-roulette {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.random-roulette__range {
+  font-size: 1.3rem;
+  color: #e91e63;
+  font-weight: bold;
+}
+
+.random-roulette__cards {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.random-roulette__card {
+  width: 200px;
+  height: 280px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 0.5s ease;
+}
+
+.random-roulette__card--next {
+  background: linear-gradient(135deg, rgba(249, 83, 198, 0.2) 0%, rgba(185, 29, 115, 0.2) 100%);
+}
+
+.random-roulette__card--reveal {
+  transform: rotateY(360deg);
+}
+
+.random-roulette__label {
+  font-size: 1.2rem;
+  color: #666;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.random-roulette__number {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.random-roulette__vs {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e91e63;
+}
+
+.random-roulette__buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.random-roulette__button {
+  padding: 1.5rem 3rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.random-roulette__button--lower {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.random-roulette__button--higher {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.random-roulette__button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.random-roulette__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Skills</title>
+    <script>
+      // The app uses hash routes (#/multiplication), so any unknown path just goes back to the app.
+      // Project pages live at https://<user>.github.io/<repo>/ — keep the first path segment there.
+      // A user site (<user>.github.io repo) has no repo segment: if the guessed base is itself a 404
+      // we land here again, so the second time go to the site root instead of looping.
+      (function () {
+        var parts = location.pathname.split('/').filter(Boolean);
+        var base = /\.github\.io$/.test(location.hostname) && parts.length ? '/' + parts[0] + '/' : '/';
+        try {
+          if (sessionStorage.getItem('ms404') === base) base = '/';
+          sessionStorage.setItem('ms404', base);
+        } catch (e) {
+          /* storage blocked: the guess still works for project pages */
+        }
+        location.replace(base + (location.hash || ''));
+      })();
+    </script>
+  </head>
+  <body style="font-family: system-ui, sans-serif; text-align: center; padding: 48px 16px">
+    <p>Taking you back to <a href="./">Math Skills</a>…</p>
+  </body>
+</html>

@@ -1,0 +1,422 @@
+/* Chart App - Kid-friendly styles (uses common App.css) */
+
+/* Score Sidebar */
+.chart-score-sidebar {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart-score-sidebar__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.chart-score-sidebar__label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.chart-score-sidebar__value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.chart-score-sidebar__streak {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #FF5722 0%, #FF9800 100%);
+  color: white;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  animation: streak-pop 0.3s ease;
+}
+
+/* Main game area - ensure content fits without scrolling */
+.chart-main {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px;
+  gap: 8px;
+}
+
+/* Sidebar - compact for charts */
+.chart-sidebar {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* Chart level grid - 3 columns for chart levels */
+.chart-levels .level-select__grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 900px) {
+  .chart-levels .level-select__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .chart-levels .level-select__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Score display in header */
+.chart-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+
+.chart-score__label {
+  color: #666;
+  font-weight: 500;
+}
+
+.chart-score__value {
+  font-weight: 700;
+  color: #667eea;
+  font-size: 1.3rem;
+}
+
+.chart-score__streak {
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: streak-pop 0.3s ease;
+}
+
+@keyframes streak-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Question Area - compact to fit on screen */
+.chart-question-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  max-width: 750px;
+}
+
+.chart-question-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  width: 100%;
+}
+
+/* Hint - friendly yellow */
+.chart-hint {
+  background: linear-gradient(135deg, #fff9c4 0%, #ffecb3 100%);
+  border: 2px solid #ffc107;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  color: #e65100;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 500px;
+  animation: hint-bounce 0.3s ease;
+}
+
+@keyframes hint-bounce {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.chart-hint-icon {
+  font-size: 1.4rem;
+}
+
+/* Input Area - compact */
+.chart-input-area {
+  width: 100%;
+  max-width: 550px;
+}
+
+.chart-typed-input {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-input {
+  padding: 12px 18px;
+  font-size: 1.2rem;
+  border: 3px solid #667eea;
+  border-radius: 12px;
+  width: 240px;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.chart-input::placeholder {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.chart-input:focus {
+  border-color: #764ba2;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+}
+
+/* Multiple Choice Options - larger, colorful buttons */
+.chart-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.chart-option {
+  padding: 14px 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: white;
+  border: 3px solid #e0e0e0;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 0 #d0d0d0;
+}
+
+.chart-option:hover {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #f3f4ff 0%, #ede7f6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #b0b0b0;
+}
+
+.chart-option:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #d0d0d0;
+}
+
+.chart-option--selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 3px 0 #4a5568;
+}
+
+/* Click Instruction - friendly and clear */
+.chart-click-instruction {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1565c0;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 12px;
+  border: 2px solid #2196f3;
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+@keyframes pulse-gentle {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(33, 150, 243, 0); }
+}
+
+/* Action Buttons - kid-friendly with shadows */
+.chart-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.chart-btn {
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-btn--hint {
+  background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+  color: #5d4037;
+  box-shadow: 0 3px 0 #ff8f00;
+}
+
+.chart-btn--hint:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #ff8f00;
+}
+
+.chart-btn--hint:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #ff8f00;
+}
+
+.chart-btn--skip {
+  background: linear-gradient(135deg, #90a4ae 0%, #78909c 100%);
+  color: white;
+  box-shadow: 0 3px 0 #546e7a;
+}
+
+.chart-btn--skip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #546e7a;
+}
+
+.chart-btn--skip:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #546e7a;
+}
+
+.chart-btn--submit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 3px 0 #4a5568;
+}
+
+.chart-btn--submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #4a5568;
+}
+
+.chart-btn--submit:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #4a5568;
+}
+
+.chart-btn--submit:disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 3px 0 #bdbdbd;
+}
+
+/* Responsive - ensure fit on smaller screens */
+@media (max-width: 768px) {
+  .chart-question-area {
+    gap: 8px;
+  }
+
+  .chart-question-text {
+    font-size: 1.05rem;
+    padding: 12px 16px;
+  }
+
+  .chart-options {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .chart-option {
+    padding: 12px 14px;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+
+  .chart-typed-input {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chart-input {
+    width: 100%;
+    max-width: 220px;
+  }
+
+  .chart-actions {
+    gap: 10px;
+  }
+
+  .chart-btn {
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Touch-friendly for iPad */
+@media (pointer: coarse) {
+  .chart-btn {
+    min-height: 54px;
+    padding: 14px 24px;
+  }
+
+  .chart-option {
+    min-height: 58px;
+    padding: 16px 18px;
+  }
+
+  .chart-input {
+    min-height: 54px;
+    font-size: 1.3rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .chart-question-text {
+    font-size: 1rem;
+    padding: 10px 14px;
+  }
+
+  .chart-options {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+}

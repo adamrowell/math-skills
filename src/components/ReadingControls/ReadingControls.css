@@ -1,0 +1,215 @@
+/* Reading Controls - Hear Word and Skip buttons */
+
+.reading-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.reading-controls__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reading-controls__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Hear Word button */
+.reading-controls__button--hear {
+  background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+  color: white;
+}
+
+.reading-controls__button--hear:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.reading-controls__button--hear:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.reading-controls__button--hear.reading-controls__button--active {
+  animation: speakingPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes speakingPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 24px rgba(76, 175, 80, 0.5);
+  }
+}
+
+/* Pulsing hint animation after wrong attempts */
+.reading-controls__button--pulse-hint {
+  animation: pulseHint 1s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes pulseHint {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 8px 30px rgba(76, 175, 80, 0.6);
+  }
+}
+
+.reading-controls__hint-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, #FF5722 0%, #FF9800 100%);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  animation: badgeBounce 0.6s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(255, 87, 34, 0.4);
+}
+
+@keyframes badgeBounce {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-3px) rotate(5deg); }
+}
+
+/* Skip button */
+.reading-controls__button--skip {
+  background: linear-gradient(135deg, #FF9800 0%, #FFB74D 100%);
+  color: white;
+}
+
+.reading-controls__button--skip:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+}
+
+.reading-controls__button--skip:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.reading-controls__button--skip.reading-controls__button--skipping {
+  background: linear-gradient(135deg, #9C27B0 0%, #BA68C8 100%);
+  animation: skippingBounce 0.6s ease-in-out infinite;
+}
+
+@keyframes skippingBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* Icon and label */
+.reading-controls__icon {
+  font-size: 1.5rem;
+}
+
+.reading-controls__label {
+  letter-spacing: 0.5px;
+}
+
+/* Tip text */
+.reading-controls__tip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.reading-controls__tip-icon {
+  font-size: 1.2rem;
+}
+
+.reading-controls__tip-text {
+  font-size: 0.95rem;
+  color: #5c6bc0;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .reading-controls {
+    padding: 8px;
+    gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .reading-controls__button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    min-width: 120px;
+  }
+
+  .reading-controls__icon {
+    font-size: 1.1rem;
+  }
+
+  .reading-controls__tip {
+    padding: 6px 12px;
+    width: 100%;
+  }
+
+  .reading-controls__tip-text {
+    font-size: 0.8rem;
+  }
+
+  .reading-controls__hint-badge {
+    top: -8px;
+    right: -8px;
+    font-size: 0.6rem;
+    padding: 3px 6px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+  .reading-controls {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .reading-controls__button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    min-width: 100px;
+  }
+
+  .reading-controls__tip {
+    display: none; /* Hide tip on very small screens to save space */
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reading-controls__button--hear.reading-controls__button--active,
+  .reading-controls__button--skip.reading-controls__button--skipping {
+    animation: none;
+  }
+}

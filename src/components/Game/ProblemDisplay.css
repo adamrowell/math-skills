@@ -1,0 +1,247 @@
+.problem-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  padding: 10px;
+}
+
+.problem-display__side {
+  flex: 0 0 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.problem-display__main {
+  flex: 0 0 auto;
+}
+
+.problem-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 24px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.problem-card.problem-card--current {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%) !important;
+  background-size: 200% 200%;
+  color: white;
+  padding: 24px 40px;
+  animation: gradientShift 8s ease infinite;
+  box-shadow:
+    0 6px 24px rgba(102, 126, 234, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* Ensure all text in current problem card is white */
+.problem-card--current .problem-card__expression,
+.problem-card--current .problem-card__equals,
+.problem-card--current .problem-card__question {
+  color: white;
+}
+
+/* Inline layout for single-line display */
+.problem-card__inline {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Subtle gradient animation */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.problem-card__expression {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.problem-card__equals {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+.problem-card__question {
+  font-size: 2.5rem;
+  font-weight: bold;
+  animation: questionPulse 1.5s ease-in-out infinite;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes questionPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.9;
+  }
+}
+
+.problem-card--previous {
+  opacity: 0.8;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+.problem-card--correct {
+  border: 3px solid #4CAF50;
+  animation: correctPulse 0.5s ease-out;
+}
+
+.problem-card--correct .problem-card__answer {
+  color: #4CAF50;
+}
+
+@keyframes correctPulse {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  50% {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 8px rgba(76, 175, 80, 0);
+  }
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+.problem-card--incorrect {
+  border: 3px solid #f44336;
+  animation: incorrectShake 0.5s ease-out;
+}
+
+.problem-card--incorrect .problem-card__answer {
+  color: #f44336;
+}
+
+@keyframes incorrectShake {
+  0%, 100% {
+    transform: scale(0.9) translateX(0);
+  }
+  25% {
+    transform: scale(0.9) translateX(-4px);
+  }
+  75% {
+    transform: scale(0.9) translateX(4px);
+  }
+}
+
+.problem-card--next {
+  opacity: 0.6;
+  transform: scale(0.9);
+}
+
+.problem-card__label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999;
+  margin-bottom: 6px;
+}
+
+.problem-card__text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Reduced blur for next preview */
+.problem-card__text--blurred {
+  filter: blur(1px);
+  opacity: 0.7;
+}
+
+.problem-card__answer {
+  font-size: 0.9rem;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+.problem-card--empty {
+  color: #999;
+  font-size: 1.25rem;
+}
+
+/* Hide side panels on mobile */
+@media (max-width: 768px) {
+  .problem-display__side {
+    display: none;
+  }
+
+  .problem-display--with-panels {
+    justify-content: center;
+  }
+
+  .problem-card--current {
+    padding: 20px 32px;
+  }
+
+  .problem-card__expression {
+    font-size: 2rem;
+  }
+
+  .problem-card__equals {
+    font-size: 1.5rem;
+  }
+
+  .problem-card__question {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .problem-card--current {
+    padding: 16px 24px;
+  }
+
+  .problem-card__expression {
+    font-size: 1.75rem;
+  }
+
+  .problem-card__equals {
+    font-size: 1.25rem;
+  }
+
+  .problem-card__question {
+    font-size: 1.75rem;
+  }
+
+  .problem-card__inline {
+    gap: 10px;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .problem-card.problem-card--current {
+    animation: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  }
+
+  .problem-card__question {
+    animation: none;
+  }
+
+  .problem-card--correct,
+  .problem-card--incorrect {
+    animation: none;
+  }
+}

@@ -1,0 +1,139 @@
+/* Score Display */
+
+.score-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.score-display__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 215, 0, 0.15);
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.score-display__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 215, 0, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score-display__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: gold;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  font-family: 'Courier New', monospace;
+}
+
+/* Animation on score change */
+.score-display--animating .score-display__value {
+  animation: scorePop 0.3s ease-out;
+}
+
+@keyframes scorePop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); color: #fff; }
+  100% { transform: scale(1); }
+}
+
+/* Streak display */
+.score-display__streak {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(244, 67, 54, 0.2);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 2px solid rgba(244, 67, 54, 0.4);
+  animation: streakPulse 1s ease-in-out infinite;
+}
+
+.score-display__streak--2x {
+  background: rgba(255, 152, 0, 0.2);
+  border-color: rgba(255, 152, 0, 0.4);
+}
+
+.score-display__streak--3x {
+  background: rgba(156, 39, 176, 0.2);
+  border-color: rgba(156, 39, 176, 0.4);
+}
+
+.score-display__streak--5x {
+  background: rgba(233, 30, 99, 0.2);
+  border-color: rgba(233, 30, 99, 0.4);
+  animation: streakGlow 0.5s ease-in-out infinite;
+}
+
+@keyframes streakPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes streakGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(233, 30, 99, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(233, 30, 99, 0.8); }
+}
+
+.score-display__streak-icon {
+  font-size: 1rem;
+}
+
+.score-display__streak-value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.score-display__streak-multiplier {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: gold;
+  margin-left: 4px;
+}
+
+/* Sizes */
+.score-display--small .score-display__main {
+  padding: 4px 12px;
+}
+
+.score-display--small .score-display__label {
+  font-size: 0.6rem;
+}
+
+.score-display--small .score-display__value {
+  font-size: 1.1rem;
+}
+
+.score-display--large .score-display__main {
+  padding: 12px 28px;
+}
+
+.score-display--large .score-display__value {
+  font-size: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .score-display {
+    gap: 8px;
+  }
+
+  .score-display__main {
+    padding: 4px 12px;
+  }
+
+  .score-display__value {
+    font-size: 1.2rem;
+  }
+
+  .score-display__streak {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,227 @@
+.keypad {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.keypad__display {
+  width: 100%;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  color: #333;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.keypad__display:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.keypad__display::placeholder {
+  color: #ccc;
+}
+
+.keypad__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.keypad__row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.keypad__button {
+  width: 65px;
+  height: 55px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+/* Enhanced button press animation with ripple effect */
+.keypad__button:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.keypad__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.keypad__button--digit {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  color: #333;
+  box-shadow:
+    0 3px 0 #d0d0d0,
+    0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.keypad__button--digit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 5px 0 #d0d0d0,
+    0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.keypad__button--digit:active:not(:disabled) {
+  box-shadow:
+    0 1px 0 #d0d0d0,
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(2px) scale(0.95);
+}
+
+.keypad__button--clear {
+  background: linear-gradient(145deg, #ff7043, #e64a19);
+  color: white;
+  box-shadow:
+    0 3px 0 #bf360c,
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.keypad__button--clear:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 5px 0 #bf360c,
+    0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+.keypad__button--clear:active:not(:disabled) {
+  box-shadow:
+    0 1px 0 #bf360c,
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px) scale(0.95);
+}
+
+.keypad__button--submit {
+  background: linear-gradient(145deg, #66bb6a, #43a047);
+  color: white;
+  font-size: 1.25rem;
+  box-shadow:
+    0 3px 0 #2e7d32,
+    0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: gentleBounce 2s ease-in-out infinite;
+}
+
+.keypad__button--submit:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 5px 0 #2e7d32,
+    0 6px 10px rgba(0, 0, 0, 0.25);
+  animation: none;
+}
+
+.keypad__button--submit:active:not(:disabled) {
+  box-shadow:
+    0 1px 0 #2e7d32,
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px) scale(0.95);
+  animation: none;
+}
+
+.keypad__button--submit:disabled {
+  background: linear-gradient(145deg, #a5d6a7, #81c784);
+  animation: none;
+}
+
+/* Gentle bounce animation for GO! button */
+@keyframes gentleBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Button tap ripple effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .keypad {
+    max-width: 260px;
+  }
+
+  .keypad__button {
+    width: 60px;
+    height: 50px;
+    font-size: 1.4rem;
+  }
+
+  .keypad__display {
+    font-size: 1.75rem;
+    padding: 8px;
+  }
+
+  .keypad__grid {
+    gap: 6px;
+  }
+
+  .keypad__row {
+    gap: 6px;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 900px) {
+  /* Compact mode for shorter screens */
+  .keypad__button {
+    width: 70px;
+    height: 55px;
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 768px) and (min-height: 901px) {
+  /* Larger buttons only on tall screens */
+  .keypad__button {
+    width: 75px;
+    height: 60px;
+    font-size: 1.75rem;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .keypad__button {
+    transition: none;
+    animation: none;
+  }
+
+  .keypad__button--submit {
+    animation: none;
+  }
+
+  .keypad__button:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+}

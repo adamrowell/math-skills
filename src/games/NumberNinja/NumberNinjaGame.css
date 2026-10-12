@@ -1,0 +1,214 @@
+.number-ninja__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.number-ninja__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.number-ninja__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.number-ninja__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.number-ninja__instructions h3 {
+  color: #4fc3f7;
+  margin-bottom: 1rem;
+}
+
+.number-ninja__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.number-ninja__instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+}
+
+.number-ninja__instructions li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: #4fc3f7;
+}
+
+.number-ninja__high-score {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.number-ninja__start-button {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.number-ninja__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.number-ninja {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.number-ninja__problem {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(102, 126, 234, 0.3);
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Feedback */
+.number-ninja__feedback {
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 12px;
+  animation: ninjaFeedbackPop 0.3s ease-out;
+}
+
+@keyframes ninjaFeedbackPop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.number-ninja__feedback--correct {
+  background: rgba(76, 175, 80, 0.3);
+  color: #a5d6a7;
+  border: 2px solid rgba(76, 175, 80, 0.5);
+}
+
+.number-ninja__feedback--wrong {
+  background: rgba(244, 67, 54, 0.3);
+  color: #ef9a9a;
+  border: 2px solid rgba(244, 67, 54, 0.5);
+}
+
+.number-ninja__game-area {
+  position: relative;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(102, 126, 234, 0.1) 100%);
+  border: 3px solid rgba(102, 126, 234, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+  cursor: none; /* Hide cursor for immersive feel */
+  touch-action: none; /* Prevent scrolling on touch */
+}
+
+.number-ninja__falling-number {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4fc3f7 0%, #2196f3 100%);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  /* No transition - instant position updates */
+}
+
+/* Subtle glow on correct answer (hidden from user but helps debug) */
+.number-ninja__falling-number--correct {
+  /* Keep same appearance so it's not obvious */
+}
+
+.number-ninja__player {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  font-size: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  /* NO TRANSITION - instant response */
+  pointer-events: none;
+}
+
+.number-ninja__controls {
+  font-size: 1rem;
+  color: #aaa;
+  font-family: monospace;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+  .number-ninja__game-area {
+    width: 100% !important;
+    max-width: 100vw;
+  }
+
+  .number-ninja__problem {
+    font-size: 1.8rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .number-ninja__falling-number {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .number-ninja__player {
+    width: 60px;
+    height: 60px;
+    font-size: 3rem;
+  }
+
+  .number-ninja__title {
+    font-size: 2.2rem;
+  }
+}

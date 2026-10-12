@@ -1,0 +1,206 @@
+/* Number Line Visualization - Matches standard app styling */
+
+.number-line-viz {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.number-line-viz__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.number-line-viz__container {
+  position: relative;
+  padding: 50px 30px 35px;
+}
+
+.number-line-viz__line {
+  position: relative;
+  height: 3px;
+  background: linear-gradient(to right, #e0e0e0, #9e9e9e, #e0e0e0);
+  border-radius: 2px;
+}
+
+/* Zero marker */
+.number-line-viz__zero {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.number-line-viz__zero-line {
+  width: 2px;
+  height: 20px;
+  background: #555;
+  margin: 0 auto;
+  transform: translateY(-8px);
+}
+
+.number-line-viz__zero-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #555;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* Tick marks */
+.number-line-viz__tick {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%);
+}
+
+.number-line-viz__tick-mark {
+  width: 1px;
+  height: 10px;
+  background: #ccc;
+  margin: 0 auto;
+  transform: translateY(-3px);
+}
+
+.number-line-viz__tick-label {
+  display: block;
+  font-size: 0.6rem;
+  color: #999;
+  margin-top: 6px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Value markers */
+.number-line-viz__marker {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.number-line-viz__marker-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.number-line-viz__marker--left .number-line-viz__marker-dot {
+  background: #667eea;
+}
+
+.number-line-viz__marker--right .number-line-viz__marker-dot {
+  background: #FF9800;
+}
+
+.number-line-viz__marker--correct .number-line-viz__marker-dot {
+  transform: translateY(-50%) scale(1.3);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.number-line-viz__marker-label {
+  position: absolute;
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.number-line-viz__marker--left .number-line-viz__marker-label {
+  bottom: 100%;
+  margin-bottom: 14px;
+  color: #667eea;
+}
+
+.number-line-viz__marker--right .number-line-viz__marker-label {
+  top: 100%;
+  margin-top: 14px;
+  color: #FF9800;
+}
+
+.number-line-viz__marker-value {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* Direction indicator */
+.number-line-viz__direction {
+  position: absolute;
+  right: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number-line-viz__direction-arrow {
+  font-size: 1.2rem;
+  color: #4CAF50;
+}
+
+.number-line-viz__direction-text {
+  font-size: 0.6rem;
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+/* Explanation */
+.number-line-viz__explanation {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.number-line-viz__explanation strong {
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .number-line-viz {
+    padding: 12px;
+  }
+
+  .number-line-viz__container {
+    padding: 40px 20px 28px;
+  }
+
+  .number-line-viz__marker-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .number-line-viz__marker-label {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+
+  .number-line-viz__tick-label {
+    font-size: 0.5rem;
+  }
+
+  .number-line-viz__direction {
+    right: -18px;
+  }
+}

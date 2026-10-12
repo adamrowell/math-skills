@@ -1,0 +1,416 @@
+/* Mode Selection Screen */
+
+.mode-select {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 32px 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mode-select__header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.mode-select__title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 12px;
+  text-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.mode-select__emoji {
+  font-size: 2.5rem;
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+
+.mode-select__emoji:last-child {
+  animation-delay: 1s;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.2) rotate(15deg); opacity: 0.8; }
+}
+
+.mode-select__subtitle {
+  font-size: 1.3rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Overall stats in header */
+.mode-select__overall-stats {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.mode-select__streak {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* Mode cards container */
+.mode-select__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* 2 columns for medium screens */
+@media (max-width: 900px) {
+  .mode-select__cards {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 650px;
+    gap: 14px;
+  }
+}
+
+/* 1 column for small screens */
+@media (max-width: 550px) {
+  .mode-select__cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-width: 350px;
+  }
+}
+
+/* Individual mode card */
+.mode-select__card {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.2),
+    0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Progress badges on cards */
+.mode-select__card-progress {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.mode-select__card-badge {
+  background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+}
+
+.mode-select__card-plays {
+  background: rgba(0, 0, 0, 0.1);
+  color: #666;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.mode-select__card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.25),
+    0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.mode-select__card:active {
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Math card specific colors */
+.mode-select__card--math {
+  background: linear-gradient(180deg, white 0%, #e8f5e9 100%);
+}
+
+.mode-select__card--math:hover {
+  background: linear-gradient(180deg, white 0%, #c8e6c9 100%);
+}
+
+.mode-select__card--math .mode-select__card-action {
+  background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+}
+
+/* Reading card specific colors */
+.mode-select__card--reading {
+  background: linear-gradient(180deg, white 0%, #e3f2fd 100%);
+}
+
+.mode-select__card--reading:hover {
+  background: linear-gradient(180deg, white 0%, #bbdefb 100%);
+}
+
+.mode-select__card--reading .mode-select__card-action {
+  background: linear-gradient(135deg, #2196F3 0%, #03A9F4 100%);
+}
+
+/* Geography card specific colors */
+.mode-select__card--geography {
+  background: linear-gradient(180deg, white 0%, #fff3e0 100%);
+}
+
+.mode-select__card--geography:hover {
+  background: linear-gradient(180deg, white 0%, #ffe0b2 100%);
+}
+
+.mode-select__card--geography .mode-select__card-action {
+  background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%);
+}
+
+.mode-select__card--geography .mode-select__card-icon {
+  animation-delay: 1s;
+}
+
+/* Charts card specific colors */
+.mode-select__card--charts {
+  background: linear-gradient(180deg, white 0%, #e8f5e9 100%);
+}
+
+.mode-select__card--charts:hover {
+  background: linear-gradient(180deg, white 0%, #c8e6c9 100%);
+}
+
+.mode-select__card--charts .mode-select__card-action {
+  background: linear-gradient(135deg, #43A047 0%, #66BB6A 100%);
+}
+
+.mode-select__card--charts .mode-select__card-icon {
+  animation-delay: 1.5s;
+}
+
+/* Word Problems card specific colors */
+.mode-select__card--wordProblems {
+  background: linear-gradient(180deg, white 0%, #fff3e0 100%);
+}
+
+.mode-select__card--wordProblems:hover {
+  background: linear-gradient(180deg, white 0%, #ffe0b2 100%);
+}
+
+.mode-select__card--wordProblems .mode-select__card-action {
+  background: linear-gradient(135deg, #F57C00 0%, #FFB300 100%);
+}
+
+.mode-select__card--wordProblems .mode-select__card-icon {
+  animation-delay: 0.25s;
+}
+
+/* Table card specific colors */
+.mode-select__card--table {
+  background: linear-gradient(180deg, white 0%, #ede7f6 100%);
+}
+
+.mode-select__card--table:hover {
+  background: linear-gradient(180deg, white 0%, #d1c4e9 100%);
+}
+
+.mode-select__card--table .mode-select__card-action {
+  background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+}
+
+.mode-select__card--table .mode-select__card-icon {
+  animation-delay: 1.5s;
+}
+
+/* Algebra card specific colors */
+.mode-select__card--algebra {
+  background: linear-gradient(180deg, white 0%, #ede7f6 100%);
+}
+
+.mode-select__card--algebra:hover {
+  background: linear-gradient(180deg, white 0%, #d1c4e9 100%);
+}
+
+.mode-select__card--algebra .mode-select__card-action {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.mode-select__card--algebra .mode-select__card-icon {
+  animation-delay: 0.75s;
+}
+
+/* Arcade card specific colors */
+.mode-select__card--arcade {
+  background: linear-gradient(180deg, white 0%, #fce4ec 100%);
+}
+
+.mode-select__card--arcade:hover {
+  background: linear-gradient(180deg, white 0%, #f8bbd0 100%);
+}
+
+.mode-select__card--arcade .mode-select__card-action {
+  background: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+}
+
+.mode-select__card--arcade .mode-select__card-icon {
+  animation-delay: 0.5s;
+}
+
+/* Card elements */
+.mode-select__card-icon {
+  font-size: 3rem;
+  line-height: 1;
+  animation: iconBounce 3s ease-in-out infinite;
+}
+
+.mode-select__card--reading .mode-select__card-icon {
+  animation-delay: 0.5s;
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.mode-select__card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.mode-select__card-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.mode-select__card-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.mode-select__card-features span {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  color: #555;
+}
+
+.mode-select__card-action {
+  padding: 12px 24px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-top: 4px;
+  transition: transform 0.2s ease;
+}
+
+.mode-select__card:hover .mode-select__card-action {
+  transform: scale(1.05);
+}
+
+/* Footer */
+.mode-select__footer {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+/* Responsive - Title and card adjustments */
+@media (max-width: 650px) {
+  .mode-select__title {
+    font-size: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .mode-select__emoji {
+    font-size: 2rem;
+  }
+
+  .mode-select__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .mode-select__card {
+    padding: 20px;
+  }
+
+  .mode-select__card-icon {
+    font-size: 3rem;
+  }
+
+  .mode-select__card-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mode-select {
+    padding: 16px;
+  }
+
+  .mode-select__header {
+    margin-bottom: 24px;
+  }
+
+  .mode-select__title {
+    font-size: 1.6rem;
+    gap: 8px;
+  }
+
+  .mode-select__card {
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .mode-select__card-features {
+    gap: 6px;
+  }
+
+  .mode-select__card-features span {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mode-select__emoji,
+  .mode-select__card-icon {
+    animation: none;
+  }
+}

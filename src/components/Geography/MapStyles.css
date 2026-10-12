@@ -1,0 +1,238 @@
+/* Map Container Styles */
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8f4f8;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 2px 10px rgba(0, 0, 0, 0.05),
+    0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative; /* For zoom controls positioning */
+}
+
+/* Fullscreen mode - expand to fill */
+:fullscreen .map-container,
+:-webkit-full-screen .map-container {
+  min-height: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+:fullscreen .geography-map-container,
+:-webkit-full-screen .geography-map-container {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.map-container svg {
+  width: 100%;
+  height: auto;
+}
+
+/* US Map specific styles */
+.us-map {
+  background: #e8f4f8;
+}
+
+/* World Map specific styles */
+.world-map {
+  background: #d4e8ed;
+}
+
+/* State/Country styling */
+.state,
+.country {
+  transition: all 0.2s ease;
+}
+
+.state--highlighted,
+.country--highlighted {
+  filter: drop-shadow(0 0 8px rgba(255, 152, 0, 0.6));
+  animation: pulse-highlight 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-highlight {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(255, 152, 0, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(255, 152, 0, 0.9));
+  }
+}
+
+.state--disabled,
+.country--disabled {
+  pointer-events: none;
+}
+
+/* Responsive map sizing */
+@media (max-width: 900px) {
+  .map-container {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .map-container {
+    border-radius: 8px;
+  }
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) {
+  .state,
+  .country {
+    /* Increase tap target visual feedback on touch devices */
+    stroke-width: 1px;
+  }
+}
+
+/* Ocean/Water styling */
+.sphere-ocean {
+  fill: #bbdefb;
+}
+
+/* Graticule (grid lines) */
+.graticule {
+  stroke: #90caf9;
+  stroke-width: 0.3;
+  stroke-opacity: 0.5;
+}
+
+/* Label styling */
+.map-label {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 8px;
+  fill: #333;
+  pointer-events: none;
+  user-select: none;
+}
+
+.map-label--highlighted {
+  font-weight: bold;
+  fill: #FF5722;
+  font-size: 10px;
+}
+
+/* Zoom controls */
+.map-zoom-controls {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.map-zoom-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.map-zoom-btn:hover {
+  background: #f5f5f5;
+  transform: scale(1.1);
+}
+
+.map-zoom-btn:active {
+  transform: scale(0.95);
+}
+
+/* Loading state */
+.map-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.map-loading::after {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #4CAF50;
+  border-radius: 50%;
+  margin-left: 12px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state */
+.map-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #d32f2f;
+  text-align: center;
+  padding: 24px;
+}
+
+.map-error__icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.map-error__message {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.map-error__retry {
+  padding: 12px 24px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.map-error__retry:hover {
+  background: #388E3C;
+}
+
+/* Small country marker pulse animation */
+.small-country-pulse {
+  animation: small-country-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes small-country-pulse {
+  0%, 100% {
+    r: 12;
+    opacity: 1;
+  }
+  50% {
+    r: 18;
+    opacity: 0.6;
+  }
+}

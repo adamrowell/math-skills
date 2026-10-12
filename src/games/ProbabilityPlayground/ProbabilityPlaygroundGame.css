@@ -1,0 +1,152 @@
+.probability__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.probability__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.probability__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.probability__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.probability__instructions h3 {
+  color: #9c27b0;
+  margin-bottom: 1rem;
+}
+
+.probability__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.probability__instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+}
+
+.probability__instructions li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #9c27b0;
+}
+
+.probability__high-score {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.probability__start-button {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(142, 45, 226, 0.4);
+  transition: all 0.3s ease;
+}
+
+.probability__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(142, 45, 226, 0.6);
+}
+
+.probability {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.probability__timer {
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.probability__question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: rgba(156, 39, 176, 0.1);
+  border-radius: 16px;
+  min-width: 500px;
+  max-width: 600px;
+}
+
+.probability__mode {
+  font-size: 4rem;
+}
+
+.probability__question-text {
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.probability__options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.probability__option {
+  padding: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: rgba(156, 39, 176, 0.2);
+  border: 3px solid rgba(156, 39, 176, 0.5);
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: monospace;
+}
+
+.probability__option:hover {
+  background: rgba(156, 39, 176, 0.3);
+  border-color: #9c27b0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4);
+}
+
+.probability__option:active {
+  transform: translateY(0);
+}

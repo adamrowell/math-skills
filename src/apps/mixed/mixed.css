@@ -1,0 +1,57 @@
+.mx-mix {
+  background: var(--k-surface);
+  border-radius: var(--k-radius);
+  box-shadow: var(--k-shadow-card);
+  padding: 16px;
+}
+.mx-mix__title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+.mx-mix__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+.mx-op {
+  background: var(--k-bg);
+  border-radius: var(--k-radius-sm);
+  padding: 12px;
+  display: grid;
+  gap: 4px;
+}
+.mx-op__sym,
+.mx-op__name {
+  display: inline;
+}
+.mx-op__sym {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--k-op, var(--k-app));
+}
+.mx-op--mul { --k-op: var(--k-app-multiplication); }
+.mx-op--div { --k-op: var(--k-app-division); }
+.mx-op--add { --k-op: var(--k-app-addition); }
+.mx-op--sub { --k-op: var(--k-app-mixed); }
+.mx-op__name {
+  font-size: 18px;
+  font-weight: 900;
+}
+.mx-op__bar {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--k-line);
+  overflow: hidden;
+}
+.mx-op__bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--k-op);
+}
+.mx-op__meta {
+  font-size: 14px;
+  color: var(--k-ink-soft);
+}

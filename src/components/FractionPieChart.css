@@ -1,0 +1,80 @@
+/* Fraction Pie Chart Visualization */
+
+.fraction-pie-chart {
+  width: 100%;
+  padding: 10px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.fraction-pie-chart__pies {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.fraction-pie-chart__vs {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #888;
+  padding: 0 8px;
+}
+
+.fraction-pie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s ease;
+}
+
+.fraction-pie--winner {
+  transform: scale(1.05);
+}
+
+.fraction-pie__svg {
+  width: 80px;
+  height: 80px;
+}
+
+.fraction-pie__label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.fraction-pie__decimal {
+  font-size: 0.75rem;
+  color: #666;
+  font-family: monospace;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .fraction-pie-chart {
+    padding: 8px;
+  }
+
+  .fraction-pie-chart__pies {
+    gap: 10px;
+  }
+
+  .fraction-pie__svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .fraction-pie__label {
+    font-size: 0.9rem;
+  }
+
+  .fraction-pie__decimal {
+    font-size: 0.7rem;
+  }
+
+  .fraction-pie-chart__vs {
+    font-size: 0.85rem;
+  }
+}

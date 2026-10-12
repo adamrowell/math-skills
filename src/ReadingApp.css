@@ -1,0 +1,41 @@
+/* Reading App specific styles */
+
+/* Use consistent background - no special colors */
+.reading-app {
+  /* Uses default background from AppLayout */
+}
+
+/* Mode switch button on start screen */
+.start-screen__switch-mode {
+  margin-top: 16px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #667eea;
+  background: transparent;
+  border: 2px solid #667eea;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.start-screen__switch-mode:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Adjust game main for reading controls */
+.reading-app .game-main {
+  gap: 12px;
+}
+
+/* Reading stats label adjustment */
+.reading-app .stats__item-label::after {
+  content: ' words';
+}
+
+.reading-app .stats__item--correct .stats__item-label::after,
+.reading-app .stats__item--incorrect .stats__item-label::after,
+.reading-app .stats__item--total .stats__item-label::after {
+  content: '';
+}

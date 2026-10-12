@@ -1,0 +1,305 @@
+/* Voice UI (docs/UX-V3.md §4.1): MicChip (TopBar) + MicPanel (under the problem) + MicTest.
+   Shell tokens (--k-*) with fallbacks so the dev lab renders it standalone too. */
+
+/* ---------------------------------------------------------------- MicChip */
+.vmc {
+  --vmc-size: 48px;
+  --vmc-c: var(--k-ink-soft, #6b7280);
+  --vmc-bg: var(--k-surface, #fff);
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--vmc-size);
+  height: var(--vmc-size);
+  min-width: 44px;
+  min-height: 44px;
+  flex: none;
+  padding: 0;
+  border-radius: 999px;
+  border: 3px solid var(--k-line, #e5e7eb);
+  background: var(--vmc-bg);
+  color: var(--vmc-c);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+}
+.vmc:active { transform: scale(0.92); }
+.vmc__icon { font-size: 24px; line-height: 1; z-index: 1; }
+.vmc__ring {
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  border: 4px solid var(--k-success, #16a34a);
+  opacity: 0;
+  transform: scale(calc(1 + var(--vmc-lvl, 0) * 0.3));
+  transition: transform 60ms linear, opacity 160ms ease;
+  pointer-events: none;
+}
+.vmc.is-off { --vmc-bg: var(--k-surface-2, #f3f4f6); }
+.vmc.is-off .vmc__icon { filter: grayscale(1); opacity: 0.55; }
+.vmc__slash {
+  position: absolute;
+  width: 5px;
+  height: 70%;
+  border-radius: 3px;
+  background: #ef4444;
+  box-shadow: 0 0 0 2px var(--k-surface, #fff);
+  /* Crosses the 🎤 glyph (which leans right), so the "off" stroke is visible. */
+  transform: rotate(-45deg);
+  z-index: 2;
+}
+.vmc--play.is-off {
+  width: auto;
+  padding: 0 12px 0 8px;
+  gap: 4px;
+  grid-auto-flow: column;
+}
+.vmc--play.is-off .vmc__slash { left: 17px; }
+.vmc.is-listening,
+.vmc.is-hearing,
+.vmc.is-heard-wrong,
+.vmc.is-heard-ok { border-color: var(--k-success, #16a34a); --vmc-bg: var(--k-success-soft, #dcfce7); }
+.vmc.is-listening .vmc__ring { opacity: 0.3; }
+.vmc.is-hearing .vmc__ring { opacity: 0.75; }
+.vmc.is-thinking { border-color: var(--k-primary, #3d7bff); }
+.vmc.is-unsure,
+.vmc.is-cant-hear { border-color: var(--k-warn, #f59e0b); --vmc-bg: #fff7e6; }
+.vmc.is-error { border-color: var(--k-danger, #dc2626); --vmc-bg: var(--k-danger-soft, #fee2e2); }
+.vmc.is-arming .vmc__icon { animation: vmc-bob 1.2s ease-in-out infinite; }
+.vmc.is-arming::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  border-top-color: var(--k-primary, #3d7bff);
+  animation: vmc-spin 0.9s linear infinite;
+}
+.vmc__progress {
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  background: conic-gradient(var(--k-primary, #3d7bff) calc(var(--vmc-pct, 0) * 360deg), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
+}
+.vmc__bang,
+.vmc__dot {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--k-danger, #dc2626);
+  color: #fff;
+  font: 900 13px/18px var(--k-font, system-ui, sans-serif);
+  text-align: center;
+  z-index: 3;
+}
+.vmc__dot { background: var(--k-warn, #f59e0b); min-width: 14px; height: 14px; }
+.vmc__dots { position: absolute; bottom: 5px; display: flex; gap: 3px; z-index: 2; }
+.vmc__dots i,
+.vmp__dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: vmc-blink 0.9s infinite;
+}
+.vmc__dots i:nth-child(2),
+.vmp__dots i:nth-child(2) { animation-delay: 0.15s; }
+.vmc__dots i:nth-child(3),
+.vmp__dots i:nth-child(3) { animation-delay: 0.3s; }
+.vmc--home {
+  width: auto;
+  padding: 0 14px 0 10px;
+  gap: 6px;
+  grid-auto-flow: column;
+}
+.vmc__word { font: 800 18px/1 var(--k-font, system-ui, sans-serif); color: var(--k-ink, #1b2559); }
+.vmc--home .vmc__slash { left: 18px; }
+
+@keyframes vmc-spin { to { transform: rotate(360deg); } }
+@keyframes vmc-blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+@keyframes vmc-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+/* ---------------------------------------------------------------- MicPanel */
+.vmp {
+  --vmp-h: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: var(--vmp-h);
+  box-sizing: border-box;
+  padding: 4px 12px;
+  border-radius: var(--k-radius, 16px);
+  color: var(--k-ink, #1b2559);
+  font: 800 20px/1.15 var(--k-font, system-ui, sans-serif);
+  text-align: center;
+}
+.vmp--sm { --vmp-h: 48px; font-size: 17px; gap: 8px; }
+.vmp--lg { --vmp-h: 120px; font-size: 26px; }
+.vmp.is-listening,
+.vmp.is-hearing { background: var(--k-success-soft, #dcfce7); color: var(--k-success-ink, #166534); }
+.vmp.is-arming { background: var(--k-surface, #fff); box-shadow: inset 0 0 0 2px var(--k-line, #e5e7eb); }
+.vmp.is-thinking { background: var(--k-surface, #fff); color: var(--k-primary, #3d7bff); }
+.vmp.is-error { background: var(--k-danger-soft, #fee2e2); color: var(--k-danger, #b91c1c); }
+.vmp__icon { font-size: 26px; }
+.vmp__col { display: grid; gap: 6px; min-width: 0; }
+.vmp__text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.vmp__text--soft { opacity: 0.8; font-size: 1.1em; }
+.vmp__sub { font-size: 0.75em; font-weight: 700; color: var(--k-ink-soft, #6b7280); }
+.vmp__bar {
+  display: block;
+  width: 180px;
+  max-width: 40vw;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--k-surface-2, #eef1f8);
+  overflow: hidden;
+}
+.vmp__bar > span {
+  display: block;
+  height: 100%;
+  background: var(--k-primary, #3d7bff);
+  border-radius: inherit;
+  transform-origin: left center;
+  transition: transform 200ms ease;
+}
+.vmp__bar.is-indeterminate > span { animation: vmp-slide 1.2s ease-in-out infinite; }
+.vmp__meter { display: inline-flex; align-items: center; gap: 4px; height: 44px; flex: none; }
+.vmp--lg .vmp__meter { height: 88px; gap: 8px; }
+.vmp__meter i {
+  display: block;
+  width: 6px;
+  min-height: 8px;
+  border-radius: 3px;
+  background: var(--k-success, #16a34a);
+  transition: height 40ms linear;
+}
+.vmp--lg .vmp__meter i { width: 12px; border-radius: 6px; }
+.vmp__meter.is-idle i { animation: vmp-idle 1.4s ease-in-out infinite; }
+.vmp__meter.is-idle i:nth-child(2) { animation-delay: 0.12s; }
+.vmp__meter.is-idle i:nth-child(3) { animation-delay: 0.24s; }
+.vmp__meter.is-idle i:nth-child(4) { animation-delay: 0.36s; }
+.vmp__meter.is-idle i:nth-child(5) { animation-delay: 0.48s; }
+.vmp__dots { display: inline-flex; gap: 4px; margin-left: 6px; vertical-align: middle; }
+.vmp__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 8px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: vmp-pop 160ms ease-out;
+}
+.vmp__chip.is-ok { background: var(--k-success, #16a34a); color: #fff; }
+.vmp__chip.is-wrong { background: var(--k-danger-soft, #fee2e2); color: var(--k-danger, #b91c1c); }
+.vmp__chip.is-unsure { background: #fff3d6; color: #92400e; }
+.vmp__err { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.vmp__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 6px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--k-surface, #fff);
+  color: var(--k-ink, #1b2559);
+  font: inherit;
+  font-size: 0.9em;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--k-line, #d8dcea);
+  touch-action: manipulation;
+}
+.vmp__btn:active { transform: translateY(3px); box-shadow: none; }
+.vmp__btn.is-fix { background: var(--k-primary, #3d7bff); color: #fff; box-shadow: 0 3px 0 #2456c9; }
+.vmp__btn.is-ghost { background: transparent; box-shadow: inset 0 0 0 2px currentColor; }
+.vmp__btn.is-soft { background: #fff3d6; color: #92400e; box-shadow: none; }
+.vmp__btn.is-big { min-height: 56px; font-size: 20px; padding: 8px 22px; }
+
+.vmp-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: end center;
+  padding: 16px;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  background: rgba(27, 37, 89, 0.5);
+}
+.vmp-sheet__card {
+  width: min(520px, 100%);
+  padding: 22px;
+  border-radius: 24px;
+  background: var(--k-surface, #fff);
+  color: var(--k-ink, #1b2559);
+  font: 700 18px/1.35 var(--k-font, system-ui, sans-serif);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+.vmp-sheet__title { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
+.vmp-sheet__sub { color: var(--k-ink-soft, #6b7280); }
+.vmp-sheet__steps { margin: 10px 0 18px; padding-left: 22px; display: grid; gap: 8px; }
+.vmp-sheet__row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+@keyframes vmp-idle { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.6); } }
+@keyframes vmp-slide { 0% { transform: translateX(-100%) scaleX(0.35); } 100% { transform: translateX(300%) scaleX(0.35); } }
+@keyframes vmp-pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+@media (max-width: 480px) {
+  .vmp { --vmp-h: 48px; font-size: 17px; gap: 8px; }
+  .vmp__sub { display: none; }
+  .vmp__bar { width: 120px; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .vmp { --vmp-h: 40px; font-size: 16px; padding: 2px 8px; }
+  .vmp__meter { height: 32px; }
+  .vmp__sub { display: none; }
+}
+
+/* ---------------------------------------------------------------- MicTest (grown-ups) */
+.vmt { display: grid; gap: 16px; max-width: 640px; margin: 0 auto; padding: 16px; }
+.vmt__card {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 24px;
+  background: var(--k-surface, #fff);
+  box-shadow: var(--k-shadow-card, 0 2px 10px rgba(0, 0, 0, 0.08));
+  color: var(--k-ink, #1b2559);
+}
+.vmt__prompt { font: 900 28px/1.2 var(--k-font, system-ui, sans-serif); text-align: center; }
+.vmt__checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font: 800 19px/1.3 var(--k-font, system-ui, sans-serif); }
+.vmt__checks li { display: flex; gap: 10px; align-items: center; color: var(--k-ink-soft, #6b7280); }
+.vmt__checks li.is-ok { color: var(--k-success-ink, #166534); }
+.vmt__checks li.is-bad { color: var(--k-danger, #b91c1c); }
+.vmt__table { width: 100%; border-collapse: collapse; font: 600 16px/1.35 var(--k-font, system-ui, sans-serif); }
+.vmt__table th { text-align: left; color: var(--k-ink-soft, #6b7280); font-weight: 700; padding: 6px 8px 6px 0; width: 42%; vertical-align: top; }
+.vmt__table td { padding: 6px 0; word-break: break-word; }
+.vmt__row { display: flex; flex-wrap: wrap; gap: 10px; }
+.vmt__log { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font: 600 15px/1.3 var(--k-font, system-ui, sans-serif); }
+.vmt__log li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 10px; background: var(--k-surface-2, #f3f4f6); }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmc__ring, .vmc.is-arming::after, .vmc.is-arming .vmc__icon, .vmc__dots i, .vmp__dots i,
+  .vmp__meter.is-idle i, .vmp__bar.is-indeterminate > span, .vmp__chip { animation: none; transition: none; }
+}
+
+/* ---------------------------------------------------------------- placement
+   The panel is the last child of the stage, directly under the problem card, full card width.
+   (The drill stage is a flex row; with a panel in it, it stacks.) */
+.dr-stage:has(> .vmp) > .dr-card { min-height: 0; }
+.dr-stage > .vmp { flex: none; }
+.rd-micpanel { max-width: 760px; margin: 12px auto 0; }
+@media (max-height: 500px) and (orientation: landscape) {
+  .dr-stage:has(> .vmp) { gap: 6px; }
+  .dr-stage:has(> .vmp) > .dr-card { max-height: calc(100dvh - 64px - 46px); }
+}

@@ -1,0 +1,162 @@
+/* Fraction Bar Visualization - Matches standard app styling */
+
+.fraction-bar-viz {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.fraction-bar-viz__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.fraction-bar-viz__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fraction-bar-viz__bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fraction-bar-viz__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.fraction-bar-viz__value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.fraction-bar-viz__decimal {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.fraction-bar-viz__bar-wrapper {
+  height: 28px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.fraction-bar-viz__bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease-out;
+}
+
+.fraction-bar-viz__bar--left {
+  background: #667eea;
+}
+
+.fraction-bar-viz__bar--right {
+  background: #FF9800;
+}
+
+.fraction-bar-viz__bar--correct {
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5);
+}
+
+/* Comparison indicator */
+.fraction-bar-viz__comparison {
+  display: flex;
+  justify-content: center;
+  padding: 6px 0;
+}
+
+.fraction-bar-viz__comparison-symbol {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 50%;
+}
+
+/* Fraction segments */
+.fraction-bar-viz__segments {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.fraction-bar-viz__segment {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 2px solid #e0e0e0;
+  background: white;
+}
+
+.fraction-bar-viz__segment--filled.fraction-bar-viz__segment--blue {
+  background: #667eea;
+  border-color: #5568d8;
+}
+
+.fraction-bar-viz__segment--filled.fraction-bar-viz__segment--orange {
+  background: #FF9800;
+  border-color: #F57C00;
+}
+
+.fraction-bar-viz__segment-count {
+  font-size: 0.7rem;
+  color: #888;
+  margin-left: 6px;
+}
+
+/* Explanation */
+.fraction-bar-viz__explanation {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: #555;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.fraction-bar-viz__explanation strong {
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .fraction-bar-viz {
+    padding: 12px;
+  }
+
+  .fraction-bar-viz__value {
+    font-size: 1rem;
+  }
+
+  .fraction-bar-viz__bar-wrapper {
+    height: 22px;
+  }
+
+  .fraction-bar-viz__segment {
+    width: 16px;
+    height: 16px;
+  }
+
+  .fraction-bar-viz__comparison-symbol {
+    font-size: 1.2rem;
+    width: 34px;
+    height: 34px;
+  }
+}

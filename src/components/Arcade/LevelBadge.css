@@ -1,0 +1,97 @@
+/* Level Badge */
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.level-badge__label {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.level-badge__number {
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+}
+
+.level-badge__name {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-left: 4px;
+}
+
+/* Colors */
+.level-badge--green {
+  background: rgba(76, 175, 80, 0.2);
+  color: #81C784;
+  border: 2px solid rgba(76, 175, 80, 0.4);
+}
+
+.level-badge--blue {
+  background: rgba(33, 150, 243, 0.2);
+  color: #64B5F6;
+  border: 2px solid rgba(33, 150, 243, 0.4);
+}
+
+.level-badge--purple {
+  background: rgba(156, 39, 176, 0.2);
+  color: #CE93D8;
+  border: 2px solid rgba(156, 39, 176, 0.4);
+}
+
+.level-badge--gold {
+  background: rgba(255, 215, 0, 0.2);
+  color: gold;
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  animation: goldGlow 2s ease-in-out infinite;
+}
+
+@keyframes goldGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+}
+
+/* Sizes */
+.level-badge--small {
+  padding: 4px 10px;
+  gap: 2px;
+}
+
+.level-badge--small .level-badge__label {
+  font-size: 0.6rem;
+}
+
+.level-badge--small .level-badge__number {
+  font-size: 0.9rem;
+}
+
+.level-badge--large {
+  padding: 10px 20px;
+  gap: 6px;
+}
+
+.level-badge--large .level-badge__number {
+  font-size: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .level-badge {
+    padding: 4px 10px;
+  }
+
+  .level-badge__number {
+    font-size: 1rem;
+  }
+
+  .level-badge__name {
+    display: none;
+  }
+}

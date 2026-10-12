@@ -1,0 +1,127 @@
+/**
+ * Every app the hub knows about. Only enabled apps appear on the hub and are routable.
+ * To ship a new app: build it under src/apps/<id>/, add `load`, flip `enabled`.
+ */
+import type { AppDefinition, AppId } from '../core/types';
+
+export const APPS: AppDefinition[] = [
+  {
+    id: 'multiplication',
+    title: 'Times Tables',
+    emoji: '✖️',
+    color: '--k-app-multiplication',
+    tagline: 'Up to 12 × 12',
+    group: 'math',
+    enabled: true,
+    input: ['keypad', 'voice'],
+    load: () => import('./multiplication'),
+  },
+  {
+    id: 'division',
+    title: 'Division',
+    emoji: '➗',
+    color: '--k-app-division',
+    tagline: 'Up to 144 ÷ 12',
+    group: 'math',
+    enabled: true,
+    input: ['keypad', 'voice'],
+    load: () => import('./division'),
+  },
+  {
+    id: 'addition',
+    title: 'Big Adding',
+    emoji: '➕',
+    color: '--k-app-addition',
+    tagline: '2-digit sums',
+    group: 'math',
+    enabled: true,
+    input: ['keypad', 'voice'],
+    load: () => import('./addition'),
+  },
+  {
+    id: 'mixed',
+    title: 'Mixed Blitz',
+    emoji: '🌀',
+    color: '--k-app-mixed',
+    tagline: 'All four, super fast',
+    group: 'math',
+    enabled: true,
+    input: ['keypad', 'voice'],
+    load: () => import('./mixed'),
+  },
+  {
+    id: 'coordinates',
+    title: 'Dot Drawing',
+    emoji: '📍',
+    color: '--k-app-coordinates',
+    tagline: 'Dots make a picture',
+    group: 'math',
+    enabled: true,
+    input: ['pointer'],
+    load: () => import('./coordinates'),
+  },
+  {
+    id: 'algebra',
+    title: 'Quick Algebra',
+    emoji: '🔍',
+    color: '--k-app-algebra',
+    tagline: 'Mystery numbers',
+    group: 'math',
+    enabled: true,
+    input: ['keypad'],
+    load: () => import('./algebra'),
+  },
+  {
+    id: 'stories',
+    title: 'Story Problems',
+    emoji: '📚',
+    color: '--k-app-stories',
+    tagline: 'Read it, work it out',
+    group: 'math',
+    enabled: true,
+    input: ['keypad', 'voice'],
+    load: () => import('./stories'),
+  },
+  {
+    id: 'words',
+    title: 'Read Words',
+    emoji: '📖',
+    color: '--k-app-words',
+    tagline: 'Say the word',
+    group: 'reading',
+    enabled: true,
+    input: ['voice'],
+    load: () => import('./words'),
+  },
+  {
+    id: 'sentences',
+    title: 'Read Sentences',
+    emoji: '💬',
+    color: '--k-app-sentences',
+    tagline: 'Read it out loud',
+    group: 'reading',
+    enabled: true,
+    input: ['voice'],
+    load: () => import('./sentences'),
+  },
+  {
+    id: 'maps',
+    title: 'Maps',
+    emoji: '🗺️',
+    color: '--k-app-maps',
+    tagline: 'Find states & places',
+    group: 'world',
+    enabled: true,
+    input: ['pointer'],
+    load: () => import('./maps'),
+  },
+];
+
+export function getApp(id: string): AppDefinition | undefined {
+  return APPS.find((a) => a.id === id);
+}
+
+export function isRoutable(id: string): id is AppId {
+  const a = getApp(id);
+  return Boolean(a && a.enabled && a.load);
+}

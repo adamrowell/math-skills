@@ -1,0 +1,49 @@
+/* Import Design Tokens */
+@import './styles/tokens.css';
+
+/* Global Reset & Base Styles */
+:root {
+  font-family: var(--font-family);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Prevent iOS zoom on double tap */
+button, input {
+  touch-action: manipulation;
+}
+
+/* Ensure proper touch behavior on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}

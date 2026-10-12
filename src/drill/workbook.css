@@ -1,0 +1,245 @@
+/* Workbook (vertical) layout for multi-digit + and − (docs/UX-V3.md §5). Owner: B. */
+
+.wb {
+  --wb-size: clamp(44px, 8.5vw, 80px);
+  --wb-gap: 0.14em;
+  --wb-ink-soft: var(--k-ink-soft);
+  /* Never wider than the card: shrink to fit its inline size (the card is a size container). */
+  font-size: min(var(--wb-size), calc(92cqi / (var(--wb-n, 3) * 1.14 + 0.45)));
+  font-weight: 900;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  color: var(--k-ink);
+  display: grid;
+  grid-template-columns: 0.8em repeat(var(--wb-n, 3), 1em);
+  grid-template-rows: 0.55em 1.08em 1.08em 0.24em 1.2em;
+  column-gap: var(--wb-gap);
+  align-items: center;
+  justify-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: dr-in 200ms var(--k-ease);
+  /* Nudge left by half the operator column so the digits sit centred in the card. */
+  margin-left: -0.4em;
+}
+
+.wb-cell {
+  width: 1em;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  position: relative;
+}
+.wb-op {
+  width: 0.8em;
+}
+.wb-op--sign {
+  color: var(--wb-ink-soft);
+}
+
+/* Carry / borrow row: small digits above the columns. */
+.wb-carry {
+  font-size: 0.45em;
+  width: calc(1em / 0.45);
+  color: var(--k-accent-ink);
+  align-items: flex-end;
+}
+.wb-carry--slot {
+  cursor: pointer;
+  /* Tap slot is bigger than it looks (44 px min on phones via the min-* below). */
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+}
+.wb-carry--slot::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0.05em;
+  width: 1.15em;
+  height: 1.25em;
+  transform: translateX(-50%);
+  border: 2px dashed transparent;
+  border-radius: 0.3em;
+  transition: border-color 200ms;
+}
+.wb-carry--slot.is-on:not(.is-set)::before {
+  border-color: color-mix(in srgb, var(--k-ink-soft) 40%, transparent);
+}
+.wb-carry--slot.is-set {
+  animation: dr-pop 220ms var(--k-ease);
+}
+
+.wb-digit--tap {
+  cursor: pointer;
+  border-radius: 12px;
+}
+.wb-digit--tap:active {
+  background: color-mix(in srgb, var(--k-app) 10%, transparent);
+}
+.wb-struck {
+  position: relative;
+  color: var(--wb-ink-soft);
+}
+.wb-struck::after {
+  content: '';
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  top: 50%;
+  height: 0.08em;
+  background: var(--k-danger);
+  border-radius: 99px;
+  transform: rotate(-38deg);
+}
+.wb-got {
+  /* Borrowed ten: a small 1 tucked in front of the digit, without moving it off its column. */
+  position: absolute;
+  right: 72%;
+  top: 0.18em;
+  font-size: 0.45em;
+  color: var(--k-accent-ink);
+}
+.wb--retype .wb-got {
+  color: var(--k-success);
+}
+
+/* The rule under the sum: spans operator .. ones. */
+.wb-rule {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--k-ink);
+  align-self: center;
+}
+
+/* Answer boxes. */
+.wb-box {
+  width: 1em;
+  height: 1.15em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid color-mix(in srgb, var(--k-app) 35%, transparent);
+  border-radius: 10px;
+  background: var(--k-surface);
+  color: var(--k-app);
+  box-sizing: border-box;
+  transition:
+    border-color 120ms,
+    background 120ms;
+}
+.wb-box.is-extra {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--k-app) 25%, transparent);
+}
+.wb-box.is-next {
+  border-color: var(--k-app);
+  border-style: solid;
+  background: color-mix(in srgb, var(--k-app) 7%, var(--k-surface));
+}
+.wb-box.is-filled {
+  animation: dr-pop 200ms var(--k-ease);
+}
+.wb-caret {
+  height: 0.75em;
+}
+
+/* Correct: everything green. */
+.wb--correct .wb-box {
+  color: var(--k-success);
+  border-color: var(--k-success);
+  border-style: solid;
+}
+.wb--correct .wb-box.is-extra,
+.wb--correct .wb-box:empty {
+  border-color: color-mix(in srgb, var(--k-success) 25%, transparent);
+  border-style: dashed;
+}
+
+/* Retype: the right answer shown in green; what he types flips to ink. */
+.wb--retype .wb-box.is-ghost {
+  color: var(--k-success);
+  border-color: color-mix(in srgb, var(--k-success) 55%, transparent);
+  background: var(--k-success-soft, #f0fdf4);
+}
+.wb--retype .wb-box.is-filled {
+  color: var(--k-ink);
+  border-color: var(--k-ink);
+}
+.wb--retype .wb-carry {
+  color: var(--k-success);
+}
+
+/* ---- In the drill card ---- */
+.dr-card--wb {
+  container-type: inline-size;
+}
+.dr-card .wb {
+  margin-top: 6px;
+}
+.dr-retype .wb {
+  --wb-size: clamp(40px, 7.5vw, 72px);
+}
+
+/* Sizes per viewport (§5.5). */
+@media (min-width: 700px) and (orientation: portrait) {
+  /* The portrait iPad card is ~650 px tall: use it (≈ 90 px at 820 wide). */
+  .wb {
+    --wb-size: clamp(70px, 11vw, 96px);
+  }
+  .dr-retype .wb {
+    --wb-size: clamp(62px, 9.5vw, 84px);
+  }
+}
+@media (max-width: 560px) {
+  .wb {
+    /* 44 px is the floor; use the room a tall phone has (≈ 56 px on a 393×745 iPhone). */
+    --wb-size: clamp(40px, min(14vw, 7.6dvh), 60px);
+    --wb-gap: 0.16em;
+  }
+  .dr-retype .wb {
+    --wb-size: clamp(36px, min(12.5vw, 6.6dvh), 52px);
+  }
+  .wb-rule {
+    height: 5px;
+  }
+}
+/* Short landscape (phones): card beside the keypad, tight height. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .wb {
+    --wb-size: 40px;
+  }
+  .dr-retype .wb {
+    --wb-size: 32px;
+  }
+  .wb-rule {
+    height: 4px;
+  }
+}
+/* Short-but-wide (e.g. iPad landscape with keyboard / small laptop): keep it inside the card. */
+@media (min-width: 900px) and (max-height: 700px) and (min-height: 501px) {
+  .wb {
+    --wb-size: 64px;
+  }
+  .dr-retype .wb {
+    --wb-size: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb,
+  .wb-box.is-filled,
+  .wb-carry--slot.is-set {
+    animation: none;
+  }
+}

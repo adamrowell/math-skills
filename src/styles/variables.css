@@ -1,0 +1,70 @@
+/* Shared CSS Variables for Consistent Theming */
+
+:root {
+  /* Primary background - consistent across all apps */
+  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  --bg-color: #f5f7fa;
+
+  /* Card and panel backgrounds */
+  --card-bg: white;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --card-border-radius: 12px;
+
+  /* Accent colors */
+  --accent-primary: #667eea;
+  --accent-secondary: #764ba2;
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Status colors */
+  --color-success: #4CAF50;
+  --color-success-light: #e8f5e9;
+  --color-error: #f44336;
+  --color-error-light: #ffebee;
+  --color-warning: #FF9800;
+  --color-warning-light: #fff3e0;
+  --color-info: #2196F3;
+  --color-info-light: #e3f2fd;
+
+  /* Text colors */
+  --text-primary: #333;
+  --text-secondary: #666;
+  --text-muted: #888;
+  --text-on-dark: white;
+
+  /* Border colors */
+  --border-light: #e0e0e0;
+  --border-medium: #ccc;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  /* Font sizes */
+  --font-xs: 0.7rem;
+  --font-sm: 0.85rem;
+  --font-base: 1rem;
+  --font-lg: 1.2rem;
+  --font-xl: 1.5rem;
+  --font-2xl: 2rem;
+
+  /* Layout */
+  --header-height: 56px;
+  --sidebar-width: 300px;
+
+  /* Animation */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
+
+/* Dark mode support (future) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Can be expanded for dark mode support */
+  }
+}

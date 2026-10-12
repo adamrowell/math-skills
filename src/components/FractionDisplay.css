@@ -1,0 +1,54 @@
+/* Fraction Display Component */
+
+.fraction-display {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.fraction-display__value,
+.fraction-display__expression {
+  font-size: inherit;
+}
+
+/* Stacked fraction display */
+.fraction-display__fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5em;
+  line-height: 1.1;
+  vertical-align: middle;
+}
+
+.fraction-display__numerator,
+.fraction-display__denominator {
+  display: block;
+  text-align: center;
+}
+
+.fraction-display__line {
+  display: block;
+  width: 100%;
+  min-width: 1.5em;
+  height: 2px;
+  background: currentColor;
+  margin: 2px 0;
+}
+
+/* Mixed number (whole + fraction) */
+.fraction-display__mixed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+}
+
+.fraction-display__whole {
+  font-size: 1em;
+}
+
+.fraction-display__mixed .fraction-display__fraction {
+  font-size: 0.55em;
+}

@@ -1,0 +1,197 @@
+/*
+ * Phone layout overrides (docs/UX-V3.md §6, builder E). Media-query overrides ONLY — the base
+ * styles live with each component. Imported last from main.tsx; selectors are prefixed with
+ * `html:root` so they still win over component CSS that is lazy-loaded (and so injected later).
+ *
+ *   phone portrait   (max-width: 480px)
+ *   phone landscape  (max-height: 500px) and (orientation: landscape)
+ */
+
+/* ================================ Phone portrait ================================ */
+@media (max-width: 480px) {
+  html:root .k-topbar {
+    min-height: 56px;
+    padding: 6px max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left));
+    gap: 8px;
+  }
+  html:root .k-topbar__back {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    font-size: 24px;
+  }
+  html:root .k-topbar__title {
+    font-size: 18px;
+  }
+  html:root .k-topbar .k-chip {
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 16px;
+  }
+
+  /* Drill keypad: three big columns, pinned above the home indicator. */
+  html:root .dr-pad,
+  html:root .al-pad {
+    padding-bottom: max(0px, calc(env(safe-area-inset-bottom) - 10px));
+  }
+  html:root .dr-pad .k-keypad,
+  html:root .al-pad .k-keypad {
+    width: calc(100% - 8px);
+    max-width: 420px;
+    gap: 8px;
+  }
+  html:root .dr-pad .k-key,
+  html:root .al-pad .k-key {
+    min-height: 58px;
+    font-size: 30px;
+  }
+  html:root .dr-body,
+  html:root .al-body {
+    gap: 8px;
+    padding: 0 12px 10px;
+  }
+  /* The timer row sits above the card inside the stage (DrillScreen renders it there < 480 px). */
+  html:root .dr-stage {
+    flex-direction: column;
+    gap: 8px;
+  }
+  html:root .dr-stage > .dr-card {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Maps: pack tabs scroll sideways instead of pushing the page wider. */
+  html:root .mp-packs {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  html:root .mp-packs::-webkit-scrollbar {
+    display: none;
+  }
+  html:root .mp-pack {
+    flex: 0 0 auto;
+    min-width: 132px;
+    padding: 0 14px;
+    font-size: 19px;
+    scroll-snap-align: start;
+  }
+}
+
+/* =============================== Phone landscape =============================== */
+@media (max-height: 500px) and (orientation: landscape) {
+  html:root .k-topbar {
+    min-height: 48px;
+    padding: 4px max(12px, env(safe-area-inset-right)) 4px max(12px, env(safe-area-inset-left));
+  }
+  html:root .k-topbar__back {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    border-radius: 14px;
+  }
+  html:root .k-topbar .k-chip {
+    min-height: 36px;
+    font-size: 16px;
+  }
+
+  /* Problem card and keypad side by side at ANY width (a phone is < 900 px wide). */
+  html:root .dr-body,
+  html:root .al-body {
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: stretch;
+    gap: 12px;
+    padding: 0 max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  }
+  html:root .dr-stage,
+  html:root .al-stage {
+    min-height: 0;
+  }
+  html:root .dr-card {
+    min-height: 0;
+    max-height: calc(100dvh - 64px);
+    padding: 10px 12px 8px;
+  }
+  html:root .al-card {
+    min-height: 0;
+    height: calc(100dvh - 64px);
+    padding: 10px 12px;
+  }
+  html:root .dr-problem {
+    font-size: clamp(40px, 15vh, 64px);
+  }
+  html:root .dr-problem--retype {
+    font-size: clamp(34px, 12vh, 52px);
+  }
+  html:root .dr-pad,
+  html:root .al-pad {
+    align-items: center;
+  }
+  html:root .dr-pad .k-keypad,
+  html:root .al-pad .k-keypad {
+    max-width: 300px;
+    gap: 6px;
+  }
+  html:root .dr-pad .k-key,
+  html:root .al-pad .k-key {
+    min-height: 48px;
+    font-size: 26px;
+    border-radius: 14px;
+    box-shadow: 0 3px 0 #d5dcef;
+  }
+  html:root .dr-pad .k-key--ok,
+  html:root .al-pad .k-key--ok {
+    box-shadow: 0 3px 0 rgba(27, 37, 89, 0.25);
+  }
+  html:root .dr-countdown {
+    font-size: clamp(80px, 40vh, 160px);
+  }
+
+  /* Ready / mic-step cards: fit 340 px tall. */
+  html:root .dr-ready__title {
+    font-size: 24px;
+  }
+
+  /* Reading: the word must fit above the buttons. */
+  html:root .rd-main {
+    padding: 4px max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    max-height: calc(100dvh - 48px);
+  }
+  html:root .rd-card {
+    padding: 8px 14px;
+    gap: 6px;
+    min-height: 0;
+  }
+  html:root .rd-word {
+    font-size: clamp(52px, 19vh, 120px);
+  }
+  /* The mic panel (what the mic is doing) must stay fully on screen under the card. */
+  html:root .rd-micpanel {
+    margin-top: 6px;
+  }
+  html:root .rd-actions {
+    margin-top: 2px;
+  }
+  html:root .rd-actions .k-btn {
+    min-height: 52px;
+    font-size: 20px;
+  }
+  html:root .rd-tip {
+    display: none;
+  }
+  html:root .rd-go {
+    min-height: 64px;
+    font-size: 28px;
+  }
+}
+
+/* Very short landscape (Safari with bars showing): drop the ready card's description line. */
+@media (max-height: 360px) and (orientation: landscape) {
+  html:root .dr-ready__desc {
+    display: none;
+  }
+}

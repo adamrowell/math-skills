@@ -1,0 +1,166 @@
+/* UX-V3 §2.4 — the universal green PLAY pill. */
+.k-play {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: min(100%, 440px);
+  min-height: 96px;
+  padding: 10px 36px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--k-play);
+  color: var(--k-play-ink);
+  font: inherit;
+  font-weight: 900;
+  font-size: 36px;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  cursor: pointer;
+  box-shadow: 0 8px 0 var(--k-play-deep);
+  transition:
+    transform var(--k-fast) ease,
+    box-shadow var(--k-fast) ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.k-play:focus-visible {
+  outline: 4px solid var(--k-primary);
+  outline-offset: 6px;
+}
+.k-play:active:not(:disabled) {
+  transform: translateY(6px);
+  box-shadow: 0 2px 0 var(--k-play-deep);
+}
+.k-play:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.k-play__icon {
+  font-size: 28px;
+  line-height: 1;
+  flex: none;
+}
+.k-play__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.k-play--md {
+  min-height: 72px;
+  font-size: 28px;
+  width: min(100%, 360px);
+}
+.k-play--continue {
+  width: 100%;
+  max-width: none;
+  font-size: 26px;
+  letter-spacing: 0.02em;
+  justify-content: flex-start;
+  padding-left: 28px;
+}
+.k-play--continue .k-play__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  font-size: 26px;
+}
+.k-play--mic {
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+/* The pulse lives on a pseudo-element and the label, never on the button box itself, so the
+   button's hit box stays still (and automation sees a stable element). */
+.k-play::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: k-play-ring 1.8s ease-out infinite;
+}
+.k-play__icon,
+.k-play__label {
+  animation: k-play-grow 1.8s ease-in-out infinite;
+}
+.k-play.is-idle-hint::before,
+.k-play.is-idle-hint .k-play__icon,
+.k-play.is-idle-hint .k-play__label {
+  animation-duration: 0.9s;
+}
+.k-play:active::before,
+.k-play:active .k-play__icon,
+.k-play:active .k-play__label,
+.k-play:disabled::before,
+.k-play:disabled .k-play__icon,
+.k-play:disabled .k-play__label {
+  animation: none;
+}
+@keyframes k-play-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--k-play-glow);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 14px rgba(34, 197, 94, 0);
+  }
+}
+@keyframes k-play-grow {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@media (max-width: 480px) {
+  .k-play {
+    min-height: 84px;
+    font-size: 32px;
+  }
+  .k-play--continue {
+    min-height: 76px;
+    font-size: 21px;
+    padding: 8px 16px;
+    gap: 12px;
+  }
+  .k-play--continue .k-play__label {
+    white-space: normal;
+    text-align: left;
+    line-height: 1.15;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .k-play--continue .k-play__icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .k-play {
+    min-height: 64px;
+    font-size: 28px;
+  }
+  .k-play--continue {
+    min-height: 60px;
+    font-size: 21px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-play::before,
+  .k-play__icon,
+  .k-play__label {
+    animation: none;
+  }
+}

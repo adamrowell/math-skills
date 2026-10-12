@@ -1,0 +1,903 @@
+/* Drill screen: problem card + keypad, portrait (stacked) and landscape (side by side). */
+
+.dr-screen {
+  background:
+    radial-gradient(1200px 500px at 50% -200px, color-mix(in srgb, var(--k-app) 16%, transparent), transparent),
+    var(--k-bg);
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.dr-body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 0 16px 16px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) and (orientation: landscape), (min-width: 1000px) and (min-aspect-ratio: 5/4) {
+  .dr-body {
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    align-items: center;
+    gap: 28px;
+    padding: 0 28px 24px;
+  }
+}
+
+.dr-stage {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  justify-content: center;
+}
+.dr-stage > .dr-card {
+  flex: 1 1 auto;
+}
+
+.dr-pad {
+  display: flex;
+  justify-content: center;
+}
+
+/* ---------- Card ---------- */
+.dr-card {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+  max-height: 520px;
+  background: var(--k-surface);
+  border-radius: var(--k-radius-lg);
+  box-shadow: var(--k-shadow-card);
+  border: 3px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 16px 10px;
+  transition: border-color 120ms, background 120ms;
+  overflow: hidden;
+}
+.dr-card.is-correct {
+  border-color: var(--k-success);
+  background: linear-gradient(180deg, #f0fdf4, #fff);
+}
+.dr-card.is-wrong {
+  border-color: #ffb3b5;
+  background: linear-gradient(180deg, #fff5f5, #fff);
+}
+
+.dr-card__count {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--k-ink);
+}
+.dr-card__score {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff4cc;
+  border: 2px solid #ffd34d;
+  color: #5a3d00;
+  font-weight: 900;
+  font-size: 22px;
+  border-radius: 999px;
+  padding: 2px 12px;
+}
+.dr-card__score-n {
+  display: inline-block;
+  animation: dr-score-pop 260ms var(--k-ease);
+}
+@keyframes dr-score-pop {
+  0% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.dr-grid__head.is-static {
+  background: transparent;
+  color: var(--k-ink-soft);
+}
+.mu-legend .dr-cell--b0 {
+  display: inline-block;
+}
+
+.dr-problem {
+  font-size: clamp(56px, 11vw, 120px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--k-ink);
+  white-space: nowrap;
+  animation: dr-in 200ms var(--k-ease);
+}
+.dr-problem--retype {
+  font-size: clamp(44px, 9vw, 96px);
+  animation: none;
+}
+@keyframes dr-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+}
+
+.dr-answer-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+.dr-eq {
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 900;
+  color: var(--k-ink-soft);
+}
+.dr-answer {
+  font-size: clamp(56px, 11vw, 116px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--k-app);
+  border-bottom: 6px solid color-mix(in srgb, var(--k-app) 35%, transparent);
+  border-radius: 6px;
+  text-align: center;
+  padding: 0 10px;
+  min-height: 1.15em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.is-correct .dr-answer {
+  color: var(--k-success);
+  border-color: var(--k-success);
+  animation: dr-pop 260ms var(--k-ease);
+}
+.dr-answer--retype {
+  color: var(--k-ink);
+  font-size: clamp(48px, 9vw, 96px);
+}
+@keyframes dr-pop {
+  50% {
+    transform: scale(1.15);
+  }
+}
+.dr-caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 0.8em;
+  background: color-mix(in srgb, var(--k-app) 60%, transparent);
+  border-radius: 4px;
+  animation: dr-blink 1s steps(1) infinite;
+}
+@keyframes dr-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- Retype ---------- */
+.dr-retype {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+.dr-retype.do-shake {
+  animation: dr-shake 320ms ease;
+}
+@keyframes dr-shake {
+  20% {
+    transform: translateX(-12px);
+  }
+  40% {
+    transform: translateX(10px);
+  }
+  60% {
+    transform: translateX(-7px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+.dr-retype__given {
+  font-size: 22px;
+  color: var(--k-danger);
+  font-weight: 800;
+}
+.dr-retype__given s {
+  text-decoration-thickness: 3px;
+}
+.dr-retype__ans {
+  color: var(--k-success);
+}
+.dr-retype__hint {
+  font-size: 24px;
+  color: var(--k-ink-soft);
+  font-weight: 800;
+}
+.dr-retype__hint b {
+  color: var(--k-ink);
+}
+.dr-retype-timer {
+  width: min(260px, 70%);
+  height: 6px;
+  border-radius: 999px;
+  background: var(--k-line);
+  overflow: hidden;
+  margin-top: 10px;
+}
+.dr-retype-timer__fill {
+  height: 100%;
+  width: 100%;
+  background: var(--k-ink-soft);
+  transform-origin: left;
+  animation-name: dr-drain;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes dr-drain {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* ---------- Heard bubble ---------- */
+.dr-heard-slot {
+  min-height: 44px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+.dr-heard {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--k-surface-2);
+  font-size: 20px;
+  color: var(--k-ink-soft);
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: k-fade 150ms ease;
+}
+.dr-heard.is-unclear {
+  background: #fff7dc;
+  color: #7a5200;
+}
+
+/* ---------- Ready / countdown ---------- */
+.dr-ready {
+  gap: 14px;
+  text-align: center;
+}
+.dr-ready__title {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 900;
+}
+.dr-ready__desc {
+  font-size: 20px;
+  color: var(--k-ink-soft);
+}
+.dr-ready__tip {
+  font-size: 18px;
+  color: var(--k-ink-soft);
+}
+.dr-ready .k-play {
+  margin-top: 6px;
+}
+.dr-countdown {
+  font-size: clamp(120px, 24vw, 220px);
+  font-weight: 900;
+  color: var(--k-app);
+  animation: dr-count 520ms ease-out;
+}
+@keyframes dr-count {
+  from {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- Timer & progress (top bar centre) ---------- */
+.dr-timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+}
+.dr-timer__track {
+  flex: 1;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--k-line);
+  overflow: hidden;
+}
+.dr-timer__fill {
+  height: 100%;
+  width: 100%;
+  background: var(--k-app);
+  border-radius: 999px;
+  transform-origin: left;
+  transition: transform 100ms linear, background 200ms;
+}
+.dr-timer.is-low .dr-timer__fill {
+  background: var(--k-warn);
+}
+.dr-timer__secs {
+  font-size: 26px;
+  font-weight: 900;
+  min-width: 2ch;
+  text-align: right;
+}
+.dr-timer.is-low .dr-timer__secs {
+  color: #d26a00;
+  animation: dr-pop 1s ease infinite;
+}
+.dr-progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 22px;
+  font-weight: 900;
+}
+.dr-progress__clock {
+  color: var(--k-ink-soft);
+}
+
+/* ---------- Mic ---------- */
+.dr-mic {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--k-surface);
+  border: 2px solid var(--k-line);
+  display: grid;
+  place-items: center;
+}
+.dr-mic__icon {
+  font-size: 22px;
+  position: relative;
+  z-index: 1;
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+.dr-mic.is-on .dr-mic__icon {
+  filter: none;
+  opacity: 1;
+}
+.dr-mic__ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  border: 3px solid var(--k-success);
+  opacity: 0;
+  transform: scale(calc(1 + var(--lvl, 0) * 0.35));
+  transition: transform 60ms linear, opacity 150ms;
+}
+.dr-mic.is-live {
+  border-color: var(--k-success);
+  background: var(--k-success-soft);
+}
+.dr-mic.is-live .dr-mic__ring {
+  opacity: 0.7;
+}
+.dr-mic.is-hearing .dr-mic__ring {
+  opacity: 1;
+}
+.dr-mic.is-err {
+  border-color: var(--k-danger);
+  background: var(--k-danger-soft);
+}
+.dr-mic__slash {
+  position: absolute;
+  width: 3px;
+  height: 34px;
+  background: var(--k-danger);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  z-index: 2;
+}
+.dr-mic__pct {
+  position: absolute;
+  bottom: -8px;
+  font-size: 11px;
+  background: var(--k-ink);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0 5px;
+  z-index: 2;
+}
+.dr-mic__bang {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--k-danger);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+/* ---------- Pause ---------- */
+.dr-pause {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: grid;
+  place-items: center;
+  background: rgba(27, 37, 89, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.dr-pause__card {
+  background: var(--k-surface);
+  border-radius: var(--k-radius-lg);
+  padding: 28px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.dr-pause__emoji {
+  font-size: 56px;
+}
+.dr-pause__title {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+/* ---------- Summary extras ---------- */
+.dr-summary-facts {
+  margin: 4px 0 12px;
+}
+.dr-summary-facts__label {
+  font-size: 17px;
+  color: var(--k-ink-soft);
+  margin-bottom: 6px;
+}
+.dr-summary-facts__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.dr-fact-chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--k-danger-soft);
+  font-weight: 900;
+  font-size: 18px;
+}
+.dr-fact-chip.is-up {
+  background: var(--k-success-soft);
+}
+.dr-fact-chip.is-more {
+  background: var(--k-surface-2);
+  color: var(--k-ink-soft);
+}
+/* Countdown: "Get ready…" above, mic line below (UX-V3 §2.3). */
+.dr-countwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.dr-countdown__label {
+  font-size: clamp(22px, 3.4vw, 30px);
+  font-weight: 900;
+  color: var(--k-ink-soft);
+}
+.dr-countdown__mic {
+  min-height: 30px;
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--k-ink-soft);
+}
+.dr-nudge {
+  align-self: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--k-surface-2);
+  color: var(--k-ink-soft);
+  font-size: 18px;
+  font-weight: 800;
+  animation: k-fade 300ms ease both;
+}
+.dr-stage__timer {
+  width: 100%;
+}
+.dr-stage__timer .dr-timer {
+  width: 100%;
+}
+.dr-micstep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.dr-micstep .k-play {
+  margin: 4px 0 2px;
+}
+.dr-micstep__sub {
+  font-size: 18px;
+  color: var(--k-ink-soft);
+  font-weight: 700;
+}
+
+/* ---------- Picker ---------- */
+.dr-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dr-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dr-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  min-width: 56px;
+  justify-content: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--k-surface);
+  border: 2px solid var(--k-line);
+  font-weight: 900;
+  font-size: 19px;
+  transition: transform 80ms;
+}
+.dr-chip:active {
+  transform: scale(0.95);
+}
+.dr-chip__mult {
+  font-size: 13px;
+  font-weight: 900;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--k-surface-2);
+  color: var(--k-ink-soft);
+}
+.dr-chip__mult.is-up {
+  background: #fff1b8;
+  color: #7a5200;
+}
+.dr-chip.is-on .dr-chip__mult {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+.dr-chip--more.is-open:not(.is-on) {
+  border-style: dashed;
+}
+.dr-chips--tables {
+  margin-top: -6px;
+  padding: 10px;
+  border-radius: 18px;
+  background: var(--k-surface-2);
+}
+.dr-chip.is-on {
+  background: var(--k-app);
+  border-color: var(--k-app);
+  color: #fff;
+}
+.dr-formats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.dr-format {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'emoji title'
+    'emoji desc'
+    'emoji best';
+  column-gap: 12px;
+  align-items: center;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: var(--k-radius);
+  background: var(--k-surface);
+  border: 2px solid var(--k-line);
+  box-shadow: 0 4px 0 #dfe5f4;
+  transition: transform 80ms, box-shadow 80ms;
+}
+.dr-format:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #dfe5f4;
+}
+.dr-format__emoji {
+  grid-area: emoji;
+  font-size: 36px;
+}
+.dr-format__title {
+  grid-area: title;
+  font-size: 22px;
+  font-weight: 900;
+}
+.dr-format__desc {
+  grid-area: desc;
+  font-size: 16px;
+  color: var(--k-ink-soft);
+}
+.dr-format__best {
+  grid-area: best;
+  font-size: 17px;
+  margin-top: 2px;
+}
+
+/* ---------- Mastery grid ---------- */
+.dr-grid {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  /* 13 equal columns: ≥ 44 px tap targets on iPad (fits 820 px landscape), grows into tall screens. */
+  max-width: max(600px, min(740px, calc(100dvh - 215px)));
+  margin: 0 auto;
+}
+.dr-grid__corner,
+.dr-grid__head {
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: clamp(13px, 2.6vw, 18px);
+  aspect-ratio: 1;
+  border-radius: 8px;
+}
+.dr-grid__corner {
+  color: var(--k-ink-soft);
+}
+.dr-grid__head {
+  background: color-mix(in srgb, var(--k-app) 14%, white);
+  color: var(--k-ink);
+}
+.dr-grid__head:active {
+  background: var(--k-app);
+  color: #fff;
+}
+.dr-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  font-size: clamp(9px, 2vw, 15px);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  place-items: center;
+  background: #eceff6;
+  color: transparent;
+  transition: transform 80ms;
+  min-width: 0;
+}
+.dr-cell:active {
+  transform: scale(0.9);
+}
+.dr-cell--b0 {
+  background: #ffd9da;
+}
+.dr-cell--b1 {
+  background: #d6e4ff;
+}
+.dr-cell--b2 {
+  background: #a9c6ff;
+}
+.dr-cell--b3 {
+  background: #6f9dff;
+  color: #fff;
+}
+.dr-cell--b4 {
+  background: #3d6cf0;
+  color: #fff;
+}
+.dr-cell--b5 {
+  background: linear-gradient(135deg, #ffd34d, #f5a800);
+  color: #5a3d00;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.12);
+}
+.dr-cell.is-hl {
+  outline: 3px solid var(--k-success);
+  outline-offset: 1px;
+}
+.dr-cell.is-empty {
+  background: transparent;
+}
+
+/* ---------- Responsive overrides (keep last) ---------- */
+/* Tall portrait tablets: bigger keypad, card fills the space. */
+@media (min-width: 700px) and (orientation: portrait) {
+  .dr-body {
+    gap: 24px;
+    padding: 8px 32px 32px;
+  }
+  .dr-card {
+    max-height: none;
+  }
+  .dr-pad .k-keypad {
+    max-width: 500px;
+    gap: 14px;
+  }
+  .dr-pad .k-key {
+    min-height: 88px;
+    font-size: 42px;
+  }
+}
+
+/* Phones: the timer gets its own full-width row under the top bar. */
+@media (max-width: 560px) {
+  .dr-screen .k-topbar {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    padding-bottom: 6px;
+  }
+  .dr-screen .k-topbar__center {
+    order: 10;
+    flex-basis: 100%;
+  }
+  .dr-screen .k-topbar__center:empty {
+    display: none;
+  }
+  .dr-screen .k-topbar__right {
+    margin-left: auto;
+  }
+  .dr-card {
+    min-height: 180px;
+  }
+}
+
+
+/* ---------- Mic looks (integration): 👂 listening, pulses while hearing; 🧠 loading ring ---------- */
+.dr-mic.is-ear,
+.dr-mic.is-hearing,
+.dr-mic.is-thinking {
+  border-color: var(--k-success);
+  background: var(--k-success-soft);
+}
+.dr-mic.is-ear .dr-mic__ring {
+  opacity: 0.55;
+}
+.dr-mic.is-hearing .dr-mic__ring {
+  opacity: 1;
+}
+.dr-mic.is-hearing .dr-mic__icon {
+  animation: dr-ear-pulse 0.6s ease-in-out infinite;
+}
+@keyframes dr-ear-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.22);
+  }
+}
+.dr-mic.is-error {
+  border-color: var(--k-danger);
+  background: var(--k-danger-soft);
+}
+.dr-mic.is-error .dr-mic__icon {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+.dr-mic__progress {
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  background: conic-gradient(var(--k-app, var(--k-success)) calc(var(--pct, 0) * 360deg), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+  pointer-events: none;
+}
+.dr-mic.is-brain .dr-mic__icon {
+  animation: dr-brain-bob 1.2s ease-in-out infinite;
+}
+@keyframes dr-brain-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px) rotate(-6deg);
+  }
+}
+.dr-mic__dots {
+  position: absolute;
+  bottom: 3px;
+  display: flex;
+  gap: 2px;
+  z-index: 2;
+}
+.dr-mic__dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--k-success);
+  animation: dr-dot 0.9s ease-in-out infinite;
+}
+.dr-mic__dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.dr-mic__dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes dr-dot {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dr-mic.is-hearing .dr-mic__icon,
+  .dr-mic.is-brain .dr-mic__icon,
+  .dr-mic__dots i {
+    animation: none;
+  }
+}
+.dr-ready__tip.is-err {
+  color: var(--k-danger);
+}
+.dr-brain {
+  width: min(320px, 100%);
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+.dr-brain__row {
+  font-weight: 800;
+  color: var(--k-ink);
+}
+.dr-brain__bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--k-line);
+  overflow: hidden;
+}
+.dr-brain__bar span {
+  display: block;
+  height: 100%;
+  background: var(--k-app, var(--k-success));
+  transform-origin: left center;
+  transition: transform 200ms linear;
+}
+.dr-brain__sub {
+  font-size: 15px;
+}

@@ -1,0 +1,386 @@
+.clock-master__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.clock-master__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.clock-master__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.clock-master__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.clock-master__instructions h3 {
+  color: #ff9800;
+  margin-bottom: 1rem;
+}
+
+.clock-master__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.clock-master__instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+}
+
+.clock-master__instructions li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #ff9800;
+}
+
+.clock-master__high-score {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.clock-master__start-button {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
+  transition: all 0.3s ease;
+}
+
+.clock-master__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(250, 112, 154, 0.6);
+}
+
+.clock-master {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.clock-master__header {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.clock-master__timer {
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.clock-master__target {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.clock-master__target strong {
+  color: #ff9800;
+  font-size: 1.8rem;
+}
+
+.clock-master__clock {
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+
+.clock-master__clock-face {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 0 0 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-master__hour-marker {
+  position: absolute;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Position each number around the clock face */
+.clock-master__hour-marker:nth-child(1) { top: 8px; left: 50%; transform: translateX(-50%); }  /* 12 */
+.clock-master__hour-marker:nth-child(2) { top: 22px; right: 45px; }  /* 1 */
+.clock-master__hour-marker:nth-child(3) { top: 60px; right: 18px; }  /* 2 */
+.clock-master__hour-marker:nth-child(4) { top: 50%; right: 8px; transform: translateY(-50%); }  /* 3 */
+.clock-master__hour-marker:nth-child(5) { bottom: 60px; right: 18px; }  /* 4 */
+.clock-master__hour-marker:nth-child(6) { bottom: 22px; right: 45px; }  /* 5 */
+.clock-master__hour-marker:nth-child(7) { bottom: 8px; left: 50%; transform: translateX(-50%); }  /* 6 */
+.clock-master__hour-marker:nth-child(8) { bottom: 22px; left: 45px; }  /* 7 */
+.clock-master__hour-marker:nth-child(9) { bottom: 60px; left: 18px; }  /* 8 */
+.clock-master__hour-marker:nth-child(10) { top: 50%; left: 8px; transform: translateY(-50%); }  /* 9 */
+.clock-master__hour-marker:nth-child(11) { top: 60px; left: 18px; }  /* 10 */
+.clock-master__hour-marker:nth-child(12) { top: 22px; left: 45px; }  /* 11 */
+
+.clock-master__hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: 50% 100%;
+  background: #222;
+  border-radius: 4px;
+}
+
+.clock-master__hand--hour {
+  width: 8px;
+  height: 65px;
+  margin-left: -4px;
+  z-index: 2;
+  background: #333;
+}
+
+.clock-master__hand--minute {
+  width: 5px;
+  height: 95px;
+  margin-left: -2.5px;
+  z-index: 3;
+  background: #555;
+}
+
+.clock-master__center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: #e53935;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+.clock-master__controls {
+  display: flex;
+  gap: 3rem;
+}
+
+.clock-master__control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clock-master__control-group label {
+  font-size: 1.2rem;
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.clock-master__buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.clock-master__buttons button {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  background: rgba(255, 152, 0, 0.2);
+  border: 2px solid rgba(255, 152, 0, 0.5);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clock-master__buttons button:hover {
+  background: rgba(255, 152, 0, 0.4);
+  border-color: #ff9800;
+}
+
+.clock-master__value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  min-width: 60px;
+  text-align: center;
+}
+
+.clock-master__submit {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.clock-master__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(250, 112, 154, 0.4);
+}
+
+.clock-master__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Question display */
+.clock-master__question {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Voice area */
+.clock-master__voice-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+}
+
+.clock-master__listening {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(76, 175, 80, 0.2);
+  border-radius: 20px;
+  color: #81C784;
+  font-weight: 600;
+}
+
+.clock-master__mic {
+  font-size: 1.3rem;
+  animation: clockMicPulse 1s ease infinite;
+}
+
+@keyframes clockMicPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.clock-master__transcript {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+/* Input area */
+.clock-master__input-area {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.clock-master__input {
+  padding: 14px 20px;
+  font-size: 1.3rem;
+  border: 3px solid rgba(255, 152, 0, 0.5);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  width: 260px;
+  text-align: center;
+}
+
+.clock-master__input:focus {
+  outline: none;
+  border-color: #ff9800;
+  box-shadow: 0 0 20px rgba(255, 152, 0, 0.3);
+}
+
+.clock-master__input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Feedback */
+.clock-master__feedback {
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 16px 32px;
+  border-radius: 16px;
+  animation: clockFeedbackPop 0.3s ease-out;
+}
+
+@keyframes clockFeedbackPop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.clock-master__feedback--correct {
+  background: rgba(76, 175, 80, 0.3);
+  color: #a5d6a7;
+  border: 2px solid rgba(76, 175, 80, 0.5);
+}
+
+.clock-master__feedback--wrong {
+  background: rgba(244, 67, 54, 0.3);
+  color: #ef9a9a;
+  border: 2px solid rgba(244, 67, 54, 0.5);
+}
+
+/* Level hint */
+.clock-master__hint {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+}

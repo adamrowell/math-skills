@@ -1,0 +1,242 @@
+.math-muncher__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.math-muncher__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.math-muncher__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.math-muncher__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.math-muncher__instructions h3 {
+  color: #ffeb3b;
+  margin-bottom: 1rem;
+}
+
+.math-muncher__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.math-muncher__instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+}
+
+.math-muncher__instructions li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: #ffeb3b;
+}
+
+.math-muncher__high-score {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.math-muncher__start-button {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+  transition: all 0.3s ease;
+}
+
+.math-muncher__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6);
+}
+
+.math-muncher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.math-muncher__problem {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(255, 235, 59, 0.2);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.math-muncher__remaining {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: normal;
+}
+
+/* Feedback */
+.math-muncher__feedback {
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 12px;
+  animation: muncherFeedbackPop 0.3s ease-out;
+}
+
+@keyframes muncherFeedbackPop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.math-muncher__feedback--correct {
+  background: rgba(76, 175, 80, 0.3);
+  color: #a5d6a7;
+  border: 2px solid rgba(76, 175, 80, 0.5);
+}
+
+.math-muncher__feedback--wrong {
+  background: rgba(244, 67, 54, 0.3);
+  color: #ef9a9a;
+  border: 2px solid rgba(244, 67, 54, 0.5);
+}
+
+.math-muncher__grid {
+  display: grid;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  max-width: 100%;
+  width: 560px;
+}
+
+.math-muncher__cell {
+  aspect-ratio: 1;
+  width: 100%;
+  min-width: 50px;
+  max-width: 65px;
+  background: rgba(40, 40, 80, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  cursor: default;
+}
+
+.math-muncher__cell--player {
+  background: rgba(255, 235, 59, 0.3);
+  border-color: rgba(255, 235, 59, 0.6);
+  box-shadow: 0 0 15px rgba(255, 235, 59, 0.4);
+}
+
+.math-muncher__cell--clickable {
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.math-muncher__cell--clickable:hover {
+  background: rgba(100, 100, 150, 0.6);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.math-muncher__cell--munched {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: rgba(76, 175, 80, 0.4);
+}
+
+.math-muncher__player {
+  font-size: 2rem;
+  animation: muncherBounce 0.5s ease infinite;
+}
+
+@keyframes muncherBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.math-muncher__number {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: white;
+}
+
+.math-muncher__controls {
+  font-size: 0.9rem;
+  color: #aaa;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .math-muncher__grid {
+    width: 100%;
+    padding: 4px;
+    gap: 2px;
+  }
+
+  .math-muncher__cell {
+    min-width: 40px;
+  }
+
+  .math-muncher__player {
+    font-size: 1.5rem;
+  }
+
+  .math-muncher__number {
+    font-size: 1.1rem;
+  }
+
+  .math-muncher__problem {
+    font-size: 1.6rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .math-muncher__title {
+    font-size: 2.2rem;
+  }
+}

@@ -1,0 +1,254 @@
+.puzzle {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.puzzle__progress-text {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  font-weight: bold;
+}
+
+.puzzle__count {
+  font-size: 1.5rem;
+  color: #4CAF50;
+  animation: countPulse 0.3s ease-out;
+}
+
+@keyframes countPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.puzzle__divider {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.puzzle__total {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.puzzle__percent {
+  font-size: 0.9rem;
+  color: #999;
+  margin-left: 8px;
+}
+
+.puzzle__grid {
+  display: grid;
+  gap: 4px;
+  padding: 8px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.puzzle__piece {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.puzzle__piece--filled {
+  animation: piecePopAndSparkle 0.6s ease-out;
+}
+
+/* Combined pop and sparkle animation */
+@keyframes piecePopAndSparkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(10deg);
+  }
+  70% {
+    transform: scale(0.9) rotate(-5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Sparkle effect on filled pieces */
+.puzzle__piece--filled::before {
+  content: '✨';
+  position: absolute;
+  font-size: 0.6rem;
+  top: -2px;
+  right: -2px;
+  opacity: 0;
+  animation: sparkleAppear 0.8s ease-out;
+  pointer-events: none;
+}
+
+@keyframes sparkleAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(360deg);
+  }
+}
+
+/* Subtle shimmer on filled pieces */
+.puzzle__piece--filled::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.shape {
+  font-size: clamp(0.6rem, 2vw, 1rem);
+  color: #ddd;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+.shape--filled {
+  color: var(--piece-color, #4CAF50);
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.puzzle__bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.puzzle__bar-fill {
+  height: 100%;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated shine on progress bar */
+.puzzle__bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: barShine 2s ease-in-out infinite;
+}
+
+@keyframes barShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .puzzle {
+    padding: 12px;
+  }
+
+  .puzzle__grid {
+    max-height: 120px;
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .shape {
+    font-size: 0.5rem;
+  }
+
+  .puzzle__piece--filled::before {
+    font-size: 0.4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .puzzle__grid {
+    max-height: 250px;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .puzzle__piece--filled {
+    animation: simplePop 0.3s ease-out;
+  }
+
+  @keyframes simplePop {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .puzzle__piece--filled::before,
+  .puzzle__piece--filled::after {
+    animation: none;
+  }
+
+  .puzzle__bar-fill::after {
+    animation: none;
+  }
+
+  .puzzle__count {
+    animation: none;
+  }
+}

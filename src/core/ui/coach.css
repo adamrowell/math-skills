@@ -1,0 +1,111 @@
+/* Coach marks + idle hints (UX-V3 §3). */
+.k-coach {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  animation: k-fade 200ms ease both;
+}
+.k-coach__hole {
+  position: fixed;
+  border-radius: 28px;
+  box-shadow: 0 0 0 200vmax rgba(27, 37, 89, 0.55);
+  outline: 4px solid rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  transition:
+    top 150ms ease,
+    left 150ms ease,
+    width 150ms ease,
+    height 150ms ease;
+}
+.k-coach__bubble {
+  position: fixed;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 14px 18px;
+  border-radius: 24px;
+  background: var(--k-surface);
+  color: var(--k-ink);
+  box-shadow: 0 12px 32px rgba(27, 37, 89, 0.3);
+  animation: k-pop-in 320ms var(--k-ease) both;
+}
+.k-coach__bubble::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--arrow-x) - 12px);
+  width: 24px;
+  height: 24px;
+  background: var(--k-surface);
+  transform: rotate(45deg);
+  border-radius: 4px;
+}
+.k-coach__bubble.is-below::before {
+  top: -10px;
+}
+.k-coach__bubble.is-above::before {
+  bottom: -10px;
+}
+.k-coach__hand {
+  font-size: 36px;
+  flex: none;
+  animation: k-coach-bob 1s ease-in-out infinite;
+}
+.k-coach__text {
+  flex: 1;
+  text-wrap: balance;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+.k-coach__ok {
+  flex: none;
+  pointer-events: auto;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 2px solid var(--k-line);
+  background: var(--k-surface);
+  color: var(--k-ink-soft);
+  font: inherit;
+  font-weight: 900;
+  font-size: 17px;
+  cursor: pointer;
+}
+@keyframes k-coach-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Idle hint: a bobbing hand at the target's bottom-right. */
+.k-idle-hand {
+  position: fixed;
+  z-index: 800;
+  font-size: 40px;
+  line-height: 1;
+  pointer-events: none;
+  animation: k-idle-bob 1s ease-in-out infinite;
+  filter: drop-shadow(0 4px 6px rgba(27, 37, 89, 0.25));
+}
+@keyframes k-idle-bob {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-10deg);
+  }
+  50% {
+    transform: translate(-6px, -10px) rotate(-18deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-coach__hand,
+  .k-idle-hand {
+    animation: none;
+  }
+}

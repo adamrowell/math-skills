@@ -1,0 +1,258 @@
+.math-blaster__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.math-blaster__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.math-blaster__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.math-blaster__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.math-blaster__instructions h3 {
+  color: #2196f3;
+  margin-bottom: 1rem;
+}
+
+.math-blaster__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.math-blaster__instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+}
+
+.math-blaster__instructions li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #2196f3;
+}
+
+.math-blaster__high-score {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.math-blaster__start-button {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+  transition: all 0.3s ease;
+}
+
+.math-blaster__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.6);
+}
+
+.math-blaster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.math-blaster__game-area {
+  position: relative;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(33, 150, 243, 0.1) 100%);
+  border: 3px solid rgba(33, 150, 243, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.math-blaster__enemy {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.math-blaster__alien {
+  font-size: 2rem;
+}
+
+.math-blaster__problem {
+  background: rgba(33, 150, 243, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  border: 2px solid rgba(33, 150, 243, 0.5);
+}
+
+.math-blaster__controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.math-blaster__input {
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+  border: 3px solid rgba(33, 150, 243, 0.5);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  width: 200px;
+  text-align: center;
+}
+
+.math-blaster__input:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
+}
+
+.math-blaster__shoot {
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.math-blaster__shoot:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.math-blaster__shoot:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Speed selector */
+.math-blaster__speed-selector {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.math-blaster__speed-selector h3 {
+  color: white;
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.math-blaster__speed-options {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.math-blaster__speed-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+}
+
+.math-blaster__speed-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.math-blaster__speed-button--active {
+  background: rgba(33, 150, 243, 0.3);
+  border-color: #2196f3;
+  box-shadow: 0 0 15px rgba(33, 150, 243, 0.4);
+}
+
+.math-blaster__speed-emoji {
+  font-size: 2rem;
+}
+
+/* Speed indicator during gameplay */
+.math-blaster__speed-indicator {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 20px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.math-blaster__speed-up {
+  background: #ff9800;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  animation: speedUpPulse 0.5s ease infinite;
+  margin-left: 12px;
+}
+
+@keyframes speedUpPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Input wrapper for mic indicator */
+.math-blaster__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.math-blaster__mic-indicator {
+  position: absolute;
+  right: 12px;
+  font-size: 1.2rem;
+  animation: micPulse 1s ease infinite;
+}
+
+@keyframes micPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

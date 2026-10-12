@@ -1,0 +1,208 @@
+/* Game Over Overlay */
+
+.game-over-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  animation: overlayFadeIn 0.5s ease-out;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.game-over-overlay__content {
+  text-align: center;
+  padding: 48px;
+  max-width: 500px;
+  width: 90%;
+  animation: contentSlideUp 0.6s ease-out;
+}
+
+@keyframes contentSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.game-over-overlay__title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #F44336;
+  margin: 0 0 12px;
+  text-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+  letter-spacing: 4px;
+}
+
+.game-over-overlay__subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 24px;
+}
+
+/* New high score celebration */
+.game-over-overlay__new-record {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, gold 0%, #FFC107 100%);
+  color: #333;
+  padding: 12px 28px;
+  border-radius: 30px;
+  margin-bottom: 32px;
+  animation: newRecordPulse 1s ease-in-out infinite;
+}
+
+@keyframes newRecordPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+  }
+}
+
+.game-over-overlay__new-record-icon {
+  font-size: 1.5rem;
+}
+
+.game-over-overlay__new-record-text {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* Stats grid */
+.game-over-overlay__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.game-over-overlay__stat {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-over-overlay__stat--score {
+  grid-column: 1 / -1;
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.game-over-overlay__stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.game-over-overlay__stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.game-over-overlay__stat--score .game-over-overlay__stat-value {
+  font-size: 2.5rem;
+  color: gold;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.game-over-overlay__stat-value--good {
+  color: #4CAF50 !important;
+}
+
+/* Action buttons */
+.game-over-overlay__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.game-over-overlay__button {
+  padding: 16px 32px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.game-over-overlay__button--primary {
+  background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+}
+
+.game-over-overlay__button--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(76, 175, 80, 0.5);
+}
+
+.game-over-overlay__button--secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-over-overlay__button--secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .game-over-overlay__content {
+    padding: 32px 20px;
+  }
+
+  .game-over-overlay__title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+
+  .game-over-overlay__stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .game-over-overlay__stat--score {
+    grid-column: auto;
+  }
+
+  .game-over-overlay__stat--score .game-over-overlay__stat-value {
+    font-size: 2rem;
+  }
+
+  .game-over-overlay__button {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+}

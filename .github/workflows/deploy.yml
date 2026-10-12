@@ -1,0 +1,78 @@
+# Build and deploy to GitHub Pages.
+# One-time setup: repo Settings → Pages → Build and deployment → Source: "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; never cancel a deploy that is already running.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # postinstall copies the onnxruntime WASM into public/ort/ (src/voice/tools/copy-ort.mjs).
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Privacy check (no personal paths, names or e-mails)
+        run: npm run check:privacy
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      # vite.config.ts uses base './', so the build works under any repo name (/<repo>/).
+      - name: Build
+        run: npm run build
+
+      - name: Check build output
+        run: |
+          test -f dist/index.html
+          test -f dist/.nojekyll
+          test -f dist/manifest.webmanifest
+          test -f dist/ort/ort-wasm-simd-threaded.wasm
+          test -f dist/ort/ort-wasm-simd-threaded.mjs
+          if find dist -name '*asyncify*.wasm' | grep -q .; then echo "unused asyncify wasm in dist"; exit 1; fi
+          du -sh dist
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

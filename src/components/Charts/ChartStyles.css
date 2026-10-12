@@ -1,0 +1,356 @@
+/* Chart Component Styles - Optimized for kids */
+
+.chart-wrapper {
+  background: white;
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.chart-title {
+  text-align: center;
+  color: #333;
+  font-size: 1.4rem;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+/* Chart display component - wide enough to see labels */
+.chart-display {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+/* Line Chart specific styles */
+.chart-wrapper--line {
+  padding-bottom: 8px;
+}
+
+/* Pictograph Styles */
+.pictograph-wrapper {
+  min-height: auto;
+}
+
+.pictograph-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1565c0;
+}
+
+.pictograph-key-symbol {
+  font-size: 1.4rem;
+}
+
+.pictograph-key-text {
+  color: #1565c0;
+}
+
+.pictograph-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pictograph-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f0 100%);
+  border-radius: 12px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 46px;
+}
+
+.pictograph-row:hover:not(.pictograph-row--disabled) {
+  background: linear-gradient(135deg, #e8f4fd 0%, #d0e8fc 100%);
+  border-color: #667eea;
+  transform: translateX(4px);
+}
+
+.pictograph-row--highlighted {
+  background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+  border-color: #ffc107;
+  box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+}
+
+.pictograph-row--disabled {
+  cursor: default;
+}
+
+.pictograph-label {
+  width: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  color: #333;
+}
+
+.pictograph-symbols {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
+}
+
+.pictograph-symbol {
+  font-size: 1.3rem;
+}
+
+.pictograph-value {
+  margin-left: 10px;
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(0,0,0,0.05);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chart-wrapper {
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+
+  .chart-title {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .chart-display {
+    max-width: 100%;
+  }
+
+  .pictograph-label {
+    width: 75px;
+    font-size: 0.85rem;
+  }
+
+  .pictograph-symbol {
+    font-size: 1.1rem;
+  }
+
+  .pictograph-row {
+    padding: 8px 10px;
+    min-height: 40px;
+    gap: 6px;
+  }
+
+  .pictograph-key {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  .pictograph-key-symbol {
+    font-size: 1.2rem;
+  }
+}
+
+/* Touch-friendly adjustments for iPad */
+@media (pointer: coarse) {
+  .pictograph-row {
+    min-height: 52px;
+    padding: 12px 14px;
+  }
+
+  .chart-wrapper {
+    padding: 14px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .chart-wrapper {
+    padding: 8px;
+  }
+
+  .chart-title {
+    font-size: 1rem;
+  }
+
+  .pictograph-label {
+    width: 65px;
+    font-size: 0.8rem;
+  }
+
+  .pictograph-symbol {
+    font-size: 1rem;
+  }
+
+  .pictograph-row {
+    padding: 6px 8px;
+    min-height: 38px;
+  }
+}
+
+/* Coordinate Grid Styles */
+.coordinate-grid-container {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.coordinate-grid-y-axis {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.coordinate-grid-axis-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.coordinate-grid-axis-label--y {
+  margin-bottom: 2px;
+  padding-right: 4px;
+}
+
+.coordinate-grid-axis-label--x {
+  margin-left: 8px;
+  align-self: center;
+}
+
+.coordinate-grid-y-labels {
+  display: flex;
+  flex-direction: column;
+  padding-right: 6px;
+  gap: 2px;
+  margin-top: 2px; /* Match grid padding */
+}
+
+.coordinate-grid-y-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  text-align: right;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 4px;
+  box-sizing: border-box;
+}
+
+.coordinate-grid-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.coordinate-grid {
+  display: grid;
+  gap: 2px;
+  background: #e0e0e0;
+  padding: 2px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.coordinate-grid-cell {
+  width: 44px;
+  height: 44px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.coordinate-grid-cell:hover:not(.coordinate-grid-cell--disabled) {
+  background: #e3f2fd;
+  transform: scale(1.05);
+}
+
+.coordinate-grid-cell--highlighted {
+  background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+  transform: scale(1.1);
+}
+
+.coordinate-grid-cell--has-value {
+  background: #e8f5e9;
+}
+
+.coordinate-grid-cell--disabled {
+  cursor: default;
+}
+
+.coordinate-grid-value {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.coordinate-grid-dot {
+  color: #667eea;
+  font-size: 18px;
+}
+
+.coordinate-grid-treasure {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.coordinate-grid-x-axis {
+  display: flex;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.coordinate-grid-x-labels {
+  display: flex;
+  gap: 2px;
+  margin-left: 2px; /* Match grid padding */
+}
+
+.coordinate-grid-x-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  width: 44px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .coordinate-grid-cell {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .coordinate-grid-y-label {
+    height: 32px;
+    font-size: 10px;
+  }
+
+  .coordinate-grid-x-label {
+    width: 32px;
+    font-size: 10px;
+  }
+
+  .coordinate-grid-treasure {
+    font-size: 16px;
+  }
+}

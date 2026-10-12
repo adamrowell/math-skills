@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Lab</title>
+    <style>
+      body { font: 15px/1.4 system-ui, sans-serif; margin: 16px; background: #f8fafc; color: #0f172a; }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 8px 0; }
+      button, select, input { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; }
+      button { cursor: pointer; }
+      #log { white-space: pre-wrap; font: 13px/1.35 ui-monospace, monospace; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; max-height: 60vh; overflow: auto; }
+      #status { font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <h1>Voice Lab <small>(dev only)</small></h1>
+    <p>Load the on-device model, then talk. <code>?asrModel=moonshine-tiny</code>, <code>?asrDevice=webgpu</code>, <code>?engine=webspeech</code> override.</p>
+    <div class="row">
+      <button id="preload">Load model</button>
+      <select id="mode"><option>number</option><option>word</option><option>sentence</option></select>
+      <input id="expected" placeholder="expected (56 / cat)" size="16" />
+      <button id="start">Start mic</button>
+      <button id="stop">Stop</button>
+      <span id="status">off</span>
+      <span id="level"></span>
+    </div>
+    <div id="log"></div>
+    <script type="module" src="./lab.ts"></script>
+  </body>
+</html>

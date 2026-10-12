@@ -1,0 +1,283 @@
+/* Algebra App Styles */
+
+/* Main game content - scrollable and properly contained */
+.algebra-game-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 100px);
+}
+
+/* Problem section - contains equation, balance scale, steps */
+.algebra-problem-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Input section - answer display and keypad */
+.algebra-input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Legacy problem area styling (if still used elsewhere) */
+.problem-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Legacy input area styling */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.answer-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.answer-label {
+  font-weight: 600;
+  color: #666;
+}
+
+.answer-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Steps Section */
+.steps-section {
+  width: 100%;
+  max-width: 400px;
+}
+
+.steps-toggle {
+  width: 100%;
+  padding: 10px 20px;
+  border: 2px dashed #667eea;
+  border-radius: 8px;
+  background: transparent;
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.steps-toggle:hover {
+  background: #f0f0ff;
+}
+
+/* Solution Steps */
+.solution-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+.solution-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.solution-step__number {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #667eea;
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.solution-step__content {
+  flex: 1;
+}
+
+.solution-step__description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.solution-step__equation {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Graph Game Layout */
+.graph-game-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.graph-area {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.question-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  max-width: 400px;
+}
+
+/* Graph Question */
+.graph-question {
+  background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #ffc107;
+}
+
+.graph-question__text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+.graph-question__options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.graph-question__option {
+  padding: 14px 16px;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.graph-question__option:hover:not(:disabled) {
+  border-color: #667eea;
+  background: #f5f5ff;
+  transform: translateY(-2px);
+}
+
+.graph-question__option:disabled {
+  cursor: default;
+}
+
+.graph-question__option--correct {
+  border-color: #4caf50;
+  background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+}
+
+.graph-question__option--incorrect {
+  border-color: #f44336;
+  background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%);
+}
+
+.graph-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .graph-game-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .question-area {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .algebra-game-content {
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .algebra-problem-section {
+    gap: 8px;
+  }
+
+  .algebra-input-section {
+    gap: 8px;
+  }
+
+  .problem-area {
+    gap: 12px;
+  }
+
+  .answer-display {
+    padding: 10px 16px;
+    min-width: 160px;
+  }
+
+  .answer-value {
+    font-size: 1.5rem;
+  }
+
+  .graph-question__text {
+    font-size: 1rem;
+  }
+
+  .graph-question__options {
+    grid-template-columns: 1fr;
+  }
+}

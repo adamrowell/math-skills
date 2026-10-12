@@ -1,0 +1,55 @@
+/* Platform helpers (builder E). */
+.pf-rotate {
+  display: none;
+}
+@media (max-width: 480px) and (orientation: portrait) {
+  .pf-rotate {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    z-index: 40;
+    padding: 6px 6px 6px 14px;
+    border-radius: 999px;
+    background: var(--k-ink);
+    color: #fff;
+    box-shadow: var(--k-shadow-card);
+    pointer-events: none; /* the map underneath stays tappable … */
+    animation: k-fade 250ms ease;
+  }
+}
+.pf-rotate__phone {
+  font-size: 30px;
+  animation: pf-rotate 1.8s ease-in-out infinite;
+}
+.pf-rotate__text {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 900;
+}
+.pf-rotate__x {
+  pointer-events: auto; /* … except the close button */
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+}
+@keyframes pf-rotate {
+  0%,
+  25% {
+    transform: rotate(0deg);
+  }
+  55%,
+  85% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

@@ -1,0 +1,213 @@
+/* Math Skills v2 theme — tokens + base reset for the new shell (docs/DESIGN.md §2). */
+
+:root {
+  --k-bg: #f6f8ff;
+  --k-surface: #ffffff;
+  --k-surface-2: #eef2ff;
+  --k-ink: #1b2559;
+  --k-ink-soft: #5b6487;
+  --k-line: #e3e8f6;
+  --k-primary: #3d7bff;
+  --k-primary-ink: #ffffff;
+  --k-accent: #ffc43d;
+  --k-accent-ink: #5a3d00;
+  --k-success: #22c55e;
+  --k-success-soft: #dcfce7;
+  --k-danger: #ff5a5f;
+  --k-danger-soft: #ffe4e5;
+  --k-warn: #ff9f1c;
+  --k-gold: #f5b301;
+
+  --k-app-multiplication: #7c5cff;
+  --k-app-division: #ff7a59;
+  --k-app-addition: #14b8a6;
+  --k-app-mixed: #f43f8e;
+  --k-app-coordinates: #0ea5e9;
+  --k-app-algebra: #8b5cf6;
+  --k-app-words: #3b6cf6; /* not green: green means PLAY */
+  --k-app-sentences: #f59e0b;
+  --k-app-maps: #06b6d4;
+  --k-app-stories: #f97316;
+
+  /* Each app overrides this on its root. */
+  --k-app: var(--k-primary);
+
+  --k-radius-sm: 12px;
+  --k-radius: 20px;
+  --k-radius-lg: 28px;
+  --k-shadow-card: 0 8px 24px rgba(27, 37, 89, 0.08);
+  --k-shadow-press: 0 6px 0 rgba(27, 37, 89, 0.18);
+  --k-shadow-press-sm: 0 2px 0 rgba(27, 37, 89, 0.18);
+  --k-ease: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --k-fast: 150ms;
+  --k-normal: 220ms;
+
+  --k-font: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  color-scheme: light;
+  font-family: var(--k-font);
+  font-weight: 700;
+  color: var(--k-ink);
+  background: var(--k-bg);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--k-bg);
+  overscroll-behavior: none;
+}
+
+body {
+  font-size: 18px;
+  line-height: 1.35;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--k-primary);
+  outline-offset: 2px;
+}
+
+.k-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.k-emoji {
+  display: inline-block;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Full-height app screen with safe areas. */
+.k-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  touch-action: manipulation;
+}
+
+.k-noselect {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.k-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* UX v3 §2.4 — the one primary "PLAY" colour (builder A). */
+:root {
+  --k-play: #22c55e;
+  --k-play-deep: #15803d;
+  --k-play-ink: #fff;
+  --k-play-glow: rgba(34, 197, 94, 0.45);
+}
+
+/* ---------- iOS / touch platform rules (builder E, docs/UX-V3.md §6) ---------- */
+/* No double-tap zoom anywhere we tap a lot (pinch-zoom stays available for accessibility). */
+a,
+summary,
+[role='button'],
+label,
+input,
+select {
+  touch-action: manipulation;
+}
+/* Buttons and game surfaces: no text selection, no long-press callout/magnifier, no grey flash. */
+button,
+[role='button'],
+.k-keypad,
+.k-key,
+.k-play,
+.dr-screen,
+.rd-screen,
+.al-screen,
+.co-play,
+.mp-round {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Play screens are fixed-height: stop the page from rubber-banding behind them. */
+html:has(.dr-screen, .rd-screen, .al-screen, .co-play, .mp-round),
+body:has(.dr-screen, .rd-screen, .al-screen, .co-play, .mp-round) {
+  overscroll-behavior: none;
+}
+.dr-screen,
+.rd-screen,
+.al-screen,
+.co-play,
+.mp-round {
+  overscroll-behavior: contain;
+}
+/* Keep images/SVG maps from being dragged or long-pressed into a "Save image" sheet. */
+img,
+svg {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+/* Pages without JS-visible safe areas (older Safari) fall back to 0. */
+@supports not (padding: env(safe-area-inset-top)) {
+  .k-screen {
+    padding: 0;
+  }
+}

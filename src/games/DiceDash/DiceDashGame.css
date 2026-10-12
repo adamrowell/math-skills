@@ -1,0 +1,418 @@
+/* Dice Dash - Kid-friendly with number pad and voice support */
+
+.dice-dash__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dice-dash__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.dice-dash__description {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.dice-dash__instructions {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.dice-dash__instructions h3 {
+  color: #4caf50;
+  margin-bottom: 1rem;
+}
+
+.dice-dash__instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dice-dash__instructions li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #fff;
+}
+
+.dice-dash__instructions li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+}
+
+.dice-dash__high-score {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.dice-dash__start-button {
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+  transition: all 0.3s ease;
+}
+
+.dice-dash__start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(17, 153, 142, 0.6);
+}
+
+.dice-dash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.dice-dash__timer {
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.dice-dash__voice-indicator {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(76, 175, 80, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.dice-dash__dice-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+}
+
+.dice-dash__die {
+  font-size: 4rem;
+  background: white;
+  color: #333;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s ease;
+}
+
+.dice-dash__die--rolling {
+  animation: diceRoll 0.1s infinite;
+}
+
+@keyframes diceRoll {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+.dice-dash__operation {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4caf50;
+  width: 40px;
+  text-align: center;
+}
+
+.dice-dash__equals {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+  width: 40px;
+  text-align: center;
+}
+
+.dice-dash__answer-display {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: gold;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 12px;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Feedback message */
+.dice-dash__feedback {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 12px;
+  animation: feedbackPop 0.3s ease-out;
+}
+
+@keyframes feedbackPop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.dice-dash__feedback--correct {
+  background: rgba(76, 175, 80, 0.3);
+  color: #a5d6a7;
+}
+
+.dice-dash__feedback--wrong {
+  background: rgba(244, 67, 54, 0.3);
+  color: #ef9a9a;
+}
+
+/* Visible input field */
+.dice-dash__input-area {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.dice-dash__input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.dice-dash__input {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border: 3px solid rgba(76, 175, 80, 0.5);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+}
+
+.dice-dash__input:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+}
+
+.dice-dash__input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dice-dash__mic-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  animation: micPulse 1s ease infinite;
+}
+
+@keyframes micPulse {
+  0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+  50% { opacity: 0.6; transform: translateY(-50%) scale(1.1); }
+}
+
+.dice-dash__submit-btn {
+  padding: 14px 20px;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.dice-dash__submit-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.dice-dash__submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Number pad */
+.dice-dash__number-pad {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.dice-dash__number-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.dice-dash__number-btn {
+  width: 80px;
+  height: 60px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dice-dash__number-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.dice-dash__number-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.dice-dash__number-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dice-dash__number-btn--empty {
+  visibility: hidden;
+}
+
+.dice-dash__number-btn--clear {
+  background: rgba(244, 67, 54, 0.3);
+  border-color: rgba(244, 67, 54, 0.4);
+}
+
+.dice-dash__number-btn--clear:hover:not(:disabled) {
+  background: rgba(244, 67, 54, 0.4);
+}
+
+/* Submit button */
+.dice-dash__submit {
+  width: 100%;
+  max-width: 280px;
+  padding: 16px 24px;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(17, 153, 142, 0.4);
+}
+
+.dice-dash__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(17, 153, 142, 0.5);
+}
+
+.dice-dash__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hidden input for keyboard support */
+.dice-dash__hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .dice-dash {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .dice-dash__dice-container {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .dice-dash__die {
+    width: 60px;
+    height: 60px;
+    font-size: 3rem;
+  }
+
+  .dice-dash__operation,
+  .dice-dash__equals {
+    font-size: 2rem;
+    width: 30px;
+  }
+
+  .dice-dash__answer-display {
+    font-size: 2rem;
+    min-width: 50px;
+    padding: 6px 12px;
+  }
+
+  .dice-dash__number-pad {
+    max-width: 240px;
+  }
+
+  .dice-dash__number-row {
+    gap: 8px;
+  }
+
+  .dice-dash__number-btn {
+    width: 65px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .dice-dash__submit {
+    max-width: 240px;
+    padding: 12px 20px;
+    font-size: 1.3rem;
+  }
+}
