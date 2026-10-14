@@ -17,7 +17,7 @@ export interface PackDef {
 
 export const PACKS: PackDef[] = [
   { id: 'us', title: 'USA', emoji: '🇺🇸', map: 'us', exploreStage: 'us-all' },
-  { id: 'world', title: 'World', emoji: '🌍', map: 'continents', exploreStage: 'earth' },
+  { id: 'world', title: 'World', emoji: '🌍', map: 'continents', exploreStage: 'water-world' },
   { id: 'countries', title: 'Countries', emoji: '🗺️', map: 'countries', exploreStage: 'world-all' },
 ];
 
@@ -70,9 +70,35 @@ const WORLD_META: Record<string, RegionMeta> = {
   indian: { label: 'Indian Ocean', prior: 1.1 },
   arctic: { label: 'Arctic Ocean', prior: 1.1 },
   southern: { label: 'Southern Ocean', prior: 1.2 },
+  // Seas, gulfs and bays. `group` is the hint shown after a first miss ("Look near Egypt!").
+  mediterranean: { label: 'Mediterranean Sea', prior: 1.0, group: 'between Europe and Africa' },
+  caribbean: { label: 'Caribbean Sea', prior: 1.0, group: 'south of the USA' },
+  'gulf-mexico': { label: 'Gulf of Mexico', prior: 1.0, group: 'south of the USA' },
+  'red-sea': { label: 'Red Sea', prior: 1.1, group: 'next to Egypt' },
+  'black-sea': { label: 'Black Sea', prior: 1.3, group: 'north of Turkey' },
+  'north-sea': { label: 'North Sea', prior: 1.2, group: 'next to the UK' },
+  baltic: { label: 'Baltic Sea', prior: 1.3, group: 'north of Poland' },
+  'south-china': { label: 'South China Sea', prior: 1.2, group: 'south of China' },
+  arabian: { label: 'Arabian Sea', prior: 1.3, group: 'west of India' },
+  bengal: { label: 'Bay of Bengal', prior: 1.2, group: 'east of India' },
+  'persian-gulf': { label: 'Persian Gulf', prior: 1.4, group: 'next to Saudi Arabia' },
+  'hudson-bay': { label: 'Hudson Bay', prior: 1.2, group: 'inside Canada' },
+  bering: { label: 'Bering Sea', prior: 1.3, group: 'between Alaska and Russia' },
+  'sea-japan': { label: 'Sea of Japan', prior: 1.3, group: 'between Japan and Korea' },
+  coral: { label: 'Coral Sea', prior: 1.3, group: 'next to Australia' },
+  tasman: { label: 'Tasman Sea', prior: 1.4, group: 'between Australia and New Zealand' },
+  'gulf-guinea': { label: 'Gulf of Guinea', prior: 1.4, group: 'in the bend of Africa' },
+  'gulf-alaska': { label: 'Gulf of Alaska', prior: 1.3, group: 'south of Alaska' },
+  // Lakes
+  'great-lakes': { label: 'Great Lakes', prior: 1.0, group: 'between the USA and Canada' },
+  caspian: { label: 'Caspian Sea', prior: 1.3, group: 'between Russia and Iran' },
+  victoria: { label: 'Lake Victoria', prior: 1.3, group: 'in Africa' },
+  baikal: { label: 'Lake Baikal', prior: 1.4, group: 'in Russia, north of Mongolia' },
 };
 const CONTINENT_IDS = ['north-america', 'south-america', 'europe', 'africa', 'asia', 'oceania', 'antarctica'];
 const OCEAN_IDS = ['pacific', 'atlantic', 'indian', 'arctic', 'southern'];
+const SEA_IDS = ['mediterranean', 'caribbean', 'gulf-mexico', 'red-sea', 'black-sea', 'north-sea', 'baltic', 'south-china', 'arabian', 'bengal', 'persian-gulf', 'sea-japan'];
+const BAY_LAKE_IDS = ['hudson-bay', 'bering', 'coral', 'tasman', 'gulf-guinea', 'gulf-alaska', 'great-lakes', 'caspian', 'victoria', 'baikal', 'atlantic', 'pacific'];
 
 // ---------------------------------------------------------------------------------------------
 // Countries
@@ -138,9 +164,12 @@ const COUNTRY_PRIOR: Record<string, number> = {
   [C.philippines]: 1.3, [C.kenya]: 1.3, [C.nigeria]: 1.3, [C.madagascar]: 1.0, [C.morocco]: 1.3, [C.ethiopia]: 1.4,
 };
 
-const WORLD_NO_ANTARCTICA: ViewBox = [0, 0, 1000, 448];
+export const WORLD_NO_ANTARCTICA: ViewBox = [0, 0, 1000, 448];
 /** Whole world + a magnified Europe inset over the empty South Pacific. */
-const WORLD_ALL_INSET = { src: [448, 52, 160, 100] as ViewBox, dst: [8, 250, 272, 170] as ViewBox };
+export const WORLD_ALL_INSET = { src: [448, 52, 160, 100] as ViewBox, dst: [8, 250, 272, 170] as ViewBox };
+export const WORLD_ALL_PORTRAIT = { view: [0, 0, 1000, 790] as ViewBox, inset: { src: WORLD_ALL_INSET.src, dst: [230, 470, 540, 337.5] as ViewBox } };
+export const EUROPE_VIEW: ViewBox = [440, 36, 190, 128];
+export const ASIA_AFRICA_VIEW: ViewBox = [450, 80, 430, 270];
 
 // ---------------------------------------------------------------------------------------------
 // Stages
@@ -167,17 +196,22 @@ export const STAGES: StageDef[] = [
     targets: usStates.map((s) => s.abbreviation),
   },
 
-  { id: 'continents', pack: 'world', map: 'continents', title: 'Continents', emoji: '🌎', targets: CONTINENT_IDS },
-  { id: 'oceans', pack: 'world', map: 'continents', title: 'Oceans', emoji: '🌊', targets: OCEAN_IDS },
+  // World: every stage has ≥ 12 targets, so a 12-question round never asks the same place twice.
   { id: 'earth', pack: 'world', map: 'continents', title: 'Land & Sea', emoji: '🐳', targets: [...CONTINENT_IDS, ...OCEAN_IDS] },
+  { id: 'seas', pack: 'world', map: 'continents', title: 'Seas & Gulfs', emoji: '🌊', view: [180, 30, 720, 300], targets: SEA_IDS },
+  { id: 'bays-lakes', pack: 'world', map: 'continents', title: 'Bays & Lakes', emoji: '🏞️', targets: BAY_LAKE_IDS },
+  {
+    id: 'water-world', pack: 'world', map: 'continents', title: 'Whole World', emoji: '🌐',
+    targets: [...CONTINENT_IDS, ...OCEAN_IDS, ...SEA_IDS, ...BAY_LAKE_IDS.filter((id) => !OCEAN_IDS.includes(id))],
+  },
 
   { id: 'giants', pack: 'countries', map: 'countries', title: 'Giant Countries', emoji: '🐘', view: WORLD_NO_ANTARCTICA, targets: GIANTS },
-  { id: 'europe', pack: 'countries', map: 'countries', title: 'Europe', emoji: '🏰', view: [440, 36, 190, 128], targets: EUROPE },
-  { id: 'asia-africa', pack: 'countries', map: 'countries', title: 'Asia & Africa', emoji: '🐼', view: [450, 80, 430, 270], targets: ASIA_AFRICA },
+  { id: 'europe', pack: 'countries', map: 'countries', title: 'Europe', emoji: '🏰', view: EUROPE_VIEW, targets: EUROPE },
+  { id: 'asia-africa', pack: 'countries', map: 'countries', title: 'Asia & Africa', emoji: '🐼', view: ASIA_AFRICA_VIEW, targets: ASIA_AFRICA },
   {
     id: 'world-all', pack: 'countries', map: 'countries', title: 'All Countries', emoji: '🌐', view: WORLD_NO_ANTARCTICA,
     inset: WORLD_ALL_INSET,
-    portrait: { view: [0, 0, 1000, 790], inset: { src: WORLD_ALL_INSET.src, dst: [230, 470, 540, 337.5] } },
+    portrait: WORLD_ALL_PORTRAIT,
     targets: [...GIANTS, ...EUROPE, ...ASIA_AFRICA],
   },
 ];
@@ -205,3 +239,6 @@ export function regionMeta(map: MapKind, id: string, generatedName: string): Reg
 export const masteryId = (map: MapKind, regionId: string) => `${map}:${regionId}`;
 
 export const ROUND_LENGTH = 12;
+
+/** Questions per round for a stage. */
+export const roundLengthOf = (stage: StageDef) => stage.roundLength ?? ROUND_LENGTH;

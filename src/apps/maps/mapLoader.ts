@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { regionMeta } from './stages';
-import type { LoadedMap, MapData, MapKind, Region } from './types';
+import type { LoadedMap, MapData, MapKind, Region, RegionKind } from './types';
 
 const loaders: Record<MapKind, () => Promise<MapData>> = {
   us: () => import('./data/us.gen').then((m) => m.US_MAP),
@@ -11,15 +11,17 @@ const loaders: Record<MapKind, () => Promise<MapData>> = {
 const cache = new Map<MapKind, Promise<LoadedMap>>();
 
 function build(kind: MapKind, data: MapData): LoadedMap {
-  const toRegion = (isOcean: boolean) => (r: MapData['regions'][number]): Region => {
+  const toRegion = (fallback: RegionKind) => (r: MapData['regions'][number]): Region => {
     const meta = regionMeta(kind, r.id, r.name);
-    return { ...r, label: meta.label, prior: meta.prior, group: meta.group, isOcean };
+    const k = r.kind ?? fallback;
+    return { ...r, label: meta.label, prior: meta.prior, group: meta.group, kind: k, isOcean: k !== 'land' };
   };
-  const land = data.regions.map(toRegion(false));
-  const oceans = (data.oceans ?? []).map(toRegion(true));
+  const land = data.regions.map(toRegion('land'));
+  const water = [...(data.oceans ?? []).map(toRegion('ocean')), ...(data.seas ?? []).map(toRegion('sea'))];
+  const lakes = (data.lakes ?? []).map(toRegion('lake'));
   const byId = new Map<string, Region>();
-  for (const r of [...oceans, ...land]) byId.set(r.id, r);
-  return { kind, data, byId, land, oceans };
+  for (const r of [...water, ...land, ...lakes]) byId.set(r.id, r);
+  return { kind, data, byId, land, water, lakes };
 }
 
 export function loadMap(kind: MapKind): Promise<LoadedMap> {

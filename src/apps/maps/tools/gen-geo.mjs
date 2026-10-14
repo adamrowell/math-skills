@@ -2,12 +2,14 @@
 /**
  * Generates the static, pre-projected SVG map data used by the Maps app.
  *
- *   node src/apps/maps/tools/gen-geo.mjs <states-albers-10m.json> <countries-110m.json> <countries-50m.json>
+ *   node src/apps/maps/tools/gen-geo.mjs <states-albers-10m.json> <countries-110m.json> <countries-50m.json> [ne_110m_lakes.shp]
  *
  * Inputs (ISC licensed, public-domain geometry from the US Census / Natural Earth):
  *   https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-albers-10m.json
  *   https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json
  *   https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json
+ *   https://naciscdn.org/naturalearth/110m/physical/ne_110m_lakes.zip (public domain; optional —
+ *   unzip anywhere outside the repo and pass the .shp; without it the lakes are skipped)
  *
  * Output: src/apps/maps/data/{us,continents,countries}.gen.ts — projected path strings, bounding
  * boxes and a label point inside each shape (so the app needs no projection code, no network and
@@ -24,7 +26,7 @@ const topojson = require('topojson-client');
 
 const here = dirname(fileURLToPath(import.meta.url));
 const outDir = join(here, '..', 'data');
-const [usPath, w110Path, w50Path] = process.argv.slice(2);
+const [usPath, w110Path, w50Path, lakesPath] = process.argv.slice(2);
 if (!usPath || !w110Path || !w50Path) {
   console.error('usage: gen-geo.mjs <states-albers-10m.json> <countries-110m.json> <countries-50m.json>');
   process.exit(1);
@@ -151,6 +153,23 @@ function bboxOf(rings) {
   return [r1(x0), r1(y0), r1(x1), r1(y1)];
 }
 
+/** Open polylines (a topojson mesh) → path, no closing segment. */
+function linesToPath(lines) {
+  let d = '';
+  for (const l of lines) {
+    if (l.length < 2) continue;
+    d += 'M' + r1(l[0][0]) + ' ' + r1(l[0][1]);
+    for (let i = 1; i < l.length; i++) d += (i === 1 ? 'L' : ' ') + r1(l[i][0]) + ' ' + r1(l[i][1]);
+  }
+  return d;
+}
+
+/** Coastline of a world topology: the land mesh (no internal borders), projected + simplified. */
+function coastline(topo, projection, tol) {
+  const mesh = topojson.mesh(topo, topo.objects.land);
+  return linesToPath(projectRings(mesh, projection).map((l) => simplify(l, tol)).filter((l) => l.length >= 2));
+}
+
 function region(id, name, geo, projection, tol, minArea = 0) {
   let rings = projectRings(geo, projection).map((r) => simplify(r, tol)).filter((r) => r.length >= 3);
   if (minArea > 0) {
@@ -202,7 +221,7 @@ const ABBR = {
     regions.push(region(abbr, name, geo, identity, 0.18));
   }
   const nation = topojson.mesh(topo, topo.objects.nation);
-  const outline = ringsToPath(projectRings(nation, identity).map((r) => simplify(r, 0.25)));
+  const outline = linesToPath(projectRings(nation, identity).map((r) => simplify(r, 0.25)));
   emit('us.gen.ts', 'US_MAP', { width: 975, height: 610, regions, outline });
 }
 
@@ -233,11 +252,48 @@ function lonLatPoly(points) {
 }
 
 /** Project a planar lon/lat polygon point by point (no spherical interpretation). */
-function planarRegion(id, name, polys, label) {
+function planarRegion(id, name, polys, label, kind = 'ocean', lr = 40) {
   const rings = polys.map((poly) => lonLatPoly(poly).map((p) => proj(p)));
   const [lx, ly] = proj(label);
-  return { id, name, d: ringsToPath(rings), bbox: bboxOf(rings), lx: r1(lx), ly: r1(ly), lr: 40 };
+  // Seas split by the antimeridian (Bering): the box of the labelled half, so cameras and hints stay local.
+  const main = kind === 'sea' ? rings.find((r) => pointInRing(lx, ly, r)) ?? rings[0] : null;
+  return { id, name, kind, d: ringsToPath(rings), bbox: bboxOf(main ? [main] : rings), lx: r1(lx), ly: r1(ly), lr };
 }
+
+/**
+ * Seas, gulfs and bays: hand-drawn lon/lat zones drawn under the land (land wins, so the land side
+ * can be rough) and after the oceans (so they win on water). Must not overlap each other.
+ * [id, name, polygon, label point, extra polygon?]
+ */
+const SEAS = [
+  ['mediterranean', 'Mediterranean Sea', [[-6,35],[-6,37.5],[3,44],[12,46],[20,46],[26.5,41],[36,37.5],[36.5,31],[20,30],[10,33]], [17,35.5]],
+  ['black-sea', 'Black Sea', [[27.2,41.3],[27.5,47],[42,47],[42,40.8]], [34,43.5]],
+  ['red-sea', 'Red Sea', [[32,30],[35.5,30],[43.2,12.7],[43.2,12.3],[42.5,12.4],[39,15],[32,27]], [38.5,19.5]],
+  ['persian-gulf', 'Persian Gulf', [[47,30.5],[50.5,30.5],[56.5,27],[56.5,24],[50,23.5],[47,28]], [51.5,27.3]],
+  ['arabian', 'Arabian Sea', [[43.3,12.3],[43.3,12.7],[52,16.5],[57.5,23],[66,25.5],[73,20],[76,8],[73,-2],[51,2],[50,10]], [64,14]],
+  ['bengal', 'Bay of Bengal', [[78.5,8],[80,16],[86,23],[93,22],[98,13],[96,5],[82,4]], [88,14]],
+  ['south-china', 'South China Sea', [[99,1],[105,3],[106,12],[109,21],[117,24],[121,22],[121,18],[118,8],[110,0],[104,-1]], [113,13]],
+  ['caribbean', 'Caribbean Sea', [[-88,9],[-88,16],[-85,21.8],[-74,20.5],[-61,18.5],[-60,10],[-75,8]], [-75,14.5]],
+  ['gulf-mexico', 'Gulf of Mexico', [[-98,18],[-98,31],[-81.2,31],[-81.2,25],[-85,21.8],[-88,16],[-88,18],[-91,18]], [-90,25]],
+  ['north-sea', 'North Sea', [[-4,51],[-4,61],[5,62],[8,58],[9,57],[9,53],[2,51]], [3,56]],
+  ['baltic', 'Baltic Sea', [[9.5,54],[10,57.5],[17,60],[20,66],[31,66],[31,59],[26,54],[12,53]], [19,57.5]],
+  ['hudson-bay', 'Hudson Bay', [[-95,51],[-95,65],[-76,65],[-76,51]], [-85,59]],
+  ['bering', 'Bering Sea', [[-180,51],[-180,66],[-162,66],[-157,58],[-157,54],[-170,51]], [-178,58], [[180,51],[180,66],[163,66],[163,51]]],
+  ['sea-japan', 'Sea of Japan', [[128.5,34],[128,40],[136,48],[141,48],[141,42],[134,35]], [135,40]],
+  ['coral', 'Coral Sea', [[142,-10],[146,-29],[158,-30],[165,-12],[150,-8]], [153,-17]],
+  ['tasman', 'Tasman Sea', [[146,-45],[146,-30],[170,-30],[170,-47]], [160,-38]],
+  ['gulf-guinea', 'Gulf of Guinea', [[-8,6],[12,6],[12,-6],[-8,-2]], [2,1.5]],
+  ['gulf-alaska', 'Gulf of Alaska', [[-157,54],[-157,58],[-145,62],[-132,57],[-136,50],[-157,50]], [-147,56]],
+  // Landlocked: the land hole in the topology shapes it exactly.
+  ['caspian', 'Caspian Sea', [[46,36.3],[46,47.5],[55,47.5],[55,36.3]], [51,42]],
+];
+
+/** Lakes (Natural Earth 110m, drawn above the land): id → source names merged into it. */
+const LAKES = [
+  ['great-lakes', 'Great Lakes', ['Lake Superior', 'Lake Michigan', 'Lake Huron', 'Lake Erie', 'Lake Ontario'], [-84.5, 45]],
+  ['victoria', 'Lake Victoria', ['Lake Victoria'], null],
+  ['baikal', 'Lake Baikal', ['Lake Baikal'], null],
+];
 
 // --- continents (110m, per-polygon continent assignment; Russia split at the Urals) ----------
 
@@ -352,8 +408,27 @@ const CONTINENTS = [
     planarRegion('arctic', 'Arctic Ocean', [arctic], [10, 80]),
     planarRegion('southern', 'Southern Ocean', [southern], [-30, -62]),
   ];
-  // Second Pacific label point (west half) for learn mode / reveal.
-  emit('continents.gen.ts', 'CONTINENTS_MAP', { width: W, height: worldH, regions, oceans, sphere, graticule });
+  const seas = SEAS.map(([id, name, poly, label, extra]) => planarRegion(id, name, extra ? [poly, extra] : [poly], label, 'sea', 18));
+  const outline = coastline(topo, proj, 0.25);
+  const lakes = lakesPath ? await readLakes(lakesPath) : undefined;
+  if (!lakes) console.warn('lakes skipped (no ne_110m_lakes.shp given)');
+  emit('continents.gen.ts', 'CONTINENTS_MAP', { width: W, height: worldH, regions, oceans, seas, ...(lakes ? { lakes } : {}), outline, sphere, graticule });
+}
+
+async function readLakes(shp) {
+  const shapefile = require('shapefile');
+  const fc = await shapefile.read(shp);
+  return LAKES.map(([id, name, sources, label]) => {
+    const feats = fc.features.filter((f) => sources.includes(f.properties.name));
+    if (feats.length !== sources.length) throw new Error('missing lake source for ' + id);
+    const geo = { type: 'GeometryCollection', geometries: feats.map((f) => f.geometry) };
+    const reg = region(id, name, geo, proj, 0.15);
+    reg.kind = 'lake';
+    if (label) { const [x, y] = proj(label); reg.lx = r1(x); reg.ly = r1(y); }
+    // Small shapes: a generous tap/label radius.
+    reg.lr = Math.max(reg.lr, 6);
+    return reg;
+  });
 }
 
 // --- countries (50m) ---------------------------------------------------------------------------
@@ -373,5 +448,6 @@ const CONTINENTS = [
     // when the country has big rings (keeps tiny island nations visible).
     regions.push(region(id, name, f, proj, 0.2, 0.4));
   }
-  emit('countries.gen.ts', 'COUNTRIES_MAP', { width: W, height: worldH, regions, sphere, graticule });
+  const outline = coastline(topo, proj, 0.35);
+  emit('countries.gen.ts', 'COUNTRIES_MAP', { width: W, height: worldH, regions, outline, sphere, graticule });
 }

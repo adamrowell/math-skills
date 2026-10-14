@@ -28,6 +28,9 @@
   --k-app-sentences: #f59e0b;
   --k-app-maps: #06b6d4;
   --k-app-stories: #f97316;
+  --k-app-flags: #e11d48;
+  --k-app-landmarks: #d97706;
+  --k-app-logic: #6366f1;
 
   /* Each app overrides this on its root. */
   --k-app: var(--k-primary);

@@ -21,9 +21,12 @@ export type AppId =
   | 'words'
   | 'sentences'
   | 'maps'
-  | 'stories';
+  | 'stories'
+  | 'flags'
+  | 'landmarks'
+  | 'logic';
 
-export type AppGroup = 'math' | 'reading' | 'world';
+export type AppGroup = 'math' | 'reading' | 'world' | 'brain';
 export type InputKind = 'keypad' | 'voice' | 'pointer';
 
 export interface AppProps {

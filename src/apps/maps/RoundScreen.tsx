@@ -27,14 +27,15 @@ import {
   buildChoices,
   comboMultiplier,
   missPenalty,
+  nextRecent,
   pickTarget,
   scheduleComeback,
   starsFor,
 } from './logic';
 import type { Mode } from './logic';
-import { isNameUnlocked, progressStore, recordRound } from './progress';
+import { isNameUnlocked, progressStore, recentStore, recordRound } from './progress';
 import { speak, stopSpeaking } from './speech';
-import { ROUND_LENGTH, masteryId } from './stages';
+import { masteryId, roundLengthOf } from './stages';
 import type { LoadedMap, Region, StageDef, ViewBox } from './types';
 
 interface Props {
@@ -80,6 +81,8 @@ const EMPTY_STATS: RoundStats = { points: 0, combo: 0, bestCombo: 0, firstTry: 0
 
 /** A camera that frames one region (Name-it), keeping the stage view's aspect ratio. */
 function zoomTo(r: Region, base: ViewBox, map: LoadedMap): ViewBox {
+  // Oceans are as big as the map: show the whole stage instead.
+  if (r.kind === 'ocean') return base;
   const bw = r.bbox[2] - r.bbox[0];
   const bh = r.bbox[3] - r.bbox[1];
   const aspect = base[2] / base[3];
@@ -99,6 +102,9 @@ export function RoundScreen({ stage, mode, onExit, onAgain, onPlayStage }: Props
   const burstRef = useRef<PointsBurstHandle>(null);
   const promptRef = useRef<HTMLDivElement>(null);
   const store = masteryStore('maps');
+  const ROUND_LENGTH = roundLengthOf(stage);
+  // The previous round's last targets on this stage (read once, before this round overwrites it).
+  const [prevRecent] = useState(() => recentStore.get().byStage[stage.id] ?? []);
 
   const [q, setQ] = useState<QState | null>(null);
   const [stats, setStats] = useState<RoundStats>(EMPTY_STATS);
@@ -181,9 +187,13 @@ export function RoundScreen({ stage, mode, onExit, onAgain, onPlayStage }: Props
         index,
         speed,
         rng: Math.random,
+        prevRecent,
+        now: Date.now(),
       });
       cur.comeback.delete(target);
       cur.asked.push(target);
+      const recent = nextRecent(cur.asked);
+      recentStore.update((p) => ({ ...p, byStage: { ...p.byStage, [stage.id]: recent } }));
       cur.lastWrong = '';
       cur.cooldownUntil = 0;
       const region = map.byId.get(target)!;
@@ -198,7 +208,7 @@ export function RoundScreen({ stage, mode, onExit, onAgain, onPlayStage }: Props
       cur.shownAt = performance.now() + (mode === 'name' ? 450 : 0);
       sayPrompt(region, mode);
     },
-    [map, stage, mode, speed, store, sayPrompt],
+    [map, stage, mode, speed, store, sayPrompt, prevRecent],
   );
 
   // Start as soon as the map is here.
@@ -259,7 +269,7 @@ export function RoundScreen({ stage, mode, onExit, onAgain, onPlayStage }: Props
     if (got.length) later(700, () => sfx.play('trophy'));
     store.flush();
     setFinished({ stars, bonuses, best, trophies: got, rankUp, unlocked, nameUnlocked });
-  }, [stage, mode, later, store]);
+  }, [stage, mode, later, store, ROUND_LENGTH]);
 
   const advance = useCallback(
     (fromIndex: number) => {
@@ -268,7 +278,7 @@ export function RoundScreen({ stage, mode, onExit, onAgain, onPlayStage }: Props
       if (fromIndex + 1 >= ROUND_LENGTH) finish();
       else askNext(fromIndex + 1);
     },
-    [askNext, finish],
+    [askNext, finish, ROUND_LENGTH],
   );
 
   const onCorrect = useCallback(
@@ -440,6 +450,12 @@ export function RoundScreen({ stage, mode, onExit, onAgain, onPlayStage }: Props
   const target = q && map ? map.byId.get(q.target) : undefined;
   const hintCircle = useMemo(() => {
     if (!q || !target || mode !== 'find' || q.phase !== 'hint') return null;
+    if (target.kind !== 'land') {
+      // Water zones can be huge or split at the date line: circle the label point.
+      const r = Math.max(Math.min(target.bbox[2] - target.bbox[0], target.bbox[3] - target.bbox[1]) * 0.7, baseView[2] * 0.07);
+      const off = r * 0.25;
+      return { x: target.lx + off * (q.index % 2 ? 1 : -1), y: target.ly + off * (q.index % 3 ? -1 : 1), r: r * 1.3 };
+    }
     const w = target.bbox[2] - target.bbox[0];
     const h = target.bbox[3] - target.bbox[1];
     const r = Math.max(Math.hypot(w, h) * 0.9, baseView[2] * 0.09);
@@ -541,7 +557,9 @@ export function RoundScreen({ stage, mode, onExit, onAgain, onPlayStage }: Props
           : 'This one is…'
         : q.phase === 'hint'
           ? mode === 'find'
-            ? 'Look in the circle!'
+            ? target.kind !== 'land' && target.group
+              ? `Look ${target.group}!`
+              : 'Look in the circle!'
             : 'Try again!'
           : mode === 'find'
             ? 'Find'

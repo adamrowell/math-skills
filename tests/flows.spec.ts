@@ -14,7 +14,11 @@ test('hub lists only enabled apps and nothing from the old app', async ({ page }
   await page.goto('/');
   await expect(page.getByTestId('hub')).toBeVisible();
   const cards = page.locator('[data-testid^="app-"]');
-  const enabled = APPS.filter((a) => a.enabled && a.load).map((a) => `app-${a.id}`);
+  // The hub shows groups in this order (Math, World, then Reading + Brain sharing a row), and the
+  // registry order within each group.
+  const HUB_GROUPS = ['math', 'world', 'reading', 'brain'];
+  const enabled = HUB_GROUPS.flatMap((g) => APPS.filter((a) => a.enabled && a.load && a.group === g)).map((a) => `app-${a.id}`);
+  expect(enabled.length).toBe(APPS.filter((a) => a.enabled && a.load).length);
   await expect(cards).toHaveCount(enabled.length);
   expect(await cards.evaluateAll((els) => els.map((e) => e.getAttribute('data-testid')))).toEqual(enabled);
   for (const word of [/arcade/i, /geography/i, /charts?/i, /word problems/i, /game/i]) {

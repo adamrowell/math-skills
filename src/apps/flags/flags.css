@@ -1,0 +1,475 @@
+/* Flags app (docs/GEO-LOGIC.md §C). Prefix: fl-. Map pieces reuse maps.css (mp-). */
+
+.fl-screen {
+  background:
+    radial-gradient(1000px 420px at 50% -160px, color-mix(in srgb, var(--k-app) 12%, transparent), transparent),
+    var(--k-bg);
+}
+
+/* ---------- Flag frame ---------- */
+.fl-flag {
+  display: inline-block;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--k-line);
+  background: #fff;
+  box-shadow: 0 2px 0 rgba(27, 37, 89, 0.08);
+  line-height: 0;
+  flex: none;
+}
+.fl-flag img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+.fl-flag__fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--k-ink-soft);
+}
+
+/* ---------- Home ---------- */
+.fl-hero-flags {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.fl-hero-flag .fl-flag {
+  width: 58px;
+  transform: rotate(calc((var(--i) - 2) * 4deg));
+}
+.fl-extras {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.fl-extra {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 78px;
+  padding: 10px 16px;
+  text-align: left;
+  border-radius: var(--k-radius);
+  background: var(--k-surface);
+  border: 3px solid var(--k-line);
+  box-shadow: var(--k-shadow-press-sm);
+  font-size: 20px;
+}
+.fl-extra:active {
+  transform: translateY(2px);
+}
+.fl-extra b {
+  display: block;
+  font-weight: 900;
+}
+.fl-extra__emoji {
+  font-size: 38px;
+}
+.fl-extra__sub {
+  display: block;
+  font-size: 15px;
+  color: var(--k-ink-soft);
+}
+.fl-extra.is-locked {
+  background: #eef1f8;
+  box-shadow: none;
+  color: var(--k-ink-soft);
+  cursor: default;
+}
+
+/* ---------- Rounds ---------- */
+.fl-prompt {
+  gap: 14px;
+}
+.fl-prompt__flag {
+  flex: none;
+  animation: mp-pop 260ms var(--k-ease);
+}
+.fl-prompt__flag .fl-flag {
+  width: clamp(84px, 13vw, 150px);
+  border-width: 3px;
+}
+.fl-round--find .mp-prompt {
+  min-height: 92px;
+}
+.fl-zoomchip {
+  align-self: center;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef6ff;
+  border: 2px solid #bfd8f3;
+  color: #1d4f91;
+}
+.fl-peek {
+  align-self: center;
+  min-height: 44px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--k-surface, #fff);
+  border: 2px dashed #b9a6e8;
+  color: #5b3fa8;
+  cursor: pointer;
+}
+.fl-peek:active {
+  transform: scale(0.96);
+}
+.fl-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.fl-stage {
+  flex: 1;
+  min-height: 0;
+}
+
+.fl-choices {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 0 12px calc(12px + env(safe-area-inset-bottom));
+}
+.fl-choice {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  border-radius: var(--k-radius);
+  background: var(--k-surface);
+  border: 3px solid var(--k-line);
+  box-shadow: var(--k-shadow-press);
+  transition: transform 80ms ease, box-shadow 80ms ease;
+  min-height: 0;
+}
+.fl-choice .fl-flag {
+  width: 100%;
+  max-width: 220px;
+}
+/* Choice grids with fixed cells: the flag fits the cell both ways (container query units). */
+.fl-round--which .fl-choice,
+.fl-spot {
+  container-type: size;
+  overflow: hidden;
+}
+.fl-round--which .fl-choice .fl-flag,
+.fl-spot .fl-flag {
+  width: min(100cqw - 16px, (100cqh - 16px) * 4 / 3, 260px);
+  max-width: none;
+}
+.fl-choice:active {
+  transform: translateY(4px);
+  box-shadow: var(--k-shadow-press-sm);
+}
+.fl-choice.is-wrong {
+  background: var(--k-danger-soft);
+  border-color: var(--k-danger);
+  box-shadow: none;
+  animation: mp-shake 300ms;
+}
+.fl-choice.is-wrong .fl-flag {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+.fl-choice.is-right {
+  background: var(--k-success-soft);
+  border-color: var(--k-success);
+  animation: mp-pop 260ms var(--k-ease);
+}
+.fl-choice__name {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #a61b1f;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+/* Which flag?: landscape = map left, flags right (2×2); portrait = map on top, flags below (2×2). */
+@media (orientation: landscape) {
+  .fl-round--which .fl-body {
+    flex-direction: row;
+    gap: 0;
+  }
+  .fl-round--which .fl-choices {
+    width: min(46%, 560px);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    align-content: stretch;
+    padding: 0 12px calc(10px + env(safe-area-inset-bottom)) 0;
+  }
+  .fl-round--which .fl-stage {
+    margin-right: 12px;
+  }
+}
+@media (orientation: portrait) {
+  .fl-round--which .fl-choices {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    height: min(48%, 520px);
+    flex: none;
+  }
+}
+@media (max-height: 500px) {
+  .fl-round--find .mp-prompt {
+    min-height: 64px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .fl-prompt__flag .fl-flag {
+    width: 76px;
+  }
+  .fl-choice {
+    padding: 6px;
+  }
+  .fl-choice__name {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .fl-prompt__flag .fl-flag {
+    width: 62px;
+  }
+  .fl-prompt .mp-prompt__name {
+    font-size: 26px;
+    overflow-wrap: anywhere;
+  }
+  .fl-prompt .mp-round-pts {
+    display: none;
+  }
+}
+
+/* Spotter */
+.fl-spotter {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+.fl-timer {
+  font-size: 24px;
+  font-weight: 900;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.fl-timer.is-low {
+  color: var(--k-danger);
+  animation: mp-pulse 1s infinite;
+}
+.fl-spot-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 4px 14px calc(14px + env(safe-area-inset-bottom));
+}
+@media (orientation: portrait) {
+  .fl-spot-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Summary */
+.fl-sum-stickers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.fl-sum-sticker {
+  animation: fl-peel 520ms var(--k-ease) both;
+}
+.fl-sum-sticker .fl-flag {
+  width: 64px;
+}
+.fl-missed .fl-flag {
+  width: 30px;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
+/* ---------- Album ---------- */
+.fl-album {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.fl-album__head {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 20px;
+  padding: 2px 16px 10px;
+}
+.fl-album__head b {
+  font-size: 26px;
+  font-weight: 900;
+}
+.fl-album__body {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.fl-album__page {
+  background: #fffdf6;
+  border-radius: var(--k-radius-lg);
+  box-shadow: var(--k-shadow-card);
+  padding: 14px;
+}
+.fl-album__title {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0 0 10px;
+}
+.fl-album__grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+}
+@media (max-width: 900px) {
+  .fl-album__grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .fl-album__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.fl-sticker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 12px;
+  min-width: 0;
+}
+.fl-sticker .fl-flag {
+  width: 100%;
+}
+.fl-sticker.is-got {
+  background: #fff;
+  border: 2px solid var(--k-line);
+  box-shadow: 0 3px 0 rgba(27, 37, 89, 0.1);
+  transform: rotate(-1.5deg);
+}
+.fl-sticker.is-got:nth-child(2n) {
+  transform: rotate(1.5deg);
+}
+.fl-sticker.is-gold {
+  border: 3px solid var(--k-gold);
+  background: #fff7dc;
+  box-shadow: 0 0 0 2px #ffe08a, 0 3px 0 #c58f00;
+}
+.fl-sticker__name {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.fl-sticker.is-empty {
+  aspect-ratio: 4 / 3.6;
+  border: 2px dashed #c9d3e6;
+  justify-content: center;
+}
+.fl-sticker__q {
+  font-size: 26px;
+  font-weight: 900;
+  color: #b4bdd0;
+}
+.fl-album__how {
+  text-align: center;
+  color: var(--k-ink-soft);
+  font-size: 17px;
+}
+
+.fl-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(27, 37, 89, 0.45);
+  animation: mp-fade 160ms ease-out;
+}
+.fl-sheet__card {
+  width: min(440px, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  background: var(--k-surface);
+  border-radius: var(--k-radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  animation: mp-pop 220ms var(--k-ease);
+}
+.fl-sheet__card.is-gold {
+  border: 4px solid var(--k-gold);
+}
+.fl-flag--big {
+  width: min(280px, 70vw);
+  border-width: 3px;
+}
+.fl-sheet__name {
+  font-size: 32px;
+  font-weight: 900;
+}
+.fl-sheet__fact {
+  font-size: 19px;
+  color: var(--k-ink-soft);
+}
+.fl-sheet__btns {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+@keyframes fl-peel {
+  from {
+    transform: scale(0.3) rotate(-25deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}

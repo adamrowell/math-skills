@@ -75,3 +75,17 @@ export function recommendedStage(p: MapsProgress, pack: PackId): StageDef {
   const open = list.filter((s) => isStageUnlocked(p, s));
   return open.find((s) => starsOf(p, 'find', s.id) < 3) ?? open[open.length - 1] ?? list[0];
 }
+
+/** Each stage's last few targets (`nextRecent`), so the next round on it opens differently. */
+export const recentStore = createPersistedStore<{ version: 1; byStage: Record<string, string[]> }>({
+  key: 'ms2:maps:recent:v1',
+  version: 1,
+  initial: { version: 1, byStage: {} },
+  sanitize: (p) => {
+    const byStage: Record<string, string[]> = {};
+    if (p.byStage && typeof p.byStage === 'object') {
+      for (const [k, v] of Object.entries(p.byStage)) if (Array.isArray(v)) byStage[k] = v.filter((x): x is string => typeof x === 'string').slice(-8);
+    }
+    return { version: 1, byStage };
+  },
+});

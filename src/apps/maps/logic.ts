@@ -29,6 +29,40 @@ export interface PickInput {
   index: number;
   speed: SpeedThresholds;
   rng: Rng;
+  /**
+   * The previous round's last few targets on this stage: never asked in this round's first
+   * `prevRecent.length` questions, so two rounds in a row never open alike.
+   */
+  prevRecent?: readonly string[];
+  /** Clock for spaced repetition (`dueBoost`); boosts are skipped when absent. */
+  now?: number;
+}
+
+const DAY = 86_400_000;
+
+/**
+ * Spaced repetition: × 2 for things he knew (box ≥ 3) but has not seen for 3+ days, × 0.6 for
+ * mastered things (box 5) seen in the last day, × 1 otherwise.
+ */
+export function dueBoost(m: FactMastery | undefined, now: number): number {
+  if (!m || m.lastSeen <= 0) return 1;
+  const age = now - m.lastSeen;
+  if (m.box >= 3 && age > 3 * DAY) return 2;
+  if (m.box >= 5 && age < DAY) return 0.6;
+  return 1;
+}
+
+/** Answered right within this long ago → asked less (it was just practised in an earlier round). */
+export const RECENT_MS = 20 * 60_000;
+
+/**
+ * Across-round variety: never-asked places × 4 (so a big pool gets covered in a few rounds instead
+ * of the same places coming back), places answered right in the last 20 minutes × 0.3.
+ */
+export function freshness(m: FactMastery | undefined, now: number | undefined): number {
+  if (!m || m.attempts === 0) return 4;
+  if (now !== undefined && m.lastSeen > 0 && now - m.lastSeen < RECENT_MS && m.lastWrong < m.lastSeen) return 0.3;
+  return 1;
 }
 
 /**
@@ -36,7 +70,7 @@ export interface PickInput {
  * Missed regions come back 3–5 questions later. With enough candidates a round never repeats.
  */
 export function pickTarget(inp: PickInput): string {
-  const { candidates, mastery, asked, missed, comeback, index, speed, rng } = inp;
+  const { candidates, mastery, asked, missed, comeback, index, speed, rng, prevRecent, now } = inp;
   if (candidates.length === 0) throw new Error('no candidates');
   if (candidates.length === 1) return candidates[0].id;
   const last = asked[asked.length - 1];
@@ -49,15 +83,25 @@ export function pickTarget(inp: PickInput): string {
   const noRepeat = n >= 12;
   const block = Math.min(Math.ceil(n / 2), 4);
   const recent = asked.slice(-block);
-  const weights = candidates.map((c) => {
-    if (c.id === last) return 0;
-    if (noRepeat && asked.includes(c.id)) return 0;
-    let w = c.prior * (1 + 3 * (1 - masteryScore(mastery[c.id], speed)));
-    if (missed.has(c.id)) w *= 3;
-    if (recent.includes(c.id)) w *= 0.15;
-    return w;
-  });
+  const holdBack = prevRecent && index < prevRecent.length ? prevRecent : [];
+  const weightsFor = (hold: readonly string[]) =>
+    candidates.map((c) => {
+      if (c.id === last) return 0;
+      if (noRepeat && asked.includes(c.id)) return 0;
+      if (hold.includes(c.id)) return 0;
+      let w = c.prior * (1 + 3 * (1 - masteryScore(mastery[c.id], speed)));
+      if (missed.has(c.id)) w *= 3;
+      if (recent.includes(c.id)) w *= 0.15;
+      if (now !== undefined) w *= dueBoost(mastery[c.id], now);
+      w *= freshness(mastery[c.id], now);
+      return w;
+    });
+  let weights = weightsFor(holdBack);
   let total = weights.reduce((a, b) => a + b, 0);
+  if (total <= 0 && holdBack.length) {
+    weights = weightsFor([]);
+    total = weights.reduce((a, b) => a + b, 0);
+  }
   if (total <= 0) {
     // Everything blocked (tiny set, long round): allow anything but the last one.
     for (let i = 0; i < n; i++) weights[i] = candidates[i].id === last ? 0 : 1;
@@ -70,6 +114,14 @@ export function pickTarget(inp: PickInput): string {
   }
   for (let i = n - 1; i >= 0; i--) if (weights[i] > 0) return candidates[i].id;
   return candidates[0].id;
+}
+
+/** How many of a round's last targets seed the next round's hold-back list. */
+export const RECENT_SEED = 4;
+
+/** Remember a finished (or abandoned) round's last targets for the next round on that stage. */
+export function nextRecent(asked: readonly string[]): string[] {
+  return asked.slice(-RECENT_SEED);
 }
 
 /** Schedule a missed id to come back 3–5 questions later. */

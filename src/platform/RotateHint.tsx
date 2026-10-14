@@ -7,7 +7,7 @@
 import { useEffect, useState } from 'react';
 import './platform.css';
 
-export function RotateHint({ text = 'Turn your phone sideways', hideAfterMs = 8000 }: { text?: string; hideAfterMs?: number }) {
+export function RotateHint({ text = 'Turn your phone sideways', hideAfterMs = 5000 }: { text?: string; hideAfterMs?: number }) {
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setHidden(true), hideAfterMs);

@@ -14,7 +14,7 @@ export async function freshStart(page: Page, opts: { voice?: boolean; extra?: Re
       // The first-time tour (coach marks) is covered by tests/tour.spec.ts; keep it out of the way here.
       localStorage.setItem('ms2:coach:v1', JSON.stringify({ version: 1, hub: true, home: true, play: true }));
       // Specs drive the controls inside "More ways to play"; open it on every home (the collapsed default is covered in tests/start-flow.spec.ts).
-      for (const app of ['multiplication', 'division', 'addition', 'mixed', 'coordinates', 'algebra', 'words', 'sentences', 'maps', 'stories'])
+      for (const app of ['multiplication', 'division', 'addition', 'mixed', 'coordinates', 'algebra', 'words', 'sentences', 'maps', 'stories', 'flags', 'landmarks', 'logic'])
         localStorage.setItem(`ms2:ui:${app}:v1`, JSON.stringify({ version: 1, setId: 'all', moreOpen: true }));
       for (const [k, v] of Object.entries(extra as Record<string, unknown>)) localStorage.setItem(k, JSON.stringify(v));
     },

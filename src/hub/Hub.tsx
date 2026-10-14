@@ -33,7 +33,8 @@ import './hub.css';
 const GROUPS: Array<{ id: AppGroup; title: string; emoji: string }> = [
   { id: 'math', title: 'Math', emoji: '🧮' },
   { id: 'reading', title: 'Reading', emoji: '📖' },
-  { id: 'world', title: 'Maps', emoji: '🌍' },
+  { id: 'world', title: 'World', emoji: '🌍' },
+  { id: 'brain', title: 'Brain', emoji: '🧠' },
 ];
 
 interface HubProps {
@@ -301,11 +302,13 @@ export function Hub({ navigate }: HubProps) {
             </section>
           );
         };
-        const [math, ...rest] = GROUPS;
+        // Math (3 cols) · World (3 cols) · then Reading (2) + Brain (1) share a row (docs/GEO-LOGIC.md §F).
+        const byId = (id: AppGroup) => GROUPS.find((g) => g.id === id)!;
         return (
           <>
-            {section(math)}
-            <div className="hub-row">{rest.map(section)}</div>
+            {section(byId('math'))}
+            {section(byId('world'))}
+            <div className="hub-row">{[byId('reading'), byId('brain')].map(section)}</div>
           </>
         );
       })()}

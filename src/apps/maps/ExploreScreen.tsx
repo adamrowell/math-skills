@@ -14,7 +14,7 @@ interface Props {
   onStage: (stageId: string) => void;
 }
 
-const BOX_FILL = ['#E4E9F2', '#CFE0FF', '#A9C8FF', '#7FAEFF', '#FFD66B', '#FFC22E'];
+const BOX_FILL = ['#D3CEC4', '#CFE0FF', '#A9C8FF', '#7FAEFF', '#FFD66B', '#FFC22E'];
 
 /** Learn mode: tap anything to hear and see its name. No points, no pressure. */
 export function ExploreScreen({ stage, onBack, onStage }: Props) {

@@ -1,6 +1,6 @@
 # Math Skills
 
-Short, fun math and reading practice for a young child (about 7). It is built for iPad and iPhone
+Short, fun math, reading, geography and logic practice for a young child (about 7). It is built for iPad and iPhone
 (Safari or the Home Screen) and for desktop browsers, and hosted free on GitHub Pages. There are no
 accounts, no ads and no server. Progress stays in the browser on each device.
 
@@ -20,11 +20,15 @@ redeem them for real rewards.
 | | **Story Problems** | Short word problems read aloud on request; a hint first, then a worked answer |
 | Reading | **Read Words** | Phonics levels: read the word out loud |
 | | **Read Sentences** | Read a whole sentence out loud |
-| World | **Maps** | Find US states, countries and continents |
+| World | **Maps** | Find US states and countries; the World pack covers continents, oceans, seas, gulfs and big lakes (Land & Sea → Seas & Gulfs → Bays & Lakes → Whole World) |
+| | **Flags** | 64 flags: *Find it* (see the flag, tap the country), *Which flag?* (pick from 4, with look-alikes), a 45-second *Flag Spotter*, and a sticker album |
+| | **Landmarks** | 103 landmarks with real photos (Eiffel Tower, Great Wall, Grand Canyon…): see the photo and tap the country, or the state on the USA level; passport stamps |
+| Brain | **Brain Puzzles** | Basic IQ-test style puzzles in 20 families: number and shape sequences, 3 × 3 picture grids, mirror images, turns, paper folding, symmetry, counting shapes, odd one out, analogies, code breaking, balance scales, mini sudoku, mazes and more. Easy / medium / hard or adaptive, every puzzle generated fresh |
 
 Every app works the same way: tap an app on the hub, then the big green **PLAY** button. Answers go
-in with the on-screen keypad, a keyboard, or by voice. After a wrong answer the child retypes the
-right one for no points, so guessing never pays.
+in with the on-screen keypad, a keyboard, or by voice (math and reading), or by tapping the map or a
+picture (World and Brain). After a wrong answer the child retypes or taps the right one for no
+points, and every wrong tap costs points, so guessing never pays.
 
 ## Voice
 
@@ -70,7 +74,7 @@ Needs iOS / iPadOS **16.4 or newer** (Safari). Older versions show broken layout
 Requires Node 22+.
 
 ```bash
-npm install          # also copies the onnxruntime WASM into public/ort/ (git-ignored)
+npm install          # also copies the onnxruntime WASM into public/ort/ and the flag SVGs into public/flags/ (both git-ignored)
 npm run dev          # http://localhost:5183
 VITE_HTTPS=1 npm run dev   # https on your LAN (self-signed) so a phone/iPad can use the mic
 npm run build        # type-check + production build into dist/
@@ -114,6 +118,11 @@ There is no backend, no analytics and no tracking. Progress, settings and points
 browser's `localStorage`. Speech is recognised on the device: audio never leaves it, except when the
 browser's own speech service fills in while the model downloads. The fonts come from Google Fonts
 and the speech model from the Hugging Face CDN.
+
+Flag images: [flag-icons](https://github.com/lipis/flag-icons) (MIT). Maps: Natural Earth (public domain).
+Landmark photos: Wikimedia Commons (public domain, CC0, CC BY and CC BY-SA), self-hosted and listed with
+their authors and licenses in [docs/IMAGE-CREDITS.md](docs/IMAGE-CREDITS.md) and on the in-app
+Photo credits screen.
 
 ## License
 

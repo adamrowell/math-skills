@@ -89,3 +89,24 @@ test('production build: deep link + reload keep working (hash routing), unknown 
   await page.getByTestId('back').click();
   await expect(page.locator(START).first()).toBeVisible();
 });
+
+test('production build: flag images and landmark photos load under the sub-path', async ({ page }) => {
+  const bad: string[] = [];
+  page.on('response', (r) => {
+    if (r.status() >= 400) bad.push(`${r.status()} ${r.url()}`);
+  });
+  await freshStart(page);
+  for (const [route, sel] of [
+    ['#/flags/find/famous', '[data-testid="prompt"] img'],
+    ['#/landmarks/find/famous', '.lm-photo img'],
+    ['#/landmarks/gallery', '.lm-photo img'],
+  ] as const) {
+    await page.goto(`${PAGES}/${route}`);
+    const img = page.locator(sel).first();
+    await expect(img, route).toBeVisible({ timeout: 10_000 });
+    await expect.poll(() => img.evaluate((el) => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth), { message: route }).toBeGreaterThan(0);
+    const src = await img.evaluate((el) => (el as HTMLImageElement).currentSrc || (el as HTMLImageElement).src);
+    expect(src.startsWith(PAGES!), src).toBe(true);
+  }
+  expect(bad).toEqual([]);
+});

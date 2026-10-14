@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { answerPoints, buildChoices, missPenalty, pickTarget, scheduleComeback, starsFor } from './logic';
+import { answerPoints, buildChoices, dueBoost, missPenalty, nextRecent, pickTarget, scheduleComeback, starsFor } from './logic';
 import type { Candidate } from './logic';
 import { FIND_SPEED } from './logic';
 
@@ -71,6 +71,49 @@ describe('pickTarget', () => {
   });
 });
 
+describe('no-repeat scheduling across rounds', () => {
+  it('a 12-target stage asks 12 different targets in 12 questions (500 rounds, with recent seeding)', () => {
+    const rng = seeded(21);
+    let prev: string[] = [];
+    for (let trial = 0; trial < 500; trial++) {
+      const asked: string[] = [];
+      for (let i = 0; i < 12; i++) {
+        const id = pickTarget({ candidates: cands(12), mastery: {}, asked, missed: new Set(), comeback: new Map(), index: i, speed: FIND_SPEED, rng, prevRecent: prev, now: 1e12 });
+        if (i < prev.length) expect(prev).not.toContain(id);
+        asked.push(id);
+      }
+      expect(new Set(asked).size).toBe(12);
+      prev = nextRecent(asked);
+      expect(prev).toHaveLength(4);
+    }
+  });
+
+  it('the first question never equals one of the previous round’s last 4', () => {
+    const rng = seeded(4);
+    for (let t = 0; t < 300; t++) {
+      const prev = ['r0', 'r1', 'r2', 'r3'];
+      const id = pickTarget({ candidates: cands(36), mastery: {}, asked: [], missed: new Set(), comeback: new Map(), index: 0, speed: FIND_SPEED, rng, prevRecent: prev });
+      expect(prev).not.toContain(id);
+    }
+  });
+
+  it('falls back gracefully when the hold-back would block everything', () => {
+    const id = pickTarget({ candidates: cands(2), mastery: {}, asked: [], missed: new Set(), comeback: new Map(), index: 0, speed: FIND_SPEED, rng: seeded(1), prevRecent: ['r0', 'r1'] });
+    expect(['r0', 'r1']).toContain(id);
+  });
+
+  it('dueBoost: stale-but-known ×2, fresh mastered ×0.6, else ×1', () => {
+    const now = 100 * 86_400_000;
+    const m = (box: 0 | 1 | 2 | 3 | 4 | 5, daysAgo: number) => ({ box, attempts: 1, correct: 1, avgMs: 0, bestMs: 0, lastSeen: now - daysAgo * 86_400_000, lastWrong: 0 });
+    expect(dueBoost(undefined, now)).toBe(1);
+    expect(dueBoost(m(3, 4), now)).toBe(2);
+    expect(dueBoost(m(2, 10), now)).toBe(1);
+    expect(dueBoost(m(5, 0.5), now)).toBe(0.6);
+    expect(dueBoost(m(5, 2), now)).toBe(1);
+    expect(dueBoost(m(3, 4), now)).toBeGreaterThan(dueBoost(m(5, 0.5), now));
+  });
+});
+
 describe('buildChoices', () => {
   it('returns 3 distinct options including the answer and its nearest neighbour', () => {
     const pool = [
@@ -116,5 +159,37 @@ describe('scoring', () => {
     expect(starsFor(9, 12)).toBe(2);
     expect(starsFor(6, 12)).toBe(1);
     expect(starsFor(5, 12)).toBe(0);
+  });
+});
+
+describe('variety across rounds (big pools)', () => {
+  it('covers a 24-place pool in 2–3 rounds when he gets everything right', () => {
+    let two = 0;
+    let three = 0;
+    const T = 200;
+    for (let t = 0; t < T; t++) {
+      const rng = seeded(1000 + t);
+      const mastery: Record<string, import('../../drill').FactMastery> = {};
+      const seen = new Set<string>();
+      let prev: string[] = [];
+      let now = 1e12;
+      for (let round = 0; round < 3; round++) {
+        const asked: string[] = [];
+        for (let i = 0; i < 12; i++) {
+          const id = pickTarget({ candidates: cands(24), mastery, asked, missed: new Set(), comeback: new Map(), index: i, speed: FIND_SPEED, rng, prevRecent: prev, now });
+          asked.push(id);
+          seen.add(id);
+          const m = mastery[id] ?? { box: 0, attempts: 0, correct: 0, avgMs: 0, bestMs: 0, lastSeen: 0, lastWrong: 0 };
+          mastery[id] = { ...m, box: Math.min(5, m.box + 1) as 0 | 1 | 2 | 3 | 4 | 5, attempts: m.attempts + 1, correct: m.correct + 1, avgMs: 2500, bestMs: 2500, lastSeen: now };
+          now += 5000;
+        }
+        prev = nextRecent(asked);
+        if (round === 1) two += seen.size;
+        if (round === 2) three += seen.size;
+        now += 60_000;
+      }
+    }
+    expect(two / T).toBeGreaterThanOrEqual(22);
+    expect(three / T).toBeGreaterThanOrEqual(23.5);
   });
 });

@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 // PlayButtons "breathe" (scale animation), so they are clicked with { force: true }.
 import { freshStart, openMore } from './helpers';
+import { APPS } from '../src/apps/registry';
 
 const card = (page: Page) => page.getByTestId('story-card');
 
@@ -49,8 +50,8 @@ test.describe('Story Problems', () => {
 
   test('hub card → home → PLAY → first story in two taps', async ({ page }) => {
     await page.goto('/');
-    // Ten apps on the hub; Story Problems sits in the Math group.
-    await expect(page.locator('[data-testid^="app-"]').filter({ has: page.locator('h2, h3, span') })).toHaveCount(10);
+    // Every enabled app is on the hub; Story Problems sits in the Math group.
+    await expect(page.locator('[data-testid^="app-"]').filter({ has: page.locator('h2, h3, span') })).toHaveCount(APPS.filter((a) => a.enabled && a.load).length);
     await expect(page.getByTestId('app-stories')).toContainText('Story Problems');
     await page.getByTestId('app-stories').click();
     await expect(page.getByTestId('stories-home')).toBeVisible();

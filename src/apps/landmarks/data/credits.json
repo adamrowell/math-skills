@@ -1,0 +1,1036 @@
+{
+ "generated": "scripts/fetch-landmarks.mjs — do not edit by hand",
+ "note": "Photos from Wikimedia Commons, cropped and resized. CC BY-SA photos remain under the same license.",
+ "photos": [
+  {
+   "id": "eiffel-tower",
+   "name": "Eiffel Tower",
+   "file": "Tour Eiffel Wikimedia Commons (cropped).jpg",
+   "author": "Benh LIEU SONG",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tour_Eiffel_Wikimedia_Commons_(cropped).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "statue-liberty",
+   "name": "Statue of Liberty",
+   "file": "Front view of Statue of Liberty (cropped).jpg",
+   "author": "AskALotl",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Front_view_of_Statue_of_Liberty_(cropped).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "great-wall",
+   "name": "Great Wall of China",
+   "file": "The Great Wall of China at Jinshanling-edit.jpg",
+   "author": "Severin.stalder",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Great_Wall_of_China_at_Jinshanling-edit.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "pyramids-giza",
+   "name": "Pyramids of Giza",
+   "file": "Pyramids of the Giza Necropolis.jpg",
+   "author": "KennyOMG",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pyramids_of_the_Giza_Necropolis.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "taj-mahal",
+   "name": "Taj Mahal",
+   "file": "Taj Mahal (Edited).jpeg",
+   "author": "Yann ; edited by Jim Carter",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taj_Mahal_(Edited).jpeg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "colosseum",
+   "name": "Colosseum",
+   "file": "Colosseo 2020.jpg",
+   "author": "FeaturedPics",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "big-ben",
+   "name": "Big Ben",
+   "file": "Elizabeth Tower and the north front of the Palace of Westminster, London.jpg",
+   "author": "Christian David",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Elizabeth_Tower_and_the_north_front_of_the_Palace_of_Westminster%2C_London.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "sydney-opera",
+   "name": "Sydney Opera House",
+   "file": "Sydney Australia. (21339175489).jpg",
+   "author": "Bernard Spragg. NZ from Christchurch, New Zealand",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sydney_Australia._(21339175489).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "golden-gate",
+   "name": "Golden Gate Bridge",
+   "file": "Golden Gate Bridge as seen from Battery East.jpg",
+   "author": "Frank Schulenburg",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_as_seen_from_Battery_East.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "mount-fuji",
+   "name": "Mount Fuji",
+   "file": "View of Mount Fuji from Ōwakudani 20211202.jpg",
+   "author": "Suicasmo",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_Mount_Fuji_from_%C5%8Cwakudani_20211202.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "grand-canyon",
+   "name": "Grand Canyon",
+   "file": "Canyon River Tree (165872763).jpeg",
+   "author": "Lennart Sikkema",
+   "license": "CC BY 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canyon_River_Tree_(165872763).jpeg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "niagara-falls",
+   "name": "Niagara Falls",
+   "file": "3Falls Niagara.jpg",
+   "author": "Saffron Blaze",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:3Falls_Niagara.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "mount-everest",
+   "name": "Mount Everest",
+   "file": "Mt. Everest from Gokyo Ri November 5, 2012.jpg",
+   "author": "Rdevany",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mt._Everest_from_Gokyo_Ri_November_5%2C_2012.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "leaning-tower",
+   "name": "Leaning Tower of Pisa",
+   "file": "Italy - Pisa - Leaning Tower.jpg",
+   "author": "Arne Müseler",
+   "license": "CC BY-SA 3.0 de",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Italy_-_Pisa_-_Leaning_Tower.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "christ-redeemer",
+   "name": "Christ the Redeemer",
+   "file": "Christ the Redeemer - Cristo Redentor.jpg",
+   "author": "Arne Müseler",
+   "license": "CC BY-SA 3.0 de",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Christ_the_Redeemer_-_Cristo_Redentor.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "machu-picchu",
+   "name": "Machu Picchu",
+   "file": "Machu Picchu, 2023 (012).jpg",
+   "author": "Draceane",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Machu_Picchu%2C_2023_(012).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "stonehenge",
+   "name": "Stonehenge",
+   "file": "Stonehenge2007 07 30.jpg",
+   "author": "garethwiscombe",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stonehenge2007_07_30.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "tower-bridge",
+   "name": "Tower Bridge",
+   "file": "Tower Bridge at Dawn.jpg",
+   "author": "Fuzzypiggy",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tower_Bridge_at_Dawn.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "burj-khalifa",
+   "name": "Burj Khalifa",
+   "file": "Burj dubai 3.11.08.jpg",
+   "author": "Aheilner",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Burj_dubai_3.11.08.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "mount-rushmore",
+   "name": "Mount Rushmore",
+   "file": "Mount Rushmore detail view (100MP).jpg",
+   "author": "Thomas Wolf , www.foto-tw.de",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mount_Rushmore_detail_view_(100MP).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "hollywood-sign",
+   "name": "Hollywood Sign",
+   "file": "Hollywood sign (8485145044).jpg",
+   "author": "Gnaphron",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hollywood_sign_(8485145044).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "white-house",
+   "name": "White House",
+   "file": "WhiteHouseSouthFacade.JPG",
+   "author": "Matt H. Wade",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:WhiteHouseSouthFacade.JPG",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "uluru",
+   "name": "Uluru",
+   "file": "ULURU.jpg",
+   "author": "Ek2030372672",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:ULURU.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "great-barrier-reef",
+   "name": "Great Barrier Reef",
+   "file": "Coral Outcrop Flynn Reef.jpg",
+   "author": "Toby Hudson",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Coral_Outcrop_Flynn_Reef.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "petra",
+   "name": "Petra",
+   "file": "Al Deir Petra.JPG",
+   "author": "Azurfrog",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Al_Deir_Petra.JPG",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "angkor-wat",
+   "name": "Angkor Wat",
+   "file": "Angkor Wat.jpg",
+   "author": "Bjørn Christian Tørrissen",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Angkor_Wat.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "empire-state",
+   "name": "Empire State Building",
+   "file": "View of Empire State Building from Rockefeller Center New York City dllu.jpg",
+   "author": "Dllu",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "sagrada-familia",
+   "name": "Sagrada Família",
+   "file": "Sagrada Família exterior Barcelona 2026.jpg",
+   "author": "Wikipsico43",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sagrada_Fam%C3%ADlia_exterior_Barcelona_2026.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "st-basils",
+   "name": "St Basil's Cathedral",
+   "file": "Saint Basil's Cathedral in Moscow.jpg",
+   "author": "Tsy1980",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Saint_Basil's_Cathedral_in_Moscow.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "forbidden-city",
+   "name": "Forbidden City",
+   "file": "Hall of Supreme Harmony, Forbidden City, from southeast.jpg",
+   "author": "Daniel Case",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony%2C_Forbidden_City%2C_from_southeast.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "brandenburg-gate",
+   "name": "Brandenburg Gate",
+   "file": "Brandenburger Tor abends.jpg",
+   "author": "Thomas Wolf , www.foto-tw.de",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_abends.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "neuschwanstein",
+   "name": "Neuschwanstein Castle",
+   "file": "Schloss Neuschwanstein 2013.jpg",
+   "author": "Thomas Wolf , www.foto-tw.de",
+   "license": "CC BY-SA 3.0 de",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schloss_Neuschwanstein_2013.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "acropolis",
+   "name": "Acropolis & Parthenon",
+   "file": "The Parthenon in Athens.jpg",
+   "author": "Steve Swayne",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Parthenon_in_Athens.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "chichen-itza",
+   "name": "Chichén Itzá",
+   "file": "Chichen Itza 3.jpg",
+   "author": "Daniel Schwen",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chichen_Itza_3.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "moai",
+   "name": "Easter Island Moai",
+   "file": "Moai Rano raraku.jpg",
+   "author": "Aurbina",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moai_Rano_raraku.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "victoria-falls",
+   "name": "Victoria Falls",
+   "file": "Cataratas Victoria, Zambia-Zimbabue, 2018-07-27, DD 04.jpg",
+   "author": "Diego Delso",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_04.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "kilimanjaro",
+   "name": "Mount Kilimanjaro",
+   "file": "Kilimanjaro from Amboseli.jpg",
+   "author": "Sergey Pesterev",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kilimanjaro_from_Amboseli.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "sahara",
+   "name": "Sahara Desert",
+   "file": "Erg Chebbi in the evening light.jpg",
+   "author": "Thomas Fuhrmann",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Erg_Chebbi_in_the_evening_light.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon Rainforest",
+   "file": "Amazon17 (5641020319).jpg",
+   "author": "CIAT",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amazon17_(5641020319).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "yellowstone",
+   "name": "Old Faithful, Yellowstone",
+   "file": "Yellowstone National Park (WY, USA), Old Faithful Geyser -- 2022 -- 2599.jpg",
+   "author": "Dietmar Rabich",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yellowstone_National_Park_(WY%2C_USA)%2C_Old_Faithful_Geyser_--_2022_--_2599.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "hagia-sophia",
+   "name": "Hagia Sophia",
+   "file": "Hagia Sophia (228968325).jpeg",
+   "author": "Adli Wahid",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hagia_Sophia_(228968325).jpeg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "arc-triomphe",
+   "name": "Arc de Triomphe",
+   "file": "Arc de Triomphe - Août 2026.jpg",
+   "author": "ZeusUpsistos",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe_-_Ao%C3%BBt_2026.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "louvre",
+   "name": "Louvre Museum",
+   "file": "North facade of the Denon Wing & Louvre Pyramid, 1 May 2018.jpg",
+   "author": "Pedro Szekely from Los Angeles, USA",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:North_facade_of_the_Denon_Wing_%26_Louvre_Pyramid%2C_1_May_2018.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "notre-dame",
+   "name": "Notre-Dame",
+   "file": "Notre-Dame de Paris, 4 October 2017.jpg",
+   "author": "Ali Sabbagh",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Notre-Dame_de_Paris%2C_4_October_2017.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "alhambra",
+   "name": "Alhambra",
+   "file": "Dawn Charles V Palace Alhambra Granada Andalusia Spain.jpg",
+   "author": "Jebulon",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dawn_Charles_V_Palace_Alhambra_Granada_Andalusia_Spain.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "grand-canal",
+   "name": "Grand Canal, Venice",
+   "file": "View of the Grand Canal from Rialto to Ca'Foscari.jpg",
+   "author": "Didier Descouens",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_the_Grand_Canal_from_Rialto_to_Ca'Foscari.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "matterhorn",
+   "name": "Matterhorn",
+   "file": "Matterhorn from Domhütte - 2.jpg",
+   "author": "Photo: chil, on Camptocamp.org Derivative work: Zacharie Grossen",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Matterhorn_from_Domh%C3%BCtte_-_2.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "iguazu",
+   "name": "Iguazu Falls",
+   "file": "Aerial Foz de Iguaçu 26 Nov 2005.jpg",
+   "author": "Mariordo (Mario Roberto Durán Ortiz)",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aerial_Foz_de_Igua%C3%A7u_26_Nov_2005.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "table-mountain",
+   "name": "Table Mountain",
+   "file": "Table Mountain DanieVDM.jpg",
+   "author": "Danie van der Merwe from Cape Town, South Africa",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Table_Mountain_DanieVDM.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "gateway-arch",
+   "name": "Gateway Arch",
+   "file": "St Louis night expblend cropped.jpg",
+   "author": "St_Louis_night_expblend.jpg : Daniel Schwen derivative work: ← fetch comms",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:St_Louis_night_expblend_cropped.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "space-needle",
+   "name": "Space Needle",
+   "file": "Space Needle and Seattle skyline from Kerry Park with waxing gibbous moon, 27 June 2026.jpg",
+   "author": "Guywelch2000",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Space_Needle_and_Seattle_skyline_from_Kerry_Park_with_waxing_gibbous_moon%2C_27_June_2026.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "cn-tower",
+   "name": "CN Tower",
+   "file": "Toronto - ON - Toronto Harbourfront7.jpg",
+   "author": "Wladyslaw",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toronto_-_ON_-_Toronto_Harbourfront7.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "galapagos",
+   "name": "Galápagos Islands",
+   "file": "Santa Cruz giant tortoise 04.jpg",
+   "author": "Bernard Gagnon",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Santa_Cruz_giant_tortoise_04.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "petronas",
+   "name": "Petronas Towers",
+   "file": "2016 Kuala Lumpur, Petronas Towers (26).jpg",
+   "author": "Marcin Konsek",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2016_Kuala_Lumpur%2C_Petronas_Towers_(26).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "marina-bay",
+   "name": "Marina Bay Sands",
+   "file": "Marina Bay Sands (I).jpg",
+   "author": "Supanut Arunoprayote",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marina_Bay_Sands_(I).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "ha-long-bay",
+   "name": "Ha Long Bay",
+   "file": "Ha Long Bay in 2019.jpg",
+   "author": "Taewangkorea",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ha_Long_Bay_in_2019.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "dead-sea",
+   "name": "Dead Sea",
+   "file": "Dead Sea shore.jpg",
+   "author": "Tiia Monto",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dead_Sea_shore.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "vesuvius",
+   "name": "Mount Vesuvius & Pompeii",
+   "file": "Il cratere del Vulcano - panoramio.jpg",
+   "author": "pietro scerrato",
+   "license": "CC BY 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Il_cratere_del_Vulcano_-_panoramio.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "northern-lights",
+   "name": "Northern Lights",
+   "file": "Northern Lights - Aurora Borealis Norway Ringvassøya Tromsø.jpg",
+   "author": "Svein-Magne Tunli - tunliweb.no",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Northern_Lights_-_Aurora_Borealis_Norway_Ringvass%C3%B8ya_Troms%C3%B8.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "geysir",
+   "name": "Strokkur Geyser",
+   "file": "Strokkur Eruption - Wide.jpg",
+   "author": "Eric Kilby",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Strokkur_Eruption_-_Wide.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "lake-louise",
+   "name": "Lake Louise, Banff",
+   "file": "1 lake louise pano 2019.jpg",
+   "author": "Chensiyuan",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:1_lake_louise_pano_2019.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "golden-temple",
+   "name": "Golden Temple",
+   "file": "The Golden Temple of Amrithsar 7.jpg",
+   "author": "Shagil Kannur",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Golden_Temple_of_Amrithsar_7.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "alamo",
+   "name": "The Alamo",
+   "file": "Alamo pano.jpg",
+   "author": "Daniel Schwen",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alamo_pano.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "kennedy-space",
+   "name": "Kennedy Space Center",
+   "file": "Atlantis Kennedy Space Center Visitor Complex 4.jpg",
+   "author": "Gzzz",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Atlantis_Kennedy_Space_Center_Visitor_Complex_4.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "yosemite",
+   "name": "Half Dome, Yosemite",
+   "file": "Half Dome with Eastern Yosemite Valley (Zuschnitt).jpg",
+   "author": "Thomas Wolf , www.foto-tw.de",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Half_Dome_with_Eastern_Yosemite_Valley_(Zuschnitt).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "monument-valley",
+   "name": "Monument Valley",
+   "file": "Monument Valley, Utah, USA (23611451292).jpg",
+   "author": "Domenico Convertini",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Monument_Valley%2C_Utah%2C_USA_(23611451292).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "denali",
+   "name": "Denali",
+   "file": "Wonder Lake and Denali.jpg",
+   "author": "Denali National Park and Preserve",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wonder_Lake_and_Denali.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "kilauea",
+   "name": "Kīlauea Volcano",
+   "file": "Episode 4 of Kilauea's December 2024 eruption 2025-01-16.jpg",
+   "author": "USGS/K. Lynn",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Episode_4_of_Kilauea's_December_2024_eruption_2025-01-16.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "everglades",
+   "name": "Everglades",
+   "file": "Everglades Pa-Hay-Oke Swamp.jpg",
+   "author": "Daniel Kraft",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Everglades_Pa-Hay-Oke_Swamp.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "alcatraz",
+   "name": "Alcatraz",
+   "file": "Alcatraz 2021.jpg",
+   "author": "Chris6d",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alcatraz_2021.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "arches",
+   "name": "Delicate Arch",
+   "file": "Delicate arch sunset.jpg",
+   "author": "Palacemusic",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Delicate_arch_sunset.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "brooklyn-bridge",
+   "name": "Brooklyn Bridge",
+   "file": "Brooklyn Bridge and the Lower Manhattan skyline from Pebble Beach, New York.jpg",
+   "author": "Christian David",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge_and_the_Lower_Manhattan_skyline_from_Pebble_Beach%2C_New_York.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "lincoln-memorial",
+   "name": "Lincoln Memorial",
+   "file": "Lincoln Memorial east side.JPG",
+   "author": "Martin Falbisoner",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lincoln_Memorial_east_side.JPG",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "buckingham-palace",
+   "name": "Buckingham Palace",
+   "file": "Buckingham Palace London Morning 2020 01 (cropped).jpg",
+   "author": "Julian Herzog ( Website )",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Buckingham_Palace_London_Morning_2020_01_(cropped).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "edinburgh-castle",
+   "name": "Edinburgh Castle",
+   "file": "Edinburgh Castle from Princes Street Gardens - geograph.org.uk - 3518148.jpg",
+   "author": "Barry Hunter",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Edinburgh_Castle_from_Princes_Street_Gardens_-_geograph.org.uk_-_3518148.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "giants-causeway",
+   "name": "Giant's Causeway",
+   "file": "Causeway-code poet-4.jpg",
+   "author": "code poet on flickr.",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Causeway-code_poet-4.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "cliffs-moher",
+   "name": "Cliffs of Moher",
+   "file": "Cliffs-Of-Moher-OBriens-From-South.JPG",
+   "author": "Bjørn Christian Tørrissen",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cliffs-Of-Moher-OBriens-From-South.JPG",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "mont-saint-michel",
+   "name": "Mont-Saint-Michel",
+   "file": "Mont-Saint-Michel vu du ciel.jpg",
+   "author": "Amaustan",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mont-Saint-Michel_vu_du_ciel.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "versailles",
+   "name": "Palace of Versailles",
+   "file": "Vue aérienne du domaine de Versailles par ToucanWings - Creative Commons By Sa 3.0 - 081 (cropped).jpg",
+   "author": "ToucanWings",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vue_a%C3%A9rienne_du_domaine_de_Versailles_par_ToucanWings_-_Creative_Commons_By_Sa_3.0_-_081_(cropped).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "charles-bridge",
+   "name": "Charles Bridge",
+   "file": "Charles Bridge Covid.jpg",
+   "author": "Tadeáš Gregor",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Charles_Bridge_Covid.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "kinderdijk",
+   "name": "Kinderdijk Windmills",
+   "file": "KinderdijkMolens02.jpg",
+   "author": "Lucas Hirschegger",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:KinderdijkMolens02.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "atomium",
+   "name": "Atomium",
+   "file": "The Atomium during civil twilight (DSCF1135).jpg",
+   "author": "Trougnouf (Benoit Brummer)",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Atomium_during_civil_twilight_(DSCF1135).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "little-mermaid",
+   "name": "The Little Mermaid",
+   "file": "Denmark, Copenhagen, Little Mermaid, Langelinie Promenade 150422-26.jpg",
+   "author": "Richardmaackphotography",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Denmark%2C_Copenhagen%2C_Little_Mermaid%2C_Langelinie_Promenade_150422-26.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "santorini",
+   "name": "Santorini",
+   "file": "Oia Santorini Blue Domes.jpg",
+   "author": "Danbu14",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oia_Santorini_Blue_Domes.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "plitvice",
+   "name": "Plitvice Lakes",
+   "file": "Plitvice Lakes (225492887).jpeg",
+   "author": "Artem Kavalerov",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Plitvice_Lakes_(225492887).jpeg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "cappadocia",
+   "name": "Cappadocia",
+   "file": "Cappadocia balloon trip, Ortahisar Castle (11893715185).jpg",
+   "author": "Arian Zwegers from Brussels, Belgium",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cappadocia_balloon_trip%2C_Ortahisar_Castle_(11893715185).jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "pamukkale",
+   "name": "Pamukkale",
+   "file": "Pamukkale, Denizli 2026 68.jpg",
+   "author": "Biologg",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pamukkale%2C_Denizli_2026_68.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "lalibela",
+   "name": "Lalibela Churches",
+   "file": "Lalibela, san giorgio, esterno 24.jpg",
+   "author": "Sailko",
+   "license": "CC BY 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lalibela%2C_san_giorgio%2C_esterno_24.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "serengeti",
+   "name": "Serengeti",
+   "file": "Zebra in the Serengeti Wildebeest Migration.jpg",
+   "author": "David Dennis from Pozuelo de Alarcón, Madrid, Spain",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zebra_in_the_Serengeti_Wildebeest_Migration.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "potala",
+   "name": "Potala Palace",
+   "file": "Potala Palace HQ.jpg",
+   "author": "Lhasa Government",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Potala_Palace_HQ.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "terracotta-army",
+   "name": "Terracotta Army",
+   "file": "51714-Terracota-Army.jpg",
+   "author": "xiquinhosilva",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:51714-Terracota-Army.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "himeji",
+   "name": "Himeji Castle",
+   "file": "Himeji castle in may 2015.jpg",
+   "author": "Nikos Kitsakis",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Himeji_castle_in_may_2015.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "fushimi-inari",
+   "name": "Fushimi Inari Shrine",
+   "file": "Torii path with lantern at Fushimi Inari Taisha Shrine, Kyoto, Japan.jpg",
+   "author": "Basile Morin",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "gyeongbokgung",
+   "name": "Gyeongbokgung Palace",
+   "file": "Gyeonghoeru (Royal Banquet Hall) at Gyeongbokgung Palace, Seoul.jpg",
+   "author": "Frank Schulenburg",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gyeonghoeru_(Royal_Banquet_Hall)_at_Gyeongbokgung_Palace%2C_Seoul.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "borobudur",
+   "name": "Borobudur",
+   "file": "Borobudur Magelang.jpg",
+   "author": "Zaenulihsan91",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Borobudur_Magelang.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "bagan",
+   "name": "Bagan Temples",
+   "file": "Bagan, Burma.jpg",
+   "author": "Corto Maltese 1999",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bagan%2C_Burma.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "sigiriya",
+   "name": "Sigiriya",
+   "file": "Sigiriya (141688197).jpeg",
+   "author": "Wrobell",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sigiriya_(141688197).jpeg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "twelve-apostles",
+   "name": "Twelve Apostles",
+   "file": "The Twelve Apostles 2011.jpg",
+   "author": "Michael J Fromholtz",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Twelve_Apostles_2011.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "milford-sound",
+   "name": "Milford Sound",
+   "file": "Milford Sound (New Zealand).JPG",
+   "author": "Maros M r a z ( Maros )",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Milford_Sound_(New_Zealand).JPG",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "angel-falls",
+   "name": "Angel Falls",
+   "file": "Salto Angel Dry Season.jpg",
+   "author": "Berrucomons",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salto_Angel_Dry_Season.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "salar-uyuni",
+   "name": "Salar de Uyuni",
+   "file": "Piles of Salt Salar de Uyuni Bolivia Luca Galuzzi 2006 a.jpg",
+   "author": "Luca Galuzzi ( Lucag ), edit by Trialsanderrors",
+   "license": "CC BY-SA 2.5",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Piles_of_Salt_Salar_de_Uyuni_Bolivia_Luca_Galuzzi_2006_a.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "panama-canal",
+   "name": "Panama Canal",
+   "file": "Millaflores Locks - Panama Canal - 3812235764.jpg",
+   "author": "hrs51",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Millaflores_Locks_-_Panama_Canal_-_3812235764.jpg",
+   "modified": "cropped and resized"
+  },
+  {
+   "id": "teotihuacan",
+   "name": "Teotihuacan",
+   "file": "ZA77 Teotihuacán edo de mex Herberto de la rosa.jpg",
+   "author": "Hdlrosa",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "sourceUrl": "https://commons.wikimedia.org/wiki/File:ZA77_Teotihuac%C3%A1n_edo_de_mex_Herberto_de_la_rosa.jpg",
+   "modified": "cropped and resized"
+  }
+ ]
+}

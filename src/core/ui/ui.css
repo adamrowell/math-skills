@@ -722,3 +722,39 @@ body:has(.k-summary-wrap) .k-toasts {
     font-size: 28px;
   }
 }
+
+/* Phones held sideways (≈ 340–420 px tall): Again and Home side by side in a slim sticky bar, a
+   smaller hero, so the stats and any "missed"/"remember" list stay visible above the buttons. */
+@media (max-height: 420px) {
+  .k-summary {
+    padding: 10px 16px 16px;
+  }
+  .k-summary__emoji {
+    font-size: 26px;
+  }
+  .k-summary__title {
+    font-size: 21px;
+  }
+  .k-summary__points {
+    font-size: 36px;
+    margin: 2px 0;
+  }
+  .k-summary__stats {
+    margin: 2px 0 6px;
+  }
+  .k-summary__actions {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    bottom: -16px;
+    padding: 8px 0 12px;
+    margin-bottom: -16px;
+  }
+  .k-summary__actions > * {
+    flex: 1;
+  }
+  .k-summary__actions .k-play {
+    min-height: 56px;
+    font-size: 24px;
+  }
+}

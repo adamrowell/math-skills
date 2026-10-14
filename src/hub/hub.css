@@ -235,11 +235,12 @@
   }
 }
 @media (min-width: 900px) {
-  .hub-group--math .hub-apps {
+  .hub-group--math .hub-apps,
+  .hub-group--world .hub-apps {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-/* Reading + Maps share a row on wide screens (2 + 1 cards under the 3 math columns). */
+/* Reading + Brain share a row on wide screens (2 + 1 cards under the 3 math/world columns). */
 .hub-row {
   display: grid;
   gap: 20px;
@@ -252,7 +253,7 @@
   .hub-group--reading .hub-apps {
     grid-template-columns: repeat(2, 1fr);
   }
-  .hub-group--world .hub-apps {
+  .hub-group--brain .hub-apps {
     grid-template-columns: 1fr;
   }
 }

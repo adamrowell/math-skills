@@ -26,8 +26,12 @@ interface Props {
   fillFor?: (id: string) => string | undefined;
   onTap?: (id: string) => void;
   disabled?: boolean;
+  /** Draw in-play countries too small to see (< 4 px) as a visible dot (Monaco, Andorra…). */
+  tinyDots?: boolean;
 }
 
+/** Several tiny-country dots on one camera always get different colours from each other. */
+const DOT_COLORS = ['#FF7A59', '#4C8DFF', '#2FBF71', '#C25BFF', '#FFC233', '#FF5FA2'];
 const LAND_COLORS = ['#FFC56B', '#7DD3A6', '#FF9FB8', '#8EC1FF', '#C9A8FF', '#FFE27A', '#7EDFE0'];
 const CONTINENT_COLORS: Record<string, string> = {
   'north-america': '#FFB25B',
@@ -36,7 +40,7 @@ const CONTINENT_COLORS: Record<string, string> = {
   africa: '#FFD95A',
   asia: '#FF9FB8',
   oceania: '#5FD0E8',
-  antarctica: '#FFFFFF',
+  antarctica: '#E4EEF8', // pale ice: plain white read as a hole next to the sand-coloured land
 };
 const OCEAN_COLORS: Record<string, string> = {
   pacific: '#9FD3F7',
@@ -45,7 +49,9 @@ const OCEAN_COLORS: Record<string, string> = {
   arctic: '#C5E6FB',
   southern: '#B9E0F9',
 };
-const DIM = '#E4E9F2';
+/** Seas/gulfs: deeper blues and teals, so they stand out from the paler oceans around them. */
+const SEA_COLORS = ['#6FBCEB', '#7CCFD9', '#8AAEF2', '#5FC7C2', '#9BC6F5'];
+const LAKE_COLOR = '#4FA8E8';
 
 /** Greedy colouring so neighbours (overlapping bboxes) get different colours. */
 const colorCache = new WeakMap<LoadedMap, Map<string, string>>();
@@ -66,7 +72,15 @@ function colorsFor(map: LoadedMap): Map<string, string> {
       out.set(r.id, LAND_COLORS.find((c) => !used.has(c)) ?? LAND_COLORS[r.id.length % LAND_COLORS.length]);
     }
   }
-  for (const o of map.oceans) out.set(o.id, OCEAN_COLORS[o.id] ?? '#B3DDF9');
+  // Seas: greedy too, so neighbouring seas (Bering / Gulf of Alaska, Red / Arabian …) never share a colour.
+  const seaTouch = (a: Region, b: Region) => a.bbox[0] - 6 <= b.bbox[2] && b.bbox[0] - 6 <= a.bbox[2] && a.bbox[1] - 6 <= b.bbox[3] && b.bbox[1] - 6 <= a.bbox[3];
+  const seas = map.water.filter((o) => o.kind !== 'ocean');
+  for (const o of map.water) if (o.kind === 'ocean') out.set(o.id, OCEAN_COLORS[o.id] ?? '#B3DDF9');
+  seas.forEach((o, i) => {
+    const used = new Set(seas.filter((x) => x !== o && out.has(x.id) && seaTouch(o, x)).map((x) => out.get(x.id)));
+    out.set(o.id, SEA_COLORS.find((c) => !used.has(c)) ?? SEA_COLORS[i % SEA_COLORS.length]);
+  });
+  for (const o of map.lakes) out.set(o.id, LAKE_COLOR);
   colorCache.set(map, out);
   return out;
 }
@@ -148,7 +162,8 @@ const LandLayer = memo(function LandLayer({ regions, colors, active, marks, fill
     <>
       {regions.map((r) => {
         const on = !active || active.has(r.id);
-        const fill = fillFor?.(r.id) ?? (on ? colors.get(r.id) : DIM);
+        // Off regions take --mp-land-off from CSS (maps.css) unless a fill override is given.
+        const fill = fillFor?.(r.id) ?? (on ? colors.get(r.id) : undefined);
         const mark = marks?.[r.id];
         return (
           <path
@@ -160,7 +175,42 @@ const LandLayer = memo(function LandLayer({ regions, colors, active, marks, fill
             data-ly={r.ly}
             data-inset={inset ? '1' : undefined}
             className={`mp-land${on ? ' is-on' : ' is-off'}${mark ? ` is-${mark}` : ''}${continents ? ' is-continent' : ''}`}
-            style={{ '--fill': fill } as CSSProperties}
+            style={fill ? ({ '--fill': fill } as CSSProperties) : undefined}
+          />
+        );
+      })}
+    </>
+  );
+});
+
+interface WaterProps {
+  regions: Region[];
+  colors: Map<string, string>;
+  active?: ReadonlySet<string>;
+  marks?: Readonly<Record<string, RegionMark>>;
+  fillFor?: (id: string) => string | undefined;
+}
+
+/** Oceans, seas and lakes. Off-level seas/lakes are see-through and untappable (the water under them answers). */
+const WaterLayer = memo(function WaterLayer({ regions, colors, active, marks, fillFor }: WaterProps) {
+  return (
+    <>
+      {regions.map((o) => {
+        const on = !active || active.has(o.id);
+        const mark = marks?.[o.id];
+        const cls = o.kind === 'ocean' ? 'mp-ocean' : o.kind === 'lake' ? 'mp-lake' : 'mp-sea-zone';
+        const fill = fillFor?.(o.id) ?? (on ? colors.get(o.id) : undefined);
+        return (
+          <path
+            key={o.id}
+            d={o.d}
+            data-region={o.id}
+            data-name={o.label}
+            data-lx={o.lx}
+            data-ly={o.ly}
+            data-kind={o.kind}
+            className={`${cls}${on ? ' is-on' : ' is-off'}${mark ? ` is-${mark}` : ''}`}
+            style={fill ? ({ '--fill': fill } as CSSProperties) : undefined}
           />
         );
       })}
@@ -181,6 +231,70 @@ export function MapView(props: Props) {
   );
 }
 
+/** A real in-play shape at least this big on screen always beats an invisible tap halo. */
+const REAL_MIN_PX = 24;
+/** …unless the finger is this close to a small place's own label point. */
+const HALO_CORE_PX = 10;
+
+/**
+ * Invisible tap halos (and tiny-country dots) make small places hittable, but must never steal a
+ * tap that lands on an in-play neighbour (tapping Germany must not answer Luxembourg; tapping
+ * Europe must not answer the Baltic Sea). Every candidate is scored by how far the finger is from
+ * its own label point ("its spot"):
+ *  - a big in-play shape under the finger (its widest inner circle ≥ 24 px) wins, unless the
+ *    finger is within 10 px of a small place's spot AND nearer to it than to the big one's spot
+ *    (a deliberate tap on San Marino's dot, or on the Red Sea where it crosses Africa's land);
+ *  - otherwise the nearest spot wins (France's centre beats the Luxembourg dot beside it).
+ */
+function resolveTap(svg: SVGSVGElement, el: Element, id: string, x: number, y: number, map: LoadedMap): string {
+  const isHalo = el.classList.contains('mp-halo');
+  const isDot = el.hasAttribute('data-tiny');
+  if (!isHalo && !isDot) return id;
+  if (typeof document.elementsFromPoint !== 'function') return id;
+  const ctm = svg.getScreenCTM();
+  const dist = (rid: string): number => {
+    const r = map.byId.get(rid);
+    if (!r || !ctm) return Infinity;
+    const p = new DOMPoint(r.lx, r.ly).matrixTransform(ctm);
+    return Math.hypot(p.x - x, p.y - y);
+  };
+  const stack = document.elementsFromPoint(x, y).filter((n) => svg.contains(n) && n.hasAttribute('data-region'));
+  const small = new Set<string>([id]);
+  let real: string | null = null;
+  for (const n of stack) {
+    const rid = n.getAttribute('data-region')!;
+    if (n.classList.contains('mp-halo') || n.hasAttribute('data-tiny')) {
+      small.add(rid);
+      continue;
+    }
+    if (n.hasAttribute('data-inset') || n.classList.contains('mp-ocean')) continue;
+    if (!n.classList.contains('is-on')) continue;
+    real = rid;
+    break;
+  }
+  const nearest = (ids: Iterable<string>, limit = Infinity, start: string | null = null, startD = Infinity) => {
+    let best = start;
+    let bestD = startD;
+    for (const rid of ids) {
+      const d = dist(rid);
+      if (d <= limit && d < bestD) {
+        best = rid;
+        bestD = d;
+      }
+    }
+    return best;
+  };
+  if (real) {
+    small.delete(real);
+    const r = map.byId.get(real);
+    const scale = ctm ? Math.hypot(ctm.a, ctm.b) : 1;
+    const big = r ? 2 * r.lr * scale >= REAL_MIN_PX : false;
+    if (big) return nearest(small, HALO_CORE_PX, real, dist(real)) ?? real;
+    return nearest([...small, real]) ?? id;
+  }
+  return nearest(small) ?? id;
+}
+
 function MapViewInner({
   map,
   view,
@@ -192,6 +306,7 @@ function MapViewInner({
   fillFor,
   onTap,
   disabled,
+  tinyDots,
   size,
 }: Props & { size: { w: number; h: number } }) {
   const v = useAnimatedView(view);
@@ -218,6 +333,26 @@ function MapViewInner({
     [visible, active, k],
   );
 
+  const dots = useMemo(
+    () =>
+      tinyDots
+        ? visible.filter((r) => (!active || active.has(r.id)) && Math.max(r.bbox[2] - r.bbox[0], r.bbox[3] - r.bbox[1]) / k < 4)
+        : [],
+    [tinyDots, visible, active, k],
+  );
+
+  // Small in-play lakes/seas get a tap halo too (drawn above the land, so a lake on a continent wins near it).
+  const waterHalos = useMemo(
+    () =>
+      [...map.water.filter((r) => r.kind === 'sea'), ...map.lakes].filter((r) => {
+        if (active && !active.has(r.id)) return false;
+        const w = (r.bbox[2] - r.bbox[0]) / k;
+        const h = (r.bbox[3] - r.bbox[1]) / k;
+        return Math.min(w, h) < 30;
+      }),
+    [map, active, k],
+  );
+
   const insetRegions = useMemo(() => (inset ? map.land.filter((r) => intersects(r.bbox, inset.src)) : []), [map, inset]);
 
   const marked = useMemo(() => Object.keys(marks ?? {}).map((id) => map.byId.get(id)).filter((r): r is Region => Boolean(r)), [marks, map]);
@@ -226,7 +361,8 @@ function MapViewInner({
     if (disabled || !onTap) return;
     const el = (e.target as Element).closest?.('[data-region]');
     const id = el?.getAttribute('data-region');
-    if (id) onTap(id);
+    if (!id || !el) return;
+    onTap(resolveTap(e.currentTarget, el, id, e.clientX, e.clientY, map));
   };
 
   const fontPx = size.w && size.w < 640 ? 17 : 21;
@@ -278,22 +414,9 @@ function MapViewInner({
       )}
       {isWorld && data.graticule && <path d={data.graticule} className="mp-grat" />}
 
-      {map.oceans.map((o) => {
-        const on = !active || active.has(o.id);
-        const mark = marks?.[o.id];
-        return (
-          <path
-            key={o.id}
-            d={o.d}
-            data-region={o.id}
-            data-name={o.label}
-            data-lx={o.lx}
-            data-ly={o.ly}
-            className={`mp-ocean${on ? ' is-on' : ' is-off'}${mark ? ` is-${mark}` : ''}`}
-            style={{ '--fill': fillFor?.(o.id) ?? colors.get(o.id) } as CSSProperties}
-          />
-        );
-      })}
+      <WaterLayer regions={map.water} colors={colors} active={active} marks={marks} fillFor={fillFor} />
+
+      {data.outline && <path d={data.outline} className="mp-coast" data-testid="coast" />}
 
       {halos.map((r) => (
         <circle key={`h-${r.id}`} cx={r.lx} cy={r.ly} r={Math.max(r.lr, 20 * k)} data-region={r.id} className="mp-halo" />
@@ -302,6 +425,31 @@ function MapViewInner({
       <g className="mp-landlayer">
         <LandLayer regions={visible} colors={colors} active={active} marks={marks} fillFor={fillFor} continents={continents} />
       </g>
+
+      {dots.map((r, i) => {
+        const mark = marks?.[r.id];
+        return (
+          <circle
+            key={`d-${r.id}`}
+            cx={r.lx}
+            cy={r.ly}
+            r={5 * k}
+            data-region={r.id}
+            data-tiny="1"
+            className={`mp-tinydot${mark ? ` is-${mark}` : ''}`}
+            style={{ '--fill': fillFor?.(r.id) ?? (dots.length > 1 ? DOT_COLORS[i % DOT_COLORS.length] : colors.get(r.id)) } as CSSProperties}
+          />
+        );
+      })}
+
+      {map.lakes.length > 0 && (
+        <g className="mp-lakelayer">
+          <WaterLayer regions={map.lakes} colors={colors} active={active} marks={marks} fillFor={fillFor} />
+        </g>
+      )}
+      {waterHalos.map((r) => (
+        <circle key={`wh-${r.id}`} cx={r.lx} cy={r.ly} r={Math.max(r.kind === 'lake' ? r.lr : 0, 16 * k)} data-region={r.id} className="mp-halo" />
+      ))}
 
       {/* Outline marked regions on top so their border is never hidden by neighbours. */}
       {marked.map((r) => (
@@ -317,6 +465,7 @@ function MapViewInner({
           <rect x={inset.dst[0]} y={inset.dst[1]} width={inset.dst[2]} height={inset.dst[3]} rx={10} className="mp-inset__bg" />
           <g clipPath={`url(#clip-${uid})`}>
             <g transform={`translate(${inset.dst[0]} ${inset.dst[1]}) scale(${insetScale}) translate(${-inset.src[0]} ${-inset.src[1]})`}>
+              {data.outline && <path d={data.outline} className="mp-coast" />}
               <LandLayer regions={insetRegions} colors={colors} active={active} marks={marks} fillFor={fillFor} inset continents={continents} />
               {marked
                 .filter((r) => insetRegions.includes(r))

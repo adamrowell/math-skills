@@ -12,7 +12,7 @@ import { rememberLast } from './last';
 import type { AppId } from '../types';
 
 /** Apps that never listen (tap-only). */
-const NO_MIC = new Set<AppId>(['coordinates', 'maps']);
+const NO_MIC = new Set<AppId>(['coordinates', 'maps', 'flags', 'landmarks', 'logic']);
 const MODE: Partial<Record<AppId, VoiceMode>> = { words: 'word', sentences: 'sentence' };
 
 /** Open the mic inside the gesture so the round screen can start listening without another tap. */

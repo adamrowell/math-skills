@@ -147,11 +147,11 @@ export function MapsHome({ onBack, onPlay, onExplore }: Props) {
             <span className="k-emoji">{pack.emoji}</span> {rec.title} <Stars n={recStars} />
           </>
         ),
-        subtitle: `Find the ${NOUN[packId]} on the map!`,
+        subtitle: packId === 'world' ? 'Find the land and the water!' : `Find the ${NOUN[packId]} on the map!`,
         bestLine:
           mastered > 0 ? (
             <span className="mp-mastered" data-testid="mastered">
-              <span className="k-emoji">🌟</span> <b className="k-num">{mastered}</b>
+              <span className="k-emoji">{packId === 'world' ? '🌊' : '🌟'}</span> <b className="k-num">{mastered}</b>
               <span className="mp-mastered__of">
                 /{allTargets.length} {NOUN[packId]} learned
               </span>

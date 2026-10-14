@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { freshStart } from './helpers';
 
-const STAGE_IDS = ['us-big', 'us-west', 'us-middle', 'us-south', 'us-east', 'us-all', 'continents', 'oceans', 'earth', 'giants', 'europe', 'asia-africa', 'world-all'];
+const STAGE_IDS = ['us-big', 'us-west', 'us-middle', 'us-south', 'us-east', 'us-all', 'earth', 'seas', 'bays-lakes', 'water-world', 'giants', 'europe', 'asia-africa', 'world-all'];
 
 /** Progress with 2★ on every Find stage (everything unlocked, Name it open). */
 function allUnlocked() {
@@ -53,7 +53,8 @@ test.describe('Maps', () => {
     await expect(page.getByTestId('stage-us-west')).toHaveAttribute('data-locked', '1');
     await expect(page.getByTestId('name-us-big')).toHaveAttribute('aria-disabled', 'true');
     await page.getByTestId('pack-world').click();
-    await expect(page.getByTestId('stage-continents')).toBeVisible();
+    await expect(page.getByTestId('stage-earth')).toBeVisible();
+    await expect(page.getByTestId('stage-seas')).toHaveAttribute('data-locked', '1');
     await page.getByTestId('pack-countries').click();
     await expect(page.getByTestId('stage-giants')).toBeVisible();
     // The chosen tab is remembered.
@@ -208,14 +209,83 @@ test.describe('Maps', () => {
     await expect.poll(() => roundPoints(page)).toBeGreaterThan(before);
   });
 
-  test('continents & oceans: tap the water to find an ocean', async ({ page }) => {
+  test('land & sea: tap the water to find an ocean, the land to find a continent', async ({ page }) => {
     await freshStart(page, { extra: allUnlocked() });
-    await page.goto('/#/maps/find/oceans');
+    await page.goto('/#/maps/find/earth');
+    const seen = new Set<string>();
+    for (let q = 0; q < 3; q++) {
+      const t = await waitAsk(page, q);
+      seen.add(t);
+      await tapRegion(page, t);
+      await expect(page.getByTestId('prompt')).toHaveAttribute('data-phase', 'done');
+    }
+    expect(seen.size).toBe(3);
+    expect(await roundPoints(page)).toBeGreaterThan(0);
+  });
+
+  test('seas & gulfs: 12 sea zones in play; tapping the asked one pays; first miss gives a place hint', async ({ page }) => {
+    await freshStart(page, { extra: allUnlocked() });
+    await page.goto('/#/maps/find/seas');
     const t = await waitAsk(page, 0);
-    expect(['pacific', 'atlantic', 'indian', 'arctic', 'southern']).toContain(t);
+    await expect(page.locator('.mp-sea-zone.is-on')).toHaveCount(12);
+    // Miss once on another sea: −5 (from 0 stays 0) and the hint names where to look.
+    const other = t === 'red-sea' ? 'black-sea' : 'red-sea';
+    await tapRegion(page, other);
+    await expect(page.getByTestId('prompt')).toHaveAttribute('data-phase', 'hint');
+    await expect(page.getByTestId('prompt')).toContainText('Look ');
+    await page.waitForTimeout(280);
     await tapRegion(page, t);
     await expect(page.getByTestId('prompt')).toHaveAttribute('data-phase', 'done');
-    expect(await roundPoints(page)).toBeGreaterThan(0);
+    expect(await roundPoints(page)).toBe(5);
+    // Next one, first try: full points.
+    const t2 = await waitAsk(page, 1);
+    await tapRegion(page, t2);
+    await expect.poll(() => roundPoints(page)).toBeGreaterThan(15);
+  });
+
+  test('seas: a whole round asks 12 different seas, and the next round opens differently', async ({ page }) => {
+    await freshStart(page, { extra: allUnlocked() });
+    await page.goto('/#/maps/find/seas');
+    const asked: string[] = [];
+    for (let q = 0; q < 12; q++) {
+      const t = await waitAsk(page, q);
+      asked.push(t);
+      await tapRegion(page, t);
+    }
+    expect(new Set(asked).size).toBe(12);
+    await expect(page.getByTestId('round-summary')).toBeVisible();
+    await page.waitForTimeout(950);
+    await page.getByTestId('again').click();
+    const first = await waitAsk(page, 0);
+    expect(asked.slice(-4)).not.toContain(first);
+  });
+
+  test('bays & lakes: lakes are drawn above the land and can be found', async ({ page }) => {
+    await freshStart(page, { extra: allUnlocked() });
+    await page.goto('/#/maps/find/bays-lakes');
+    await waitAsk(page, 0);
+    await expect(page.locator('.mp-lake')).toHaveCount(3);
+    const order = await page.evaluate(() => {
+      const all = [...document.querySelectorAll('[data-testid="map"] *')];
+      return { land: all.indexOf(document.querySelector('.mp-landlayer')!), lake: all.indexOf(document.querySelector('.mp-lake')!) };
+    });
+    expect(order.lake).toBeGreaterThan(order.land);
+  });
+
+  test('contrast: coastline rim drawn; inactive land is sand with a grey border, active keeps white', async ({ page }) => {
+    await freshStart(page, { extra: allUnlocked() });
+    for (const stage of ['giants', 'us-big']) {
+      await page.goto(`/#/maps/find/${stage}`);
+      await waitAsk(page, 0);
+      await expect(page.locator('.mp-coast').first()).toBeAttached();
+      const off = await page.locator('.mp-land.is-off').first().evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return { fill: cs.fill, stroke: cs.stroke };
+      });
+      expect(off).toEqual({ fill: 'rgb(211, 206, 196)', stroke: 'rgb(138, 148, 168)' });
+      const on = await page.locator('.mp-land.is-on').first().evaluate((el) => getComputedStyle(el).stroke);
+      expect(on).toBe('rgb(255, 255, 255)');
+    }
   });
 
   test('countries: Europe level zooms in and taps work', async ({ page }) => {
@@ -242,6 +312,16 @@ test.describe('Maps', () => {
     await expect(page.getByTestId('inset')).toHaveCount(0);
     // Delaware is a few px wide on a 340 px-tall phone screen; the tap test is for iPad/desktop.
     if ((page.viewportSize()?.height ?? 999) >= 500) {
+      // Wait for the zoom animation to settle (the viewBox stops changing) before a tiny tap.
+      let prev = '';
+      await expect
+        .poll(async () => {
+          const vb = (await page.getByTestId('map').getAttribute('viewBox')) ?? '';
+          const still = vb === prev;
+          prev = vb;
+          return still;
+        }, { intervals: [150], timeout: 5000 })
+        .toBe(true);
       await tapRegion(page, 'DE');
       await expect(page.getByTestId('explore-name')).toHaveText('Delaware');
     }
@@ -263,5 +343,24 @@ test.describe('Maps', () => {
     await page.goto('/#/maps');
     const sw = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(sw).toBeLessThanOrEqual(0);
+  });
+
+  test('tap halos never steal a tap from a normal-sized neighbour (Whole World)', async ({ page }) => {
+    await freshStart(page, { extra: allUnlocked() });
+    await page.goto('/#/maps/find/water-world');
+    const names: Record<string, string> = { europe: 'Europe', 'north-america': 'North America', asia: 'Asia', 'red-sea': 'Red Sea', 'north-sea': 'North Sea' };
+    let q = 0;
+    for (const [id, name] of Object.entries(names)) {
+      // One probe tap per fresh question, then answer it so the next question starts clean.
+      const target = await waitAsk(page, q++);
+      await tapRegion(page, id);
+      const label = page.getByTestId('map-label').filter({ hasText: name });
+      await expect(label.first(), `tapping ${name} at its label point`).toBeVisible();
+      await expect(page.getByTestId('map-label').filter({ hasText: /Baltic|Great Lakes|Baikal|Persian/ })).toHaveCount(0);
+      if (target !== id) {
+        await page.waitForTimeout(300);
+        await tapRegion(page, target);
+      }
+    }
   });
 });

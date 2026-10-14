@@ -1,6 +1,26 @@
 /* Maps app (docs/DESIGN.md §1.9). Prefix: mp- */
 
 .mp-screen {
+  /* Map palette (docs/GEO-LOGIC.md §A). Inactive land is a warm sand-grey so it separates from the
+     cool sea by hue; borders and a darker coastline rim carry the shapes. */
+  --mp-sea: #cfe6fc;
+  --mp-sea-us: #e6f2fd;
+  --mp-grat: rgba(255, 255, 255, 0.55);
+  --mp-land-off: #d3cec4;
+  --mp-border-off: #8a94a8;
+  --mp-border-on: #ffffff;
+  --mp-coast: #6f7b93;
+  --mp-hover: #1b2559;
+  --mp-correct: #34d27a;
+  --mp-correct-ink: #15803d;
+  --mp-wrong: #ff7b7f;
+  --mp-wrong-ink: #c81e1e;
+  --mp-reveal: #ffc43d;
+  --mp-reveal-ink: #e07b00;
+  --mp-lake: #4fa8e8;
+  --mp-lake-ink: #ffffff;
+  /* A dark set for the day the shell has one (not wired; verified ratios in GEO-LOGIC.md §A.5):
+     --mp-sea #1a2238 · --mp-land-off #5b6271 · --mp-border-off #8e97aa · --mp-coast #8e97aa · labels #f3f5fa */
   background:
     radial-gradient(1000px 420px at 50% -160px, color-mix(in srgb, var(--k-app) 16%, transparent), transparent),
     var(--k-bg);
@@ -376,8 +396,8 @@
   inset: 0;
   border-radius: var(--k-radius);
   overflow: hidden;
-  background: #eaf5ff;
-  box-shadow: inset 0 0 0 2px #d6e6f7;
+  background: var(--mp-sea);
+  box-shadow: inset 0 0 0 2px #bfd8f3;
 }
 .mp-map {
   display: block;
@@ -401,73 +421,158 @@
 
 /* Map shapes */
 .mp-sea {
-  fill: #d3ebff;
+  fill: var(--mp-sea);
 }
 .mp-sea--us {
-  fill: #eaf5ff;
+  fill: var(--mp-sea-us);
 }
 .mp-grat {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.55);
+  stroke: var(--mp-grat);
   stroke-width: 0.7;
   vector-effect: non-scaling-stroke;
   pointer-events: none;
 }
+/* Coastline rim: drawn below the land, so only the outer half (~1.1 px) shows where land meets water. */
+.mp-coast {
+  fill: none;
+  stroke: var(--mp-coast);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
 .mp-land,
-.mp-ocean {
-  fill: var(--fill);
+.mp-ocean,
+.mp-sea-zone,
+.mp-lake {
+  fill: var(--fill, var(--mp-land-off));
   vector-effect: non-scaling-stroke;
   cursor: pointer;
   transition: fill 160ms ease;
 }
 .mp-land {
-  stroke: #fff;
-  stroke-width: 1.2;
   stroke-linejoin: round;
 }
-.mp-map--countries .mp-land {
-  stroke-width: 0.7;
+.mp-land.is-off {
+  stroke: var(--mp-border-off);
+  stroke-width: 0.9;
 }
-.mp-land.is-continent {
-  stroke: var(--fill);
+.mp-map--countries .mp-land.is-off {
   stroke-width: 0.8;
 }
-.mp-ocean {
+.mp-land.is-on {
+  stroke: var(--mp-border-on);
+  stroke-width: 1.2;
+}
+.mp-map--countries .mp-land.is-on {
+  stroke-width: 0.8;
+}
+.mp-land.is-continent {
+  stroke: var(--mp-border-on);
+  stroke-width: 0.9;
+}
+.mp-land.is-continent.is-off {
+  stroke: var(--mp-border-off);
+}
+/* Water: off oceans melt into the sea; off seas/lakes are see-through and let taps fall through. */
+.mp-ocean.is-off {
+  fill: var(--fill, var(--mp-sea));
+  stroke: none;
+}
+.mp-sea-zone.is-off {
+  fill: var(--fill, transparent);
+  stroke: none;
+  pointer-events: none;
+}
+.mp-ocean.is-on,
+.mp-sea-zone.is-on {
   stroke: rgba(255, 255, 255, 0.95);
   stroke-width: 1.5;
   stroke-dasharray: 5 5;
+}
+.mp-lake {
+  stroke: var(--mp-lake-ink);
+  stroke-width: 0.8;
+}
+.mp-lake.is-off {
+  fill: var(--fill, color-mix(in srgb, var(--mp-lake) 55%, var(--mp-sea)));
+  pointer-events: none;
 }
 .mp-halo {
   fill: transparent;
   cursor: pointer;
 }
+/* Countries too small to see, drawn as a dot (MapView tinyDots). */
+.mp-tinydot {
+  fill: var(--fill);
+  stroke: var(--mp-coast);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  cursor: pointer;
+}
+.mp-tinydot.is-correct {
+  fill: var(--mp-correct);
+}
+.mp-tinydot.is-wrong {
+  fill: var(--mp-wrong);
+}
+.mp-tinydot.is-reveal,
+.mp-tinydot.is-target,
+.mp-tinydot.is-selected {
+  fill: var(--mp-reveal);
+  stroke: var(--mp-reveal-ink);
+  stroke-width: 3;
+}
 @media (hover: hover) {
   .mp-map:not(.is-disabled) .mp-land.is-on:hover,
-  .mp-map:not(.is-disabled) .mp-ocean.is-on:hover {
+  .mp-map:not(.is-disabled) .mp-ocean.is-on:hover,
+  .mp-map:not(.is-disabled) .mp-sea-zone.is-on:hover,
+  .mp-map:not(.is-disabled) .mp-lake.is-on:hover {
     filter: brightness(1.06) saturate(1.1);
+    stroke: var(--mp-hover);
+    stroke-width: 1.8;
+  }
+  /* "Tappable: hear its name." */
+  .mp-map:not(.is-disabled) .mp-land.is-off:hover {
+    stroke: var(--mp-coast);
+    stroke-width: 1.4;
   }
 }
 .mp-map.is-disabled .mp-land,
 .mp-map.is-disabled .mp-ocean,
+.mp-map.is-disabled .mp-sea-zone,
+.mp-map.is-disabled .mp-lake,
 .mp-map.is-disabled .mp-halo {
   cursor: default;
 }
 
 .mp-land.is-correct,
-.mp-ocean.is-correct {
-  fill: #34d27a;
+.mp-ocean.is-correct,
+.mp-sea-zone.is-correct,
+.mp-lake.is-correct {
+  fill: var(--mp-correct);
 }
 .mp-land.is-wrong,
-.mp-ocean.is-wrong {
-  fill: #ff7b7f;
+.mp-ocean.is-wrong,
+.mp-sea-zone.is-wrong,
+.mp-lake.is-wrong {
+  fill: var(--mp-wrong);
 }
 .mp-land.is-reveal,
 .mp-land.is-target,
 .mp-land.is-selected,
 .mp-ocean.is-reveal,
 .mp-ocean.is-target,
-.mp-ocean.is-selected {
-  fill: #ffc43d;
+.mp-ocean.is-selected,
+.mp-sea-zone.is-reveal,
+.mp-sea-zone.is-target,
+.mp-sea-zone.is-selected,
+.mp-lake.is-reveal,
+.mp-lake.is-target,
+.mp-lake.is-selected {
+  fill: var(--mp-reveal);
 }
 
 .mp-outline {
@@ -478,10 +583,10 @@
   stroke-width: 2.5;
 }
 .mp-outline.is-correct {
-  stroke: #15803d;
+  stroke: var(--mp-correct-ink);
 }
 .mp-outline.is-wrong {
-  stroke: #c81e1e;
+  stroke: var(--mp-wrong-ink);
 }
 .mp-outline.is-selected {
   stroke: #1b2559;
@@ -489,7 +594,7 @@
 }
 .mp-outline.is-reveal,
 .mp-outline.is-target {
-  stroke: #e07b00;
+  stroke: var(--mp-reveal-ink);
   stroke-width: 4;
   animation: mp-pulse 1s ease-in-out infinite;
 }
@@ -523,7 +628,10 @@
 }
 
 .mp-inset__bg {
-  fill: #eaf5ff;
+  fill: var(--mp-sea);
+}
+.mp-map--us .mp-inset__bg {
+  fill: var(--mp-sea-us);
 }
 .mp-inset__frame {
   fill: none;
